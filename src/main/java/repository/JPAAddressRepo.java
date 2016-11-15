@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -13,6 +14,15 @@ import java.util.List;
 public class JPAAddressRepo implements AddressRepository {
     @PersistenceContext
     private EntityManager em;
+
+    @Override
+    public List<Address> findAll(String orderBy) {
+//        Query query = em.createNativeQuery("SELECT * FROM ADDRESS ORDER BY " +
+//                orderBy, Address.class);
+        Query query = em.createQuery("SELECT a FROM Address a ORDER BY " +
+                orderBy, Address.class);
+        return query.getResultList();
+    }
 
     @Override
     public Address find(Long id) {

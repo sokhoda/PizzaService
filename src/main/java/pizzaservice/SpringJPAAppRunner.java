@@ -8,6 +8,7 @@ import pizzaservice.states.InProgressState;
 import pizzaservice.states.NewState;
 import pizzaservice.states.OrderStateCycle;
 import pizzaservice.states.StateEn;
+import repository.AddressRepository;
 import repository.CustomerRepository;
 import repository.OrderRepository;
 import repository.PizzaRepository;
@@ -68,6 +69,7 @@ public class SpringJPAAppRunner {
         OrderService orderService = appContext.getBean("orderService", OrderService.class);
         OrderRepository orderRepository = appContext.getBean
                 ("orderRepository", OrderRepository.class);
+
         Customer customer1 = customerRepository.find(1L);
 
         LocalDateTime fromDate = LocalDateTime.of(2016, 10, 4, 0, 0);
@@ -80,6 +82,13 @@ public class SpringJPAAppRunner {
         orderList = orderService.findByDateBetweenByState(fromDate,
                 toDate, new InProgressState());
         System.out.println(orderList);
+
+        AddressRepository addressRepo = appContext.getBean
+                ("addressRepository", AddressRepository.class);
+
+//        List<Address> addressList = addressRepo.findAll("buildingNo+0");
+        List<Address> addressList = addressRepo.findAll("buildingNo+0");
+        System.out.println(addressList);
 
 //        orderList = orderService.findByDateBetweenByStateByCustomer(fromDate,
 //                toDate, new NewState(), customer1);
