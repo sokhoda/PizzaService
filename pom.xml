@@ -26,18 +26,33 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.2.11.v20150529</version>
                 <configuration>
-                    <port>8081</port>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <webApp>
+                        <contextPath>/PizzaService</contextPath>
+                    </webApp>
+                <httpConnector>
+                    <port>8087</port>
+                </httpConnector>
                 </configuration>
             </plugin>
+
+            <!--<plugin>-->
+                <!--<groupId>org.apache.tomcat.maven</groupId>-->
+                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
+                <!--<version>2.2</version>-->
+                <!--<configuration>-->
+                    <!--<port>8081</port>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 
     <properties>
-        <spring.framework.version>4.3.3.RELEASE</spring.framework.version>
+        <spring.framework.version> 4.3.3.RELEASE</spring.framework.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <ITestMask>*ITest*.java</ITestMask>
@@ -49,9 +64,17 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.servlet/jsp-api -->
+        <!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>jsp-api</artifactId>-->
+            <!--<version>2.0</version>-->
+        <!--</dependency>-->
+
 
         <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
         <dependency>
