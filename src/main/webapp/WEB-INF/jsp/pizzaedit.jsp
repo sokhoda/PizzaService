@@ -13,7 +13,9 @@
   <style>
      <%@include file='../proj.css' %>
   </style>
+  <%--
     <script src="js/FillClick.js"></script>
+    --%>
 </head> 
 
 <body>

@@ -11,7 +11,9 @@
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionService"/>
+    <!--<mvc:annotation-driven conversion-service="conversionService"/>-->
+
     <context:component-scan base-package="web.app"/>
     <!--InternalResourceViewResolver-->
     <mvc:view-resolvers>
@@ -20,5 +22,28 @@
                  view-class="org.springframework.web.servlet.view.JstlView"
         />
     </mvc:view-resolvers>
+
+    <bean id="conversionService"
+          class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="web.app.PizzaConverter"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="simpleMappingExceptionResolver"
+          class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <map>
+                <entry key="NumberFormatException" value="errorPage"/>
+            </map>
+        </property>
+        <property name="defaultErrorView" value="errorPage"/>
+        <property name="exceptionAttribute" value="ex"/>
+        <!-- Name of logger to use to log exceptions. Unset by default, so logging disabled -->
+    </bean>
+
+
 
 </beans>

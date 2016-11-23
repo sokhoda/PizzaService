@@ -13,14 +13,16 @@
   <style>
      <%@include file='../proj.css' %>
   </style>
+  <%--
     <script src="js/FillClick.js"></script>
+    --%>
 </head> 
 
 <body>
 
-<form action="Controller" method="post" id="myForm">
+
 <input class="hidden" id ="command" name="command" type="text" value="">
-<input class="hidden" id ="Id" name="docId" type="text" value="" >
+
 
 <div class="container-fluid bg-grey">
  	   <h2>
@@ -46,9 +48,17 @@
                         <td align="left">${pizza.price}</td>
                         <td align="left">${pizza.type}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-xs" id="${pizza.pizzaId}"
-                                    onclick="doUpdate(event,'ShDocumentUpdate')">Edit
-                            </button>
+                            <form action="edit" method="get" id="editForm">
+                                <input class="hidden" id ="pizzaId"
+                                name="pizzaId" type="text" value="${pizza.pizzaId}" >
+                                <%--
+                                <button type="button" class="btn btn-primary btn-xs" id="${pizza.pizzaId}"
+                                        onclick="doEdit(event)">Edit
+                                </button>
+                                --%>
+                                <input class="btn btn-primary btn-xs"
+                                type="submit" value="Edit">
+                            </form>
                         </td>
                         <td>
                             <button  type="button" class="btn btn-warning btn-xs" id="${pizza.pizzaId}"
@@ -72,16 +82,19 @@
         <footer style="margin-top:10px; text-align: center">&copy;Alex, Kyiv, 2016</footer>
   
     </div>
- </form>
  </body>
 
 <script type="text/javascript">
 var name, latch = false;
 
-function doDelete(comm) {
-	$('#command').val(comm);
+function doEdit(item) {
+    var pizzaId = item.currentTarget.getAttribute("id");
+        console.log('pizzaID=' + pizzaId);
+	$('#pizzaId').val(pizzaId);
+	 <%--
 	$('#Id').val($('.modalDeleteBtn').attr('id'));
- 	$('#myForm').submit();
+ 	--%>
+ 	$('#editForm').submit();
 };
 
 function showDelete(event) {

@@ -27,6 +27,8 @@ public class Pizza extends ResourceSupport implements Serializable{
 
     private Double price;
 
+//    private Long companyID;
+
     @Enumerated(EnumType.STRING)
     private PizzaType type;
 

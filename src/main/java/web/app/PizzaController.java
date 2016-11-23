@@ -21,6 +21,11 @@ public class PizzaController {
         return "hello";
     }
 
+    @RequestMapping("/exception")
+    public void exception(){
+        throw new  NumberFormatException("artificial exception");
+    }
+
     @RequestMapping("/create")
     public String create(){
         return "pizzaedit";
@@ -33,7 +38,7 @@ public class PizzaController {
 //    }
 
     @RequestMapping("/edit")
-    public String edit(){
+    public String edit(@RequestParam Long pizzaId){
         return "pizzaedit";
     }
 
@@ -52,6 +57,7 @@ public class PizzaController {
         modelAndView.addObject("pizzalist", pizzaList);
         return modelAndView;
     }
+
 
 
 
