@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
 public class PizzaRestExceptionControllerAdvice {
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception.class)
-    ErrorInfo handleBadRequest(HttpServletRequest req, Exception ex) {
+    public ErrorInfo handleBadRequest(HttpServletRequest req, Exception ex) {
         return new ErrorInfo(req.getRequestURI(), ex, "Something wrong");
     }
 }

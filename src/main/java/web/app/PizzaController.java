@@ -2,12 +2,16 @@ package web.app;
 
 import domain.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pizzaservice.PizzaService;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -17,7 +21,17 @@ public class PizzaController {
     public PizzaService pizzaService;
 
     @RequestMapping("/hello")
-    public String hello(){
+    public String hello(Principal principall){
+        Object principal = SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+
+        String username;
+        if (principal instanceof UserDetails){
+             username = ((UserDetails) principal).getUsername();
+        } else {
+             username = principal.toString();
+        }
+        System.out.println(username);
         return "hello";
     }
 
@@ -27,6 +41,8 @@ public class PizzaController {
     }
 
     @RequestMapping("/create")
+    @Secured("ROLE_ADMIN")
+//    @Secured("hasRole('ADMIN')")
     public String create(){
         return "pizzaedit";
     }
@@ -51,6 +67,7 @@ public class PizzaController {
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @Secured("IS_AUTHENTICATED_FULLY")
     public ModelAndView getAllPizzas(ModelAndView modelAndView){
         List<Pizza> pizzaList = pizzaService.findAll();
         modelAndView.setViewName("pizzalist");

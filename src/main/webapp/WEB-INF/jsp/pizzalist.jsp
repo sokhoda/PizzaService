@@ -48,22 +48,18 @@
                         <td align="left">${pizza.price}</td>
                         <td align="left">${pizza.type}</td>
                         <td>
-                            <form action="edit" method="get" id="editForm">
-                                <input class="hidden" id ="pizzaId"
-                                name="pizzaId" type="text" value="${pizza.pizzaId}" >
-                                <%--
-                                <button type="button" class="btn btn-primary btn-xs" id="${pizza.pizzaId}"
-                                        onclick="doEdit(event)">Edit
-                                </button>
-                                --%>
-                                <input class="btn btn-primary btn-xs"
-                                type="submit" value="Edit">
+                            <form action="edit" method="get">
+                                <input class="hidden" name="pizzaId"
+                                 type="text" value="${pizza.pizzaId}" >
+                                <button type="submit" class="btn btn-primary btn-xs">Edit</button>
                             </form>
                         </td>
                         <td>
-                            <button  type="button" class="btn btn-warning btn-xs" id="${pizza.pizzaId}"
-                               onclick="showDelete(event)">Delete
-                            </button>
+                            <form action="delete" method="get">
+                                <input class="hidden" name="pizzaId"
+                                 type="text" value="${pizza.pizzaId}" >
+                                <button type="submit" class="btn btn-warning btn-xs">Delete</button>
+                            </form>
                         </td>
                     </tr>
                  </c:forEach>
