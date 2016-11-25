@@ -1,8 +1,10 @@
 package web.app;
 
 import domain.Pizza;
+import domain.PizzaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -66,13 +68,27 @@ public class PizzaController {
     }
 
 
+//    @RequestMapping(value = "/list", method = RequestMethod.GET)
+//    @Secured("IS_AUTHENTICATED_FULLY")
+//    public ModelAndView getAllPizzas(ModelAndView modelAndView){
+//        List<Pizza> pizzaList = pizzaService.findAll();
+//        modelAndView.setViewName("pizzalist");
+//        modelAndView.addObject("pizzalist", pizzaList);
+//        return modelAndView;
+//    }
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @Secured("IS_AUTHENTICATED_FULLY")
-    public ModelAndView getAllPizzas(ModelAndView modelAndView){
-        List<Pizza> pizzaList = pizzaService.findAll();
-        modelAndView.setViewName("pizzalist");
-        modelAndView.addObject("pizzalist", pizzaList);
-        return modelAndView;
+    public String getAllPizzas(){
+        return "pizzalist";
+    }
+
+    @PostFilter("filterObject.type != T (domain.PizzaType).MEAT")
+//    @PostFilter("filterObject.pizzaId > 5")
+    @ModelAttribute("pizzalist")
+    public List<Pizza> getPizzas(){
+        List<Pizza> pizzalist = pizzaService.findAll();
+        return pizzalist;
     }
 
 

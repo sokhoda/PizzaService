@@ -7,6 +7,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import pizzaservice.PizzaService;
@@ -56,6 +57,13 @@ public class PizzaRESTController {
         return new ResponseEntity<>(resources, HttpStatus.FOUND);
     }
 
+    @RequestMapping(value = "hello", method = RequestMethod.GET)
+    @Secured("ROLE_USER")
+    public String[] hello(){
+        return new String[]{"Hello from REST"};
+    }
+
+    @RequestMapping(value = "pizza", method = RequestMethod.POST)
     @RequestMapping(value = "/pizza/pizzas/type/{type}", method = RequestMethod.GET)
     public ResponseEntity <List<PizzaResource>> findByType(@PathVariable
                                                            PizzaType type){

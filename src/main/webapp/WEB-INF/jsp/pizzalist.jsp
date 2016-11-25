@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  <%@ page errorPage="../generalErrorPage.jsp" %>
 
 <!DOCTYPE html>	
@@ -65,16 +66,24 @@
                  </c:forEach>
             </tbody>
        </table>
+        <sec:authorize access="hasRole('ADMIN')">
+            <div class="text-center">
+                <a href="create">
+                   <div class="btn-group">
+                      <button type="button" id="crtupd" class="btn1  btn-default btn-lg btn-success">
+                                Create
+                      </button>
+                   </div>
+                </a>
+            </div>
+       </sec:authorize>
 
-        <div class="text-center">
-            <a href="create">
-               <div class="btn-group">
-                  <button type="button" id="crtupd" class="btn1  btn-default btn-lg btn-success">
-                            Create
-                  </button>
-               </div>
-            </a>
-        </div>
+         <c:url var="logoutUrl" value="/app/logout"/>
+         <form action="${logoutUrl}" method="post">
+           <button type="submit" class="btn btn-warning btn-xs">Log out</button>
+           <sec:csrfInput/>
+         </form>
+
         <footer style="margin-top:10px; text-align: center">&copy;Alex, Kyiv, 2016</footer>
   
     </div>
