@@ -6,6 +6,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Pizza.findByType", query =
+                "SELECT p from Pizza p WHERE p.type = :type")
+})
 public class Pizza extends ResourceSupport implements Serializable{
     @Id
     @TableGenerator(

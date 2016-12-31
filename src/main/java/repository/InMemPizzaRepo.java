@@ -50,6 +50,10 @@ public class InMemPizzaRepo implements PizzaRepository {
         return pizzaList;
     }
 
+    @Override
+    public List<Pizza> findByType(PizzaType type) {
+        return null;
+    }
 
 
 }
