@@ -23,5 +23,12 @@ public class LombokExRunner {
         System.out.println(ec.hashCode() + "\n" + ec1.hashCode() + "\n" +
                 ec2.hashCode() + "\n" +
                 ec3.hashCode());
+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("frfr");
+        buffer.substring(1,2);
+
+        String f ="01234";
+        System.out.println(f.substring(0,1));
     }
 }
