@@ -3,6 +3,8 @@ package infrastructure;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import javax.servlet.http.HttpServlet;
+
 public class LombokExRunner {
     public static void main(String[] args) {
 
@@ -30,5 +32,6 @@ public class LombokExRunner {
 
         String f ="01234";
         System.out.println(f.substring(0,1));
+        HttpServlet ff;
     }
 }
