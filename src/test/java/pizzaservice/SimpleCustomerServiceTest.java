@@ -2,12 +2,10 @@ package pizzaservice;
 
 import domain.Customer;
 import infrastructure.UnitTestData;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import repository.CustomerRepository;
 
 import java.util.ArrayList;
@@ -27,10 +25,6 @@ public class SimpleCustomerServiceTest extends UnitTestData {
     @InjectMocks
     private SimpleCustomerService simpleCustomerService;
 
-    @Before
-    public void init() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void save() throws Exception {
