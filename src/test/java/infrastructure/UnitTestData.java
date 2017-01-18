@@ -1,12 +1,15 @@
 package infrastructure;
 
 import domain.*;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 import pizzaservice.states.NewState;
 import pizzaservice.states.OrderStateCycle;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@RunWith(MockitoJUnitRunner.class)
 public class UnitTestData {
     protected final Pizza testPizza1 = new Pizza(1L, "Tomato", 90., PizzaType
             .VEGETERIAN);
