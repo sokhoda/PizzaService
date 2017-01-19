@@ -17,6 +17,8 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
@@ -61,6 +63,8 @@ public class SimplePizzaServiceTest extends UnitTestData {
         Pizza actualPizza = simplePizzaService.find(1L);
 //        THEN
         assertThat(actualPizza, is(testPizza1));
+        assertEquals("ded",actualPizza, testPizza1);
+        assertSame("ded", actualPizza, testPizza1);
         verify(pizzaRepo).find(1L);
     }
 

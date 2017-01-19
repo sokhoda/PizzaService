@@ -42,6 +42,11 @@ public class Pizza extends ResourceSupport implements Serializable{
     public Pizza() {
     }
 
+    public Pizza(Long id, String name) {
+        this.pizzaId = id;
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "\nPizza{" +

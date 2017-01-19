@@ -101,7 +101,7 @@ public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTest
                     testPizza.getType()};
             int[] types = {Types.INTEGER, Types.VARCHAR, Types.INTEGER, Types.VARCHAR};
 
-            jdbcTemplate.update("INSERT INTO pizza (id, name, price, type) VALUES" +
+            jdbcTemplate.update("INSERT INTO pizza (pizzaId, name, price, type) VALUES" +
                     "(?,?,?,?)", params, types);
         }
         return id;
@@ -168,7 +168,7 @@ public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTest
         Object[] params = {id};
         int[] types = {Types.INTEGER};
         return (Pizza) jdbcTemplate.queryForObject("SELECT * " +
-                "FROM PIZZA WHERE id = ?", params, types, new PizzaRowMapper());
+                "FROM PIZZA WHERE pizzaId = ?", params, types, new PizzaRowMapper());
     }
 
     public List<Pizza> getExpectedPizzaList() {
