@@ -1,8 +1,22 @@
 package infrastructure.misc;
 
-public class Bike extends Vehicle {
+public class Bike extends Vehicle implements Cloneable {
     private String model;
 
+    public Bike(String model) {
+        this.model = model;
+    }
+
+    @Override
+    public Bike clone(){
+        Bike result = null;
+        try {
+            result = (Bike) super.clone();
+        }
+        catch (CloneNotSupportedException e) {
+        }
+        return result;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -17,6 +31,14 @@ public class Bike extends Vehicle {
             return false;
 
         return true;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 }
 
