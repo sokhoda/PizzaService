@@ -1,14 +1,17 @@
 package infrastructure.misc;
 
-import lombok.Data;
 
-
-public class Pigeon extends Bird{
+public class Pigeon extends Bird {
     public String color;
 
     public Pigeon(String color) {
         super(color);
         this.color = color;
+    }
+
+    @Override
+    protected void fly(){
+        System.out.println(getClass().getSimpleName() + " - I can fly");
     }
 
 

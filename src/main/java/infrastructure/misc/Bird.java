@@ -1,8 +1,6 @@
 package infrastructure.misc;
 
-import lombok.Data;
-
-public class Bird implements Cloneable{
+public class Bird implements Cloneable, Comparable{
     public String color;
 
     public Bird() {
@@ -11,6 +9,10 @@ public class Bird implements Cloneable{
     public Bird(String color) {
         this.color = color;
     }
+
+    protected void fly(){
+        System.out.println(getClass().getCanonicalName() + " flies.");
+    };
 
     public String getColor() {
         return color;
@@ -23,5 +25,17 @@ public class Bird implements Cloneable{
     @Override
     public Bird clone() throws CloneNotSupportedException {
         return (Bird)super.clone();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.getColor().compareTo(((Bird)o).getColor());
+    }
+
+    @Override
+    public String toString() {
+        return "Bird{" +
+                "color='" + color + '\'' +
+                '}';
     }
 }
