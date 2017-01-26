@@ -1,9 +1,17 @@
 package infrastructure.misc;
 
 
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.http.HttpEntity;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.servlet.RequestDispatcher;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.servlet.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -18,7 +26,7 @@ public class MainMisc implements Cloneable {
     public static void main(String[] args) {
         Vehicle vehicle = new Vehicle();
 
-        Bike bike = new Bike();
+        Bike bike = new Bike("true");
 
         System.out.println("bike.equals(vehicle) = " + bike.equals(vehicle));
 
@@ -60,6 +68,8 @@ public class MainMisc implements Cloneable {
         System.out.println("hello".equals(aa));
         Object obb = new Object();
         System.out.println(obb.toString());
+        Object obb = new Object();
+        obb.toString();
         RequestDispatcher sff;
         IdentityHashMap v;
         WebApplicationContext de;
@@ -97,6 +107,32 @@ public class MainMisc implements Cloneable {
         for (String s : key) {
             System.out.println(s);
         }
+        HttpServlet kk;
+        HttpServletRequest re;
+        HttpServletResponse response;
+        ServletContext context;
+        ContextLoaderListener ed;
+        Servlet c;
+        BeanPostProcessor ffr;
+        ServletContextListener scl;
+        Filter fc;
+        HttpEntity ded;
+        new Boolean(new Boolean(true));
+        int ffvf = ~20;
+        Long de1 = 2L;
+        System.out.println(de1.toString());
+
+
+    }
+
+    @PreDestroy
+    void frf() {
+
+    }
+
+    @PostConstruct
+    void frr() {
+
     }
 
     long mv(int f) {
