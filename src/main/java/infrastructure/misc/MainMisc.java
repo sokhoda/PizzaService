@@ -60,6 +60,13 @@ public class MainMisc implements Cloneable {
         double ff = 3d;
         float f = 31 / 41;
         int a = 0;
+        int a3 = -+(10 -6+3);
+        System.out.println(a3);
+
+        Integer intg = 3;
+        final int ttw  = intg;
+        System.out.println(ttw);
+
         Long ll = 3L;
         System.out.println(new Integer((a = 2)) + "\n" + f);
         int rr = '1';
@@ -68,8 +75,6 @@ public class MainMisc implements Cloneable {
         System.out.println("hello".equals(aa));
         Object obb = new Object();
         System.out.println(obb.toString());
-        Object obb = new Object();
-        obb.toString();
         RequestDispatcher sff;
         IdentityHashMap v;
         WebApplicationContext de;
@@ -85,9 +90,8 @@ public class MainMisc implements Cloneable {
 
         List<Integer> list1  = Arrays.asList(1,2,23,4);
         List<Integer> list2 = new ArrayList<>(list1);
-
+            list2.toArray();
         Iterator<Integer> it = list2.iterator();
-        list2.remove(0);
         it.next();
         it.remove();
         it.hasNext();
@@ -111,22 +115,22 @@ public class MainMisc implements Cloneable {
         HttpServletRequest re;
         HttpServletResponse response;
         ServletContext context;
-        ContextLoaderListener ed;
+        ContextLoaderListener ñed;
         Servlet c;
         BeanPostProcessor ffr;
         ServletContextListener scl;
         Filter fc;
         HttpEntity ded;
         new Boolean(new Boolean(true));
-        int ffvf = ~20;
         Long de1 = 2L;
         System.out.println(de1.toString());
-
-
+        int[][] cñc = new int[2][5];
+        System.out.println(cñc.length);
     }
 
     @PreDestroy
-    void frf() {
+    void frf(Integer vari) {
+        vari = new Integer(2);
 
     }
 
