@@ -4,6 +4,10 @@ package infrastructure.misc;
 public class Pigeon extends Bird {
     public String color;
 
+    public  static String sing(){
+        return "sol";
+    }
+
     public Pigeon(String color) {
         super(color);
         this.color = color;

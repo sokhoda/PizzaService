@@ -3,6 +3,9 @@ package infrastructure.misc;
 public class Bird implements Cloneable, Comparable{
     public String color;
 
+    public  static String sing(){
+        return "fa";
+    }
     public Bird() {
     }
 

@@ -1,6 +1,7 @@
 package infrastructure.misc;
 
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.context.ContextLoaderListener;
@@ -12,9 +13,14 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TagSupport;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import static java.lang.Math.max;
 
 public class MainMisc implements Cloneable {
 
@@ -36,6 +42,7 @@ public class MainMisc implements Cloneable {
 
         Pigeon pigeon = new Pigeon("pigeon");
 
+        AbstractQueue dd;
 
         System.out.println(bird.color);
         System.out.println(pigeon.color);
@@ -45,7 +52,17 @@ public class MainMisc implements Cloneable {
 
         new Bird().fly();
         pigeon.fly();
+        long hh = 1;
+        Integer d1 = 1;
+        Integer d2 = 1;
+        System.out.println("d1==d2:" + (d1 == d2));
 
+        String[] stt[];
+        stt = new String[][]{{"1", "2"}, {"3", "4"}};
+        System.out.println("stt= \n" + Arrays.toString(stt[0]));
+        System.out.println("stt= \n" + Arrays.toString(stt[1]));
+
+        System.out.println(bird.sing() + " " + pigeon.sing());
         char val[] = {'d'};
         char[] val2 = {'d'};
         List<Integer> list = new ArrayList<Integer>(new TreeSet<>());
@@ -60,11 +77,11 @@ public class MainMisc implements Cloneable {
         double ff = 3d;
         float f = 31 / 41;
         int a = 0;
-        int a3 = -+(10 -6+3);
+        int a3 = -+(10 - 6 + 3);
         System.out.println(a3);
 
         Integer intg = 3;
-        final int ttw  = intg;
+        final int ttw = intg;
         System.out.println(ttw);
 
         Long ll = 3L;
@@ -86,11 +103,11 @@ public class MainMisc implements Cloneable {
         Iterator<Map.Entry<String, String>> iter = es.iterator();
         Iterable vv;
         Queue cc;
-        PriorityQueue dd;
+        PriorityQueue dad;
 
-        List<Integer> list1  = Arrays.asList(1,2,23,4);
+        List<Integer> list1 = Arrays.asList(1, 2, 23, 4);
         List<Integer> list2 = new ArrayList<>(list1);
-            list2.toArray();
+        list2.toArray();
         Iterator<Integer> it = list2.iterator();
         it.next();
         it.remove();
@@ -111,6 +128,15 @@ public class MainMisc implements Cloneable {
         for (String s : key) {
             System.out.println(s);
         }
+        Hashtable ht = new Hashtable<>();
+        ht.put("1", "1");
+        System.out.println("ht=" + ht.contains("1"));
+
+        Boolean b1;
+        System.out.println(b1 = new Boolean("tRue"));
+        b1 = true;
+
+        System.out.println(max(1, 2));
         HttpServlet kk;
         HttpServletRequest re;
         HttpServletResponse response;
@@ -126,6 +152,9 @@ public class MainMisc implements Cloneable {
         System.out.println(de1.toString());
         int[][] cñc = new int[2][5];
         System.out.println(cñc.length);
+        PageContext vbf;
+        TagSupport ff2;
+        BodyTagSupport frfrf;
     }
 
     @PreDestroy

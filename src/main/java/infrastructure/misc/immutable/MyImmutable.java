@@ -40,16 +40,18 @@ public final class MyImmutable {
         return result;
     }
 
-    //    @Override
+//        @Override
 //    public boolean equals(Object obj){
 //        if (obj == null || obj.getClass() != getClass()) return false
 //        if (this == obj) return true;
 //
 //        MyImmutable other = (MyImmutable) obj;
 //
-//        if (str == null ? other.str != null : str.equals(other.str)) return false;
+//        if (str == null ? other.str != null : !str.equals(other.str))
+//            return false;
 //
-//        if(bike == null ? other.bike != null : bike.equals(other.bike)) return false;
+//        if(bike == null ? other.bike != null : !bike.equals(other.bike))
+//            return false;
 //        return true;
 //    }
 }
