@@ -22,7 +22,7 @@ public class PizzaRESTController {
     @Autowired
     private PizzaService pizzaService;
 
-    @RequestMapping(value = "pizza/{pizzaID}", method =
+    @RequestMapping(value = "/pizza/{pizzaID}", method =
             RequestMethod.GET)
     public ResponseEntity <Pizza> find(@PathVariable("pizzaID") Long pizzaID){
         Pizza pizza = pizzaService.find(pizzaID);
@@ -35,7 +35,7 @@ public class PizzaRESTController {
         return new ResponseEntity<>(pizza, HttpStatus.FOUND);
     }
 
-    @RequestMapping(value = "pizza", method = RequestMethod.POST)
+    @RequestMapping(value = "/pizza", method = RequestMethod.POST)
     public ResponseEntity<Void> create(@RequestBody Pizza pizza,
                                        UriComponentsBuilder builder
                                        ){
