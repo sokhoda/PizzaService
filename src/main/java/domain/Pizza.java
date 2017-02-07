@@ -6,6 +6,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Pizza.findByType", query =
+                "SELECT p from Pizza p WHERE p.type = :type")
+})
 public class Pizza extends ResourceSupport implements Serializable{
     @Id
     @TableGenerator(
@@ -23,6 +27,8 @@ public class Pizza extends ResourceSupport implements Serializable{
 
     private Double price;
 
+//    private Long companyID;
+
     @Enumerated(EnumType.STRING)
     private PizzaType type;
 
@@ -34,6 +40,11 @@ public class Pizza extends ResourceSupport implements Serializable{
     }
 
     public Pizza() {
+    }
+
+    public Pizza(Long id, String name) {
+        this.pizzaId = id;
+        this.name = name;
     }
 
     @Override

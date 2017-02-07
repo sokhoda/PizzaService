@@ -3,15 +3,26 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/mvc
-    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security.xsd">
 
 
-    <mvc:annotation-driven/>
+    <!--<security:global-method-security secured-annotations="enabled">-->
+            <!--</security:global-method-security>-->
+
+    <security:global-method-security pre-post-annotations="enabled">
+    </security:global-method-security>
+
+    <mvc:annotation-driven conversion-service="conversionService"/>
+    <!--<mvc:annotation-driven conversion-service="conversionService"/>-->
+
     <context:component-scan base-package="web.app"/>
     <!--InternalResourceViewResolver-->
     <mvc:view-resolvers>
@@ -20,5 +31,28 @@
                  view-class="org.springframework.web.servlet.view.JstlView"
         />
     </mvc:view-resolvers>
+
+    <bean id="conversionService"
+          class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="web.app.PizzaConverter"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="simpleMappingExceptionResolver"
+          class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <map>
+                <entry key="NumberFormatException" value="errorPage"/>
+            </map>
+        </property>
+        <property name="defaultErrorView" value="errorPage"/>
+        <property name="exceptionAttribute" value="ex"/>
+        <!-- Name of logger to use to log exceptions. Unset by default, so logging disabled -->
+    </bean>
+
+
 
 </beans>

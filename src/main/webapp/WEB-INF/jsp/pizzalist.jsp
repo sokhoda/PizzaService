@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  <%@ page errorPage="../generalErrorPage.jsp" %>
 
 <!DOCTYPE html>	
@@ -13,14 +14,16 @@
   <style>
      <%@include file='../proj.css' %>
   </style>
+  <%--
     <script src="js/FillClick.js"></script>
+    --%>
 </head> 
 
 <body>
 
-<form action="Controller" method="post" id="myForm">
+
 <input class="hidden" id ="command" name="command" type="text" value="">
-<input class="hidden" id ="Id" name="docId" type="text" value="" >
+
 
 <div class="container-fluid bg-grey">
  	   <h2>
@@ -46,42 +49,57 @@
                         <td align="left">${pizza.price}</td>
                         <td align="left">${pizza.type}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-xs" id="${pizza.pizzaId}"
-                                    onclick="doUpdate(event,'ShDocumentUpdate')">Edit
-                            </button>
+                            <form action="edit" method="get">
+                                <input class="hidden" name="pizzaId"
+                                 type="text" value="${pizza.pizzaId}" >
+                                <button type="submit" class="btn btn-primary btn-xs">Edit</button>
+                            </form>
                         </td>
                         <td>
-                            <button  type="button" class="btn btn-warning btn-xs" id="${pizza.pizzaId}"
-                               onclick="showDelete(event)">Delete
-                            </button>
+                            <form action="delete" method="get">
+                                <input class="hidden" name="pizzaId"
+                                 type="text" value="${pizza.pizzaId}" >
+                                <button type="submit" class="btn btn-warning btn-xs">Delete</button>
+                            </form>
                         </td>
                     </tr>
                  </c:forEach>
             </tbody>
        </table>
+        <sec:authorize access="hasRole('ADMIN')">
+            <div class="text-center">
+                <a href="create">
+                   <div class="btn-group">
+                      <button type="button" id="crtupd" class="btn1  btn-default btn-lg btn-success">
+                                Create
+                      </button>
+                   </div>
+                </a>
+            </div>
+       </sec:authorize>
 
-        <div class="text-center">
-            <a href="create">
-               <div class="btn-group">
-                  <button type="button" id="crtupd" class="btn1  btn-default btn-lg btn-success">
-                            Create
-                  </button>
-               </div>
-            </a>
-        </div>
+         <c:url var="logoutUrl" value="/app/logout"/>
+         <form action="${logoutUrl}" method="post">
+           <button type="submit" class="btn btn-warning btn-xs">Log out</button>
+           <sec:csrfInput/>
+         </form>
+
         <footer style="margin-top:10px; text-align: center">&copy;Alex, Kyiv, 2016</footer>
   
     </div>
- </form>
  </body>
 
 <script type="text/javascript">
 var name, latch = false;
 
-function doDelete(comm) {
-	$('#command').val(comm);
+function doEdit(item) {
+    var pizzaId = item.currentTarget.getAttribute("id");
+        console.log('pizzaID=' + pizzaId);
+	$('#pizzaId').val(pizzaId);
+	 <%--
 	$('#Id').val($('.modalDeleteBtn').attr('id'));
- 	$('#myForm').submit();
+ 	--%>
+ 	$('#editForm').submit();
 };
 
 function showDelete(event) {

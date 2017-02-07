@@ -1,6 +1,7 @@
 package repository;
 
 import domain.Pizza;
+import domain.PizzaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,4 +41,12 @@ public class JPAPizzaRepo implements PizzaRepository {
     public List<Pizza> findAll() {
         return em.createQuery("SELECT p FROM Pizza p ", Pizza.class).getResultList();
     }
+
+    @Override
+    public List<Pizza> findByType(PizzaType type) {
+        TypedQuery<Pizza> query =  em.createNamedQuery("Pizza.findByType", Pizza.class);
+        return query.setParameter("type", type).getResultList();
+    }
+
+
 }

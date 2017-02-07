@@ -17,4 +17,6 @@
     <bean name="handlerMappingStrategy"
           class="web.infrastructure.SimpleURLHandlerMapping"/>
 
+
+
 </beans>

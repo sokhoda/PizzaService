@@ -1,8 +1,10 @@
 package pizzaservice;
 
 import domain.Pizza;
+import domain.PizzaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import repository.PizzaRepository;
@@ -39,5 +41,8 @@ public class SimplePizzaService implements PizzaService {
         return pizzaRepo.findAll();
     }
 
-
+    @Override
+    public List<Pizza> findByType(PizzaType type) {
+        return pizzaRepo.findByType(type);
+    }
 }

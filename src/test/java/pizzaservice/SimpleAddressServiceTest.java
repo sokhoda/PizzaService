@@ -28,12 +28,6 @@ public class SimpleAddressServiceTest extends UnitTestData{
     @InjectMocks
     private SimpleAddressService sAddressService;
 
-    @Before
-    public void init() {
-        MockitoAnnotations.initMocks(this);
-    }
-
-
     @Test
     public void find() throws Exception {
 //        GIVEN

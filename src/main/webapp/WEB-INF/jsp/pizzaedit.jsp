@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  <%@ page errorPage="../generalErrorPage.jsp" %>
 
 <!DOCTYPE html>	
@@ -13,7 +14,9 @@
   <style>
      <%@include file='../proj.css' %>
   </style>
+  <%--
     <script src="js/FillClick.js"></script>
+    --%>
 </head> 
 
 <body>
@@ -60,7 +63,15 @@
         <footer style="margin-top:10px; text-align: center">&copy;Alex, Kyiv, 2016</footer>
   
     </div>
+        <sec:csrfInput/>
  </form>
+
+      <c:url var="logoutUrl" value="/logout"/>
+      <form action="${logoutUrl}" method="post">
+        <button type="submit" class="btn btn-warning btn-xs">Log out</button>
+        <sec:csrfInput/>
+      </form>
+
  </body>
 
 <script type="text/javascript">
