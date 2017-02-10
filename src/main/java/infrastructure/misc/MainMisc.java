@@ -19,6 +19,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.Math.max;
 
@@ -79,6 +80,8 @@ public class MainMisc implements Cloneable {
         int a = 0;
         int a3 = -+(10 - 6 + 3);
         System.out.println(a3);
+
+        AtomicInteger f554;
 
         Integer intg = 3;
         final int ttw = intg;
