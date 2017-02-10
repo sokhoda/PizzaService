@@ -99,9 +99,9 @@ public class SpringJPAAppRunner {
 //        System.out.println("\n\n\n\n\n\n !!!" + orderRepository.findByCustomer
 //                (customer1));
 
-//        for (int i = 0; i < 3; i++) {
-//            init(pizzaService, addressService);
-//        }
+        for (int i = 0; i < 3; i++) {
+            init(pizzaService, addressService);
+        }
 
 //        Pizza pizza = pizzaRepository.read(5L);
 //        System.out.println(pizza);
