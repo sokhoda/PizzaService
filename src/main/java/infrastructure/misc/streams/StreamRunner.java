@@ -3,7 +3,9 @@ package infrastructure.misc.streams;
 import infrastructure.misc.Pigeon;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StreamRunner {
     public static void main(String[] args) {
@@ -36,5 +38,57 @@ public class StreamRunner {
                 .skip(2)
                 .limit(2)
                 .forEach(System.out::print);
+
+        System.out.println("\n"+  Stream.of(new String[]{"Hello", "World"})
+                    .map(s -> s.split(""))
+                    .flatMap(Arrays::stream)
+                    .distinct()
+                    .collect(Collectors.toList())
+        );
+
+        System.out.println(Arrays.toString("abcsd".split("")));
+
+        System.out.println(bikeSaleSet.stream().anyMatch(s -> s.getDiscount() < 0));
+        System.out.println(bikeSaleSet.stream().allMatch(s -> s.getDiscount()
+                > 0));
+
+        System.out.println(bikeSaleSet.stream()
+                .filter( s-> s.getInternalNo() > 1)
+                .findAny()
+                .orElse(sale4)
+        );
+
+        System.out.println(bikeSaleSet.stream()
+                .filter( s-> s.getInternalNo() < 12)
+                .findFirst()
+                .orElse(null)
+        );
+
+        System.out.println("sum internalNo > 12 = " + bikeSaleSet.stream()
+                        .filter( s-> s.getInternalNo() > 10)
+                        .map(BikeSale::getInternalNo)
+                        .reduce(0, (i, j)-> i + j)
+        );
+
+        System.out.println("sum internalNo > 12 = " + bikeSaleSet.stream()
+                        .filter( s-> s.getInternalNo() > 10)
+                        .map(BikeSale::getInternalNo)
+                        .reduce(0, Integer::sum)
+        );
+
+        System.out.println("sum internalNo > 12 = " + bikeSaleSet.stream()
+                        .filter( s-> s.getInternalNo() > 10)
+                        .map(BikeSale::getInternalNo)
+                        .reduce(Integer::sum)
+        );
+
+        System.out.println("sum internalNo > 12 = " + bikeSaleSet.stream()
+                .filter( s-> s.getInternalNo() > 10)
+                .map(BikeSale::getInternalNo)
+                .reduce(Integer::max)
+        );
+
+//                .ifPresent(d-> System.out.println(d.getInternalNo()));
+
     }
 }
