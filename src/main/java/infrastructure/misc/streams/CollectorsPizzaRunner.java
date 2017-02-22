@@ -5,6 +5,8 @@ import domain.PizzaType;
 
 import java.util.*;
 import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
@@ -39,7 +41,13 @@ public class CollectorsPizzaRunner {
         );
 
         System.out.println("-------\nmin of prizes=" + Arrays.stream(pizzas)
-                .collect(reducing(BinaryOperator.minBy(Comparator.comparingDouble(Pizza::getPrice))))
+                .collect(
+                        reducing(
+                                BinaryOperator.minBy(
+                                        Comparator.comparingDouble(Pizza::getPrice)
+                                )
+                        )
+                )
         );
 
         System.out.println("sum of pizzaIds=" + Arrays.stream(pizzas)
@@ -49,36 +57,30 @@ public class CollectorsPizzaRunner {
         Map<PizzaType, List<Pizza>> pizzaMap = Arrays.stream(pizzas)
                 .collect(groupingBy(Pizza::getType));
 
+        Function<Pizza, String> pizzaExpensivenessFunction = pizza -> {
+            if (pizza.getPrice() < 100) {
+                return "inexpensive";
+            }
+            else if (pizza.getPrice() <= 120) {
+                return "medium";
+            }
+            else {
+                return "expensive";
+            }
+        };
         Map<String, List<Pizza>> pizzaMap2 = Arrays.stream(pizzas)
-                .collect(groupingBy(
-                        pizza -> {
-                            if (pizza.getPrice() < 100) {
-                                return "inexpensive";
-                            }
-                            else if (pizza.getPrice() <= 120) {
-                                return "medium";
-                            }
-                            else {
-                                return "expensive";
-                            }
-                        }
-                ));
+                .collect(
+                        groupingBy(pizzaExpensivenessFunction)
+                );
         System.out.println("-------------------------------expensive" +
                 "/inexpensive-------------");
         Map<PizzaType, Map<String, List<Pizza>>> pizzaMap3 = Arrays.stream(pizzas)
-                .collect(groupingBy(Pizza::getType, groupingBy(
-                        pizza -> {
-                            if (pizza.getPrice() < 100) {
-                                return "inexpensive";
-                            }
-                            else if (pizza.getPrice() <= 120) {
-                                return "medium";
-                            }
-                            else {
-                                return "expensive";
-                            }
-                        }
-                )));
+                .collect(
+                        groupingBy(
+                                Pizza::getType,
+                                groupingBy(pizzaExpensivenessFunction)
+                        )
+                );
 
         for (PizzaType type : pizzaMap3.keySet()) {
             System.out.println(type + ":");
@@ -89,7 +91,11 @@ public class CollectorsPizzaRunner {
         System.out.println
                 ("-------------grouping/groupSize-------------------------");
         Map<PizzaType, Long> pizzaMap4 = Arrays.stream(pizzas)
-                .collect(groupingBy(Pizza::getType, counting()));
+                .collect(
+                        groupingBy(
+                                Pizza::getType, counting()
+                        )
+                );
 
         for (PizzaType pizzaType : pizzaMap4.keySet()) {
             System.out.println(pizzaType + ":" + pizzaMap4.get(pizzaType));
@@ -98,8 +104,12 @@ public class CollectorsPizzaRunner {
         System.out.println
                 ("-------------grouping/the cheapest-------------------------");
         Map<PizzaType, Optional<Pizza>> pizzaMap5 = Arrays.stream(pizzas)
-                .collect(groupingBy(Pizza::getType,
-                        minBy(Comparator.comparingDouble(Pizza::getPrice))));
+                .collect(
+                        groupingBy(
+                                Pizza::getType,
+                                minBy(Comparator.comparingDouble(Pizza::getPrice))
+                        )
+                );
 
         for (PizzaType pizzaType : pizzaMap5.keySet()) {
             System.out.println(pizzaType + ":" + pizzaMap5.get(pizzaType));
@@ -121,6 +131,55 @@ public class CollectorsPizzaRunner {
             System.out.println(pizzaType + ":" + pizzaMap6.get(pizzaType));
         }
 
+        System.out.println("-------------------------------expensive/inexpensive set-------------");
+        Map<PizzaType, Set<String>> pizzaMap7 = Arrays.stream(pizzas)
+                .collect(
+                        groupingBy(Pizza::getType,
+                                mapping(pizzaExpensivenessFunction, toSet())
+                        )
+                );
+
+        for (PizzaType pizzaType : pizzaMap7.keySet()) {
+            System.out.println(pizzaType + ":" + pizzaMap7.get(pizzaType));
+        }
+
+        Predicate<Pizza> isExpensive = pizza -> {
+            if (pizza.getPrice() < 90.) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        };
+
+        System.out.println
+                ("-------------------------------partitioning isExpensive-------------");
+        Map<Boolean, List<Pizza>> pizzaMap8 = Arrays.stream(pizzas)
+                .collect(
+                        partitioningBy(isExpensive)
+                );
+
+        for (Boolean izExpensive : pizzaMap8.keySet()) {
+            System.out.println(izExpensive + ":" + pizzaMap8.get(izExpensive));
+        }
+
+        System.out.println
+                ("-------------------------------partitioning isExpensive and" +
+                        " grouping by PizzaType-------------");
+        Map<Boolean, Map<PizzaType, List<Pizza>>> pizzaMap9 = Arrays.stream(pizzas)
+                .collect(
+                        partitioningBy(
+                                isExpensive,
+                                groupingBy(Pizza::getType)
+                        )
+                );
+
+        for (Boolean izExpensive : pizzaMap9.keySet()) {
+            System.out.println(izExpensive + ":");
+            for (PizzaType type : pizzaMap9.get(izExpensive).keySet()) {
+                System.out.println(type + ":" + pizzaMap9.get(izExpensive).get(type));
+            }
+        }
 
 //        System.out.println("group of pizzas=" + pizzaMap2);
 
