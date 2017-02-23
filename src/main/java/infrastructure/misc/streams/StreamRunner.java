@@ -4,8 +4,8 @@ import infrastructure.misc.Pigeon;
 
 import java.util.*;
 import java.util.function.BinaryOperator;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.function.Supplier;
+import java.util.stream.*;
 
 public class StreamRunner {
     public static void main(String[] args) {
@@ -39,11 +39,11 @@ public class StreamRunner {
                 .limit(2)
                 .forEach(System.out::print);
 
-        System.out.println("\n"+  Stream.of(new String[]{"Hello", "World"})
-                    .map(s -> s.split(""))
-                    .flatMap(Arrays::stream)
-                    .distinct()
-                    .collect(Collectors.toList())
+        System.out.println("\n" + Stream.of(new String[]{"Hello", "World"})
+                .map(s -> s.split(""))
+                .flatMap(Arrays::stream)
+                .distinct()
+                .collect(Collectors.toList())
         );
 
         System.out.println(Arrays.toString("abcsd".split("")));
@@ -53,42 +53,75 @@ public class StreamRunner {
                 > 0));
 
         System.out.println(bikeSaleSet.stream()
-                .filter( s-> s.getInternalNo() > 1)
+                .filter(s -> s.getInternalNo() > 1)
                 .findAny()
                 .orElse(sale4)
         );
 
         System.out.println(bikeSaleSet.stream()
-                .filter( s-> s.getInternalNo() < 12)
+                .filter(s -> s.getInternalNo() < 12)
                 .findFirst()
                 .orElse(null)
         );
-
         System.out.println("sum internalNo > 12 = " + bikeSaleSet.stream()
-                        .filter( s-> s.getInternalNo() > 10)
-                        .map(BikeSale::getInternalNo)
-                        .reduce(0, (i, j)-> i + j)
+                .filter(s -> s.getInternalNo() > 10)
+                .map(BikeSale::getInternalNo)
+                .reduce(0, (i, j) -> i + j)
         );
-
         System.out.println("sum internalNo > 12 = " + bikeSaleSet.stream()
-                        .filter( s-> s.getInternalNo() > 10)
-                        .map(BikeSale::getInternalNo)
-                        .reduce(0, Integer::sum)
+                .filter(s -> s.getInternalNo() > 10)
+                .map(BikeSale::getInternalNo)
+                .reduce(0, Integer::sum)
         );
-
         System.out.println("sum internalNo > 12 = " + bikeSaleSet.stream()
-                        .filter( s-> s.getInternalNo() > 10)
-                        .map(BikeSale::getInternalNo)
-                        .reduce(Integer::sum)
+                .filter(s -> s.getInternalNo() > 10)
+                .map(BikeSale::getInternalNo)
+                .reduce(Integer::sum)
         );
-
         System.out.println("sum internalNo > 12 = " + bikeSaleSet.stream()
-                .filter( s-> s.getInternalNo() > 10)
+                .filter(s -> s.getInternalNo() > 10)
                 .map(BikeSale::getInternalNo)
                 .reduce(Integer::max)
         );
 
-//                .ifPresent(d-> System.out.println(d.getInternalNo()));
+        System.out.println("sum internalNo > 12 = " + bikeSaleSet.stream()
+                .filter(s -> s.getInternalNo() > 10)
+                .mapToInt(BikeSale::getInternalNo)
+                .average()
+        );
+        if (false) {
+            IntStream.range(1, 100)
+                    .mapToDouble(i -> i / 10.)
+                    .forEach(System.out::println);
 
+            BikeSale[] arr = new BikeSale[]{sale1, sale2, sale3, sale4};
+            System.out.println("array=" + Arrays.toString(arr));
+            Arrays.stream(arr)
+                    .sorted()
+                    .forEach(System.out::print);
+
+            System.out.println(Arrays.stream(new int[]{10, 20, 30}).sum());
+
+            Stream.iterate(0, i -> i + 2)
+                    .map(i -> new int[]{i, i})
+                    .limit(5)
+                    .forEach(a -> System.out.println(a[0] + ", " + a[1]));
+
+            Stream.iterate(new int[]{0, 1}, a -> new int[]{a[1], a[0] + a[1]})
+                    .limit(40)
+                    .forEach(a -> System.out.println(Arrays.toString(a) + ", "));
+
+
+            Node node = new Node();
+            Stream.generate(node.value)
+                    .limit(20)
+                    .forEach(System.out::print);
+
+            System.out.println(Stream.iterate(0, i -> i + 2)
+                    .map(String::valueOf)
+                    .limit(20)
+                    .collect(Collectors.joining())
+            );
+        }
     }
 }
