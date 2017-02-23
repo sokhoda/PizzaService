@@ -7,28 +7,35 @@ import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import static java.util.Comparator.*;
 import static java.util.stream.Collectors.*;
 
-
 public class CollectorsPizzaRunner {
-    public static void main(String[] args) {
 
+    public static Pizza[] getPizzas() {
         Pizza pizza1 = new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN);
         Pizza pizza2 = new Pizza(2L, "Chicken", 120., PizzaType.MEAT);
         Pizza pizza3 = new Pizza(3L, "Octopus", 125., PizzaType.SEA);
         Pizza pizza4 = new Pizza(4L, "Calamar", 120., PizzaType.SEA);
         Pizza pizza5 = new Pizza(5L, "Cheese", 80., PizzaType.VEGETERIAN);
 
-        Pizza[] pizzas = new Pizza[]{pizza1, pizza2, pizza3, pizza4, pizza5};
+        return new Pizza[]{pizza1, pizza2, pizza3, pizza4, pizza5};
+    }
+
+    public static void main(String[] args) {
+
+        Pizza[] pizzas = getPizzas();
 
         System.out.println("-------\nmax of prizes=" + Arrays.stream(pizzas)
-                .collect(maxBy(Comparator.comparingDouble(Pizza::getPrice)))
+                .collect(maxBy(comparingDouble(Pizza::getPrice)))
         );
 
         System.out.println("-------\nmax of prizes=" + Arrays.stream(pizzas)
-                .reduce(BinaryOperator.maxBy(Comparator.comparingDouble(Pizza::getPrice)))
+                .reduce(BinaryOperator.maxBy(comparingDouble(Pizza::getPrice)))
         );
 
         System.out.println("sum of prizes=" + Arrays.stream(pizzas)
@@ -44,7 +51,7 @@ public class CollectorsPizzaRunner {
                 .collect(
                         reducing(
                                 BinaryOperator.minBy(
-                                        Comparator.comparingDouble(Pizza::getPrice)
+                                        comparingDouble(Pizza::getPrice)
                                 )
                         )
                 )
@@ -107,7 +114,7 @@ public class CollectorsPizzaRunner {
                 .collect(
                         groupingBy(
                                 Pizza::getType,
-                                minBy(Comparator.comparingDouble(Pizza::getPrice))
+                                minBy(comparingDouble(Pizza::getPrice))
                         )
                 );
 
@@ -122,7 +129,7 @@ public class CollectorsPizzaRunner {
                         groupingBy(
                                 Pizza::getType,
                                 collectingAndThen(
-                                        minBy(Comparator.comparingDouble(Pizza::getPrice)), Optional::get
+                                        minBy(comparingDouble(Pizza::getPrice)), Optional::get
                                 )
                         )
                 );
@@ -149,6 +156,14 @@ public class CollectorsPizzaRunner {
             }
             else {
                 return true;
+            }
+        };
+        Predicate<Pizza> isVegeterian = pizza -> {
+            if (pizza.getType().equals(PizzaType.VEGETERIAN)) {
+                return true;
+            }
+            else {
+                return false;
             }
         };
 
@@ -181,7 +196,44 @@ public class CollectorsPizzaRunner {
             }
         }
 
+        System.out.println
+                ("-------------------------------partitioning isVegeterian and" +
+                        " the cheapest-------------");
+        Map<Boolean, Pizza> pizzaMap10 = Arrays.stream(pizzas)
+                .collect(
+                        partitioningBy(
+                                isVegeterian,
+                                collectingAndThen(
+                                        minBy(comparingDouble(Pizza::getPrice)),
+                                        Optional::get
+                                )
+                        )
+                );
+
+        for (Boolean izVegeterian : pizzaMap10.keySet()) {
+            System.out.println(izVegeterian + ":" + pizzaMap10.get(izVegeterian));
+        }
+
 //        System.out.println("group of pizzas=" + pizzaMap2);
 
+//        System.out.println();
+        System.out.println
+                ("-------------------------------partitioning isPrime-------------");
+
+        Map<Boolean, List<Integer>> primeMap = IntStream.rangeClosed(2, 100)
+                .boxed()
+                .collect(
+                        partitioningBy(CollectorsPizzaRunner::isPrime)
+                );
+
+        for (Boolean izVegeterian : primeMap.keySet()) {
+            System.out.println(izVegeterian + ":" + primeMap.get(izVegeterian));
+        }
+    }
+
+    private static boolean isPrime(int candidate) {
+        int candidateRoot = (int) Math.sqrt(candidate);
+        return IntStream.rangeClosed(2, candidateRoot)
+                .noneMatch(i -> candidate % i == 0);
     }
 }

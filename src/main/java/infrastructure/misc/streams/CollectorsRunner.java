@@ -1,8 +1,7 @@
 package infrastructure.misc.streams;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.*;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -28,35 +27,44 @@ public class CollectorsRunner {
         };
         Comparator<BikeSale> comparator2 = Comparator.comparingInt
                 (BikeSale::getDiscount).reversed();
-        System.out.println(bikeSales.stream()
-                .collect(Collectors.maxBy(comparator))
+        System.out.println("max by discount =" + bikeSales.stream()
+                .collect(maxBy(comparator))
         );
 
-        System.out.println(bikeSales.stream()
-                .collect(Collectors.maxBy(comparator2))
+        System.out.println("max by discount reversed =" + bikeSales.stream()
+                .collect(maxBy(comparator2))
         );
 
-        System.out.println(bikeSales.stream()
-                .collect(Collectors.summarizingInt(BikeSale::getDiscount))
+        System.out.println("summarizingInt=\n" + bikeSales.stream()
+                .collect(
+                        summarizingInt(BikeSale::getDiscount)
+                )
         );
 
         System.out.println(bikeSales.stream()
                 .map(bs ->String.valueOf(bs.getDiscount()))
-                .collect(Collectors.joining())
+                .collect(
+                        joining()
+                )
         );
 
         System.out.println(bikeSales.stream()
                 .map(BikeSale::toString)
-                .collect(Collectors.joining("@"))
+                .collect(
+                        joining("@")
+                )
         );
 
         System.out.println(bikeSales.stream()
-                .collect(Collectors.reducing(0, BikeSale::getDiscount, Integer::sum))
+                .collect(
+                        reducing(0, BikeSale::getDiscount, Integer::sum)
+                )
         );
 
         System.out.println(bikeSales.stream()
-                .collect(Collectors.reducing((s1, s2) -> (s1.getDiscount() >
-                        s2.getDiscount() ? s1 : s2)))
+                .collect(
+                        reducing((s1, s2) -> (s1.getDiscount() > s2.getDiscount() ? s1 : s2))
+                )
         );
 
     }

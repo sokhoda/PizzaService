@@ -49,8 +49,7 @@ public class StreamRunner {
         System.out.println(Arrays.toString("abcsd".split("")));
 
         System.out.println(bikeSaleSet.stream().anyMatch(s -> s.getDiscount() < 0));
-        System.out.println(bikeSaleSet.stream().allMatch(s -> s.getDiscount()
-                > 0));
+        System.out.println(bikeSaleSet.stream().allMatch(s -> s.getDiscount() > 0));
 
         System.out.println(bikeSaleSet.stream()
                 .filter(s -> s.getInternalNo() > 1)
