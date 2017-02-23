@@ -1,6 +1,7 @@
 package infrastructure.misc.lambda;
 
 import com.sun.org.apache.regexp.internal.RE;
+import domain.PizzaType;
 import infrastructure.misc.Bike;
 
 import java.util.Arrays;
@@ -38,6 +39,8 @@ public class Lamdas {
         Arrays.asList();
         Predicate<Bike> tester = bike -> bike.getModel().contains("est");
         System.out.println(tester.test(new Bike("be1ster")));
+
+        System.out.println(PizzaType.VEGETERIAN.ordinal());
     }
 
 }

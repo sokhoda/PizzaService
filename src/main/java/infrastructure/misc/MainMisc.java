@@ -1,35 +1,22 @@
 package infrastructure.misc;
 
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.http.HttpEntity;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.WebApplicationContext;
-
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.servlet.*;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.servlet.jsp.tagext.TagSupport;
-import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 
 import static java.lang.Math.max;
 
+@DiscriminatorColumn(name = "MISC_TYPE")
 public class MainMisc implements Cloneable {
+    private int size;
+
 
     @Override
     public MainMisc clone() throws CloneNotSupportedException {
         return (MainMisc) super.clone();
     }
-
+/*
     public static void main(String[] args) {
         Vehicle vehicle = new Vehicle();
 
@@ -165,7 +152,7 @@ public class MainMisc implements Cloneable {
         vari = new Integer(2);
 
     }
-
+*/
     @PostConstruct
     void frr() {
 

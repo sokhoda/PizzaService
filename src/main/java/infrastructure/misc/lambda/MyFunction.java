@@ -3,7 +3,9 @@ package infrastructure.misc.lambda;
 import domain.Pizza;
 import infrastructure.misc.streams.CollectorsPizzaRunner;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.function.Function;
 
 public class MyFunction {
@@ -22,5 +24,6 @@ public class MyFunction {
         Arrays.stream(pizzas)
                 .map(myFunc.compose(before))
                 .forEach(System.out::print);
+
     }
 }
