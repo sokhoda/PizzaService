@@ -80,6 +80,17 @@ public class Pizza extends ResourceSupport implements Serializable{
         return result;
     }
 
+    @PrePersist
+    public void notifyMe(){
+        System.out.println("PrePersist method invocation");
+    }
+
+    @PostPersist
+    public void notifyMe1(){
+        System.out.println("PostPersist method invocation");
+    }
+
+
     public Long getPizzaId(){
         return pizzaId;
     }
