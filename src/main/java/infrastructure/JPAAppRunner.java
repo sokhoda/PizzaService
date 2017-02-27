@@ -2,6 +2,7 @@ package infrastructure;
 
 import domain.Pizza;
 import domain.PizzaType;
+import org.springframework.transaction.TransactionDefinition;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.EntityType;
@@ -40,15 +41,24 @@ public class JPAAppRunner {
         System.out.println("contains before=" + em.contains(pizza));
         em.persist(pizza);
         Pizza pizza2 = em.getReference(Pizza.class, 2L);
+
 //        em.merge(pizza);
 //        pizza.setStrName("224324234");
         System.out.println(pizza2);
         System.out.println("after persist " +  pizza.getPizzaId());
         System.out.println("contains after=" + em.contains(pizza));
 //        em.persist(oak);
+
         et.rollback();
 
         em.clear();
+
+        et.begin();
+        Pizza pizzaL = em.find(Pizza.class, 5L);
+        pizzaL.setPrice(344.2);
+        em.refresh(pizzaL);
+        System.out.println("Pizza " + pizzaL );
+        et.commit();
 
         Pizza pizza1 = em.find(Pizza.class, 5L);
         System.out.println(pizza == pizza1);
