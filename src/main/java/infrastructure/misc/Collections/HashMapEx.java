@@ -1,5 +1,7 @@
 package infrastructure.misc.Collections;
 
+import infrastructure.misc.Bird;
+
 import java.util.*;
 
 public class HashMapEx {
@@ -23,5 +25,8 @@ public class HashMapEx {
         System.out.println(Integer.toBinaryString(t >> 1));
         System.out.println(Integer.toBinaryString(t >>> 1));
         System.out.println(null ==null);
+
+        System.out.println(new Bird("ff").compareTo(new Bird("gtg")));
+        System.out.println("F".compareTo("1"));
     }
 }

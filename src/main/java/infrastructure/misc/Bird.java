@@ -1,6 +1,6 @@
 package infrastructure.misc;
 
-public class Bird implements Cloneable, Comparable{
+public class Bird implements Cloneable, Comparable<Bird>{
     public String color;
 
     public  static String sing(){
@@ -31,8 +31,8 @@ public class Bird implements Cloneable, Comparable{
     }
 
     @Override
-    public int compareTo(Object o) {
-        return this.getColor().compareTo(((Bird)o).getColor());
+    public int compareTo(Bird o) {
+        return this.getColor().compareTo(o.getColor());
     }
 
     @Override
