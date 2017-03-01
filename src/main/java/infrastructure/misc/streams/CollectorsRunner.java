@@ -19,14 +19,9 @@ public class CollectorsRunner {
         Set<BikeSale> bikeSaleSet = new HashSet<>();
         bikeSaleSet.addAll(bikeSales);
 
-        Comparator<BikeSale> comparator = new Comparator<BikeSale>() {
-            @Override
-            public int compare(BikeSale o1, BikeSale o2) {
-                return o1.getDiscount() -  o2.getDiscount();
-            }
-        };
-        Comparator<BikeSale> comparator2 = Comparator.comparingInt
-                (BikeSale::getDiscount).reversed();
+        Comparator<BikeSale> comparator = (o1, o2) -> o1.getDiscount() -  o2.getDiscount();
+        Comparator<BikeSale> comparator2 = Comparator.comparingInt(BikeSale::getDiscount).reversed();
+
         System.out.println("max by discount =" + bikeSales.stream()
                 .collect(maxBy(comparator))
         );
