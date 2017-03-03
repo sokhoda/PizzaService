@@ -7,6 +7,11 @@ public class Bike extends Vehicle implements Cloneable {
         this.model = model;
     }
 
+    public Bike(int number, String model) {
+        super(number);
+        this.model = model;
+    }
+
     @Override
     public Bike clone(){
         Bike result = null;
@@ -16,6 +21,14 @@ public class Bike extends Vehicle implements Cloneable {
         catch (CloneNotSupportedException e) {
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Bike{" +
+                "model='" + model + '\'' +
+                "number='" + number + '\'' +
+                '}';
     }
 
     @Override

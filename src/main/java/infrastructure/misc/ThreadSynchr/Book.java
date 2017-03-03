@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.Random;
 
 @Getter
-public class Bike {
+public class Book {
     private static int maxRead;
     private static Random random = new Random();
     private int pages;
@@ -26,7 +26,7 @@ public class Bike {
         thread[1] = new HumanReader("thread__2", this);
     }
 
-    public Bike() {
+    public Book() {
         thread[0].start();
         thread[1].start();
     }

@@ -1,8 +1,15 @@
 package infrastructure.misc;
 
 public class Vehicle {
-    private int number;
+    protected int number;
 
+
+    public Vehicle() {
+    }
+
+    public Vehicle(int number) {
+        this.number = number;
+    }
 
     @Override
     public boolean equals (Object obj){

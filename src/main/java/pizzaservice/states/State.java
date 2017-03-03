@@ -2,9 +2,6 @@ package pizzaservice.states;
 
 import java.io.Serializable;
 
-/**
- * Created by s_okhoda on 10.10.2016.
- */
 public abstract class State implements Serializable{
 
     protected StateEn name;

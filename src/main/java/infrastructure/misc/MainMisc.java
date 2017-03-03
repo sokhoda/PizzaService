@@ -1,9 +1,27 @@
 package infrastructure.misc;
 
 
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.http.HttpEntity;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.WebApplicationContext;
+
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
+import javax.servlet.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TagSupport;
+
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.Math.max;
 
@@ -16,11 +34,13 @@ public class MainMisc implements Cloneable {
     public MainMisc clone() throws CloneNotSupportedException {
         return (MainMisc) super.clone();
     }
-/*
+
     public static void main(String[] args) {
-        Vehicle vehicle = new Vehicle();
+        Vehicle vehicle = new Vehicle(1);
 
         Bike bike = new Bike("true");
+
+        System.out.println(new Bike(1, "de"));
 
         System.out.println("bike.equals(vehicle) = " + bike.equals(vehicle));
 
@@ -31,13 +51,13 @@ public class MainMisc implements Cloneable {
         Pigeon pigeon = new Pigeon("pigeon");
 
         AbstractQueue dd;
-
         System.out.println(bird.color);
         System.out.println(pigeon.color);
 
         System.out.println(bird.getColor());
         System.out.println(pigeon.getColor());
-
+        new ArrayList().trimToSize();
+        new HashMap().values();
         new Bird().fly();
         pigeon.fly();
         long hh = 1;
@@ -152,7 +172,7 @@ public class MainMisc implements Cloneable {
         vari = new Integer(2);
 
     }
-*/
+
     @PostConstruct
     void frr() {
 

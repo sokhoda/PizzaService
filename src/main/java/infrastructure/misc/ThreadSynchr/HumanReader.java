@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HumanReader extends Thread {
-    private Bike book;
+    private Book book;
     private String threadName;
 
-    public HumanReader(String name, Bike book) {
+    public HumanReader(String name, Book book) {
         this.book = book;
         this.threadName = name;
     }
