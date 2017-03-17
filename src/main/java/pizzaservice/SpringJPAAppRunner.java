@@ -1,8 +1,18 @@
 package pizzaservice;
 
 import domain.*;
+import org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreFilter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionException;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import pizzaservice.cheque.ChequeProducer;
 import pizzaservice.states.InProgressState;
 import pizzaservice.states.NewState;
@@ -13,10 +23,13 @@ import repository.CustomerRepository;
 import repository.OrderRepository;
 import repository.PizzaRepository;
 
+import javax.annotation.security.RolesAllowed;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import static org.springframework.security.access.vote.AuthenticatedVoter.IS_AUTHENTICATED_ANONYMOUSLY;
 
 
 public class SpringJPAAppRunner {
@@ -59,6 +72,9 @@ public class SpringJPAAppRunner {
         Customer customer2 = customerService.find(2L);
 //        System.out.println(customer);
 //
+//        PreFilter
+//        RolesAllowed
+
         CustomerRepository customerRepository = (CustomerRepository)
                 appContext.getBean("customerRepository");
         PizzaRepository pizzaRepository = (PizzaRepository) appContext.getBean
