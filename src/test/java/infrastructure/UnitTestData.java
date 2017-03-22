@@ -6,15 +6,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import pizzaservice.states.NewState;
 import pizzaservice.states.OrderStateCycle;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UnitTestData {
-    protected final Pizza testPizza1 = new Pizza(1L, "Tomato", 90., PizzaType
-            .VEGETERIAN);
-    protected final Pizza testPizza2 = new Pizza(2L, "Chicken", 120., PizzaType
-            .MEAT);
+public class UnitTestData extends TestData{
+
     protected final Map<Pizza, Integer> pizzaMap = new HashMap<>();
     protected Customer testCustomer;
     protected Orders expectedOrder;

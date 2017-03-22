@@ -151,7 +151,7 @@ public class MainMisc implements Cloneable {
         HttpServletRequest re;
         HttpServletResponse response;
         ServletContext context;
-        ContextLoaderListener ñed;
+        ContextLoaderListener cv;
         Servlet c;
         BeanPostProcessor ffr;
         ServletContextListener scl;
@@ -160,8 +160,8 @@ public class MainMisc implements Cloneable {
         new Boolean(new Boolean(true));
         Long de1 = 2L;
         System.out.println(de1.toString());
-        int[][] cñc = new int[2][5];
-        System.out.println(cñc.length);
+        int[][] fefe= new int[2][5];
+        System.out.println(fefe.length);
         PageContext vbf;
         TagSupport ff2;
         BodyTagSupport frfrf;
