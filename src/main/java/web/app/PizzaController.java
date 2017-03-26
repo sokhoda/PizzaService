@@ -3,6 +3,7 @@ package web.app;
 import domain.Pizza;
 import domain.PizzaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pizzaservice.PizzaService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 
@@ -79,7 +82,13 @@ public class PizzaController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @Secured("IS_AUTHENTICATED_FULLY")
-    public String getAllPizzas(){
+    public String getAllPizzas(HttpSession session,
+                               @SessionAttribute("de") Pizza attr,
+                               HttpServletRequest req,
+                               HttpEntity<byte[]> httpEntity){
+        session.setAttribute("ed", new Pizza());
+        req.getHeader("er");
+        byte[] body = httpEntity.getBody();
         return "pizzalist";
     }
 

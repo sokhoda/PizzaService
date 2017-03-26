@@ -1,9 +1,9 @@
 package infrastructure.misc.streams;
 
 import java.util.*;
+//import java.util.function.BinaryOperator;
+
 import static java.util.stream.Collectors.*;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class CollectorsRunner {
     public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class CollectorsRunner {
         Set<BikeSale> bikeSaleSet = new HashSet<>();
         bikeSaleSet.addAll(bikeSales);
 
-        Comparator<BikeSale> comparator = (o1, o2) -> o1.getDiscount() -  o2.getDiscount();
+        Comparator<BikeSale> comparator = (o1, o2) -> o1.getDiscount() - o2.getDiscount();
         Comparator<BikeSale> comparator2 = Comparator.comparingInt(BikeSale::getDiscount).reversed();
 
         System.out.println("max by discount =" + bikeSales.stream()
@@ -37,7 +37,7 @@ public class CollectorsRunner {
         );
 
         System.out.println(bikeSales.stream()
-                .map(bs ->String.valueOf(bs.getDiscount()))
+                .map(bs -> String.valueOf(bs.getDiscount()))
                 .collect(
                         joining()
                 )
@@ -60,6 +60,27 @@ public class CollectorsRunner {
                 .collect(
                         reducing((s1, s2) -> (s1.getDiscount() > s2.getDiscount() ? s1 : s2))
                 )
+        );
+
+        new Random().ints(50, 100).limit(10).forEach(System.out::println);
+        List<Integer> arr = new ArrayList<>(Arrays.asList(10, 20, 15));
+        System.out.println(arr.stream().
+                collect(minBy(Comparator.comparingInt(i -> i))).orElse(0));
+
+        System.out.println(
+                Arrays.stream(new Integer[]{}).
+                        collect(
+                                minBy(
+                                        Comparator.comparingInt(i -> i)
+                                )
+                        ).orElseGet(()->11)
+        );
+
+        System.out.println(
+                Arrays.stream(new Integer[]{10, 14, 245}).
+                        collect(
+                                toMap( String::valueOf, i -> i)
+                        )
         );
 
     }

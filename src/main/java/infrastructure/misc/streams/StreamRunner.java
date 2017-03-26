@@ -31,6 +31,8 @@ public class StreamRunner {
                 .collect(Collectors.toList());
         System.out.println(sales2);
 
+
+
         System.out.print("set");
         bikeSaleSet.stream()
                 .filter(s -> s.getDiscount() >= 20)
@@ -86,7 +88,7 @@ public class StreamRunner {
         System.out.println("sum internalNo > 12 = " + bikeSaleSet.stream()
                 .filter(s -> s.getInternalNo() > 10)
                 .mapToInt(BikeSale::getInternalNo)
-                .average()
+                   .average()
         );
         if (false) {
             IntStream.range(1, 100)
@@ -110,7 +112,7 @@ public class StreamRunner {
                     .limit(40)
                     .forEach(a -> System.out.println(Arrays.toString(a) + ", "));
 
-
+        }
             Node node = new Node();
             Stream.generate(node.value)
                     .limit(20)
@@ -121,6 +123,6 @@ public class StreamRunner {
                     .limit(20)
                     .collect(Collectors.joining())
             );
-        }
+
     }
 }
