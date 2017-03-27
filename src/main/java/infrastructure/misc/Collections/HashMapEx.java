@@ -5,6 +5,9 @@ import infrastructure.misc.Bird;
 import java.util.*;
 
 public class HashMapEx {
+    private HashMapEx() {
+    }
+
     public static void main(String[] args) {
         Map<String, Integer> mp = new HashMap<>();
         mp.put("vf", 1);
@@ -28,5 +31,8 @@ public class HashMapEx {
 
         System.out.println(new Bird("ff").compareTo(new Bird("gtg")));
         System.out.println("F".compareTo("1"));
+
+        char fr= (char)1;
+
     }
 }
