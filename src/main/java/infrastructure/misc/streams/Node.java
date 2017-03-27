@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 public class Node {
     private int previous = 0;
     private int current = 1;
+
     public Supplier<Node> value = () ->
     {
      int res = previous + current;

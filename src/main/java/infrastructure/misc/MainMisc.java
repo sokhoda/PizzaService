@@ -165,6 +165,14 @@ public class MainMisc implements Cloneable {
         PageContext vbf;
         TagSupport ff2;
         BodyTagSupport frfrf;
+
+        for (int i = 0; i < 1; i++) {
+            System.out.println("!!!!!!!!!");
+
+        }
+        for (;;){
+            System.out.println("fff");
+        }
     }
 
     @PreDestroy

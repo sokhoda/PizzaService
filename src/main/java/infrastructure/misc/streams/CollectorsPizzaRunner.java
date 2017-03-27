@@ -79,6 +79,9 @@ public class CollectorsPizzaRunner {
                 .collect(
                         groupingBy(pizzaExpensivenessFunction)
                 );
+        System.out.println("pizzaMap2");
+        System.out.println(pizzaMap2);
+
         System.out.println("-------------------------------expensive" +
                 "/inexpensive-------------");
         Map<PizzaType, Map<String, List<Pizza>>> pizzaMap3 = Arrays.stream(pizzas)
@@ -124,7 +127,7 @@ public class CollectorsPizzaRunner {
 
         System.out.println
                 ("-------------grouping/the cheapest,collectingAndThen-------------------------");
-        Map<PizzaType, Pizza> pizzaMap6 = Arrays.stream(pizzas)
+        Map<PizzaType, Pizza> pizzaMap6 = Arrays.stream(pizzas).parallel()
                 .collect(
                         groupingBy(
                                 Pizza::getType,
@@ -151,13 +154,9 @@ public class CollectorsPizzaRunner {
         }
 
         Predicate<Pizza> isExpensive = pizza -> {
-            if (pizza.getPrice() < 90.) {
-                return false;
-            }
-            else {
-                return true;
-            }
+            return pizza.getPrice() >= 90.;
         };
+
         Predicate<Pizza> isVegeterian = pizza -> {
             if (pizza.getType().equals(PizzaType.VEGETERIAN)) {
                 return true;
