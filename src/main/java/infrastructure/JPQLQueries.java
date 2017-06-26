@@ -16,13 +16,11 @@ public class JPQLQueries {
         }
         return query.getSingleResult();
     }
-    public static <T> List<T> selectResultList(Class<T> clazz, EntityManager em,
-                                               String select, String where,
-                                               Object[] params ){
-
+    public static <T> List<T> selectResultList
+            (Class<T> clazz, EntityManager em, String select, String where, List params ){
         TypedQuery<T> query =  em.createQuery(select + where, clazz);
-        for (int i = 0; i < params.length; i++) {
-            query.setParameter(i, params[i]);
+        for (int i = 0; i < params.size(); i++) {
+            query.setParameter(i, params.get(i));
         }
         return query.getResultList();
     }

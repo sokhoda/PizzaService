@@ -9,10 +9,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.Collections;
 import java.util.List;
 
 @Repository("customerRepository")
 public class JPACustomerRepo implements CustomerRepository {
+
+    private static final String SELECT_C_FROM_CUSTOMER = "SELECT c from Customer c ";
 
     @PersistenceContext
     private EntityManager em;
@@ -35,9 +38,9 @@ public class JPACustomerRepo implements CustomerRepository {
 
     @Override
     public List<Customer> findByLoyaltyCard(LoyaltyCard loyaltyCard) {
-        return JPQLQueries.selectResultList(Customer.class, em, "SELECT c from " +
-                "Customer c ", "WHERE c.loyaltyCard.id = :id", new
-                Object[]{loyaltyCard.getId()});
+        return JPQLQueries.selectResultList(Customer.class, em,
+                SELECT_C_FROM_CUSTOMER, "WHERE c.loyaltyCard.id = :id",
+                 Collections.singletonList(loyaltyCard.getId()));
     }
 
     @Override

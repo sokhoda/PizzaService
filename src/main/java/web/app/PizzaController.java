@@ -83,7 +83,6 @@ public class PizzaController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @Secured("IS_AUTHENTICATED_FULLY")
     public String getAllPizzas(HttpSession session,
-                               @SessionAttribute("de") Pizza attr,
                                HttpServletRequest req,
                                HttpEntity<byte[]> httpEntity){
         session.setAttribute("ed", new Pizza());
