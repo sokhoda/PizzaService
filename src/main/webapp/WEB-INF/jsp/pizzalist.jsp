@@ -76,11 +76,11 @@
             </div>
        </sec:authorize>
 
-         <c:url var="logoutUrl" value="/app/logout"/>
-         <form action="${logoutUrl}" method="post">
-           <button type="submit" class="btn btn-warning btn-xs">Log out</button>
-           <sec:csrfInput/>
-         </form>
+         <%--<c:url var="logoutUrl" value="/app/logout"/>--%>
+         <%--<form action="${logoutUrl}" method="post">--%>
+           <%--<button type="submit" class="btn btn-warning btn-xs">Log out</button>--%>
+           <%--<sec:csrfInput/>--%>
+         <%--</form>--%>
 
         <footer style="margin-top:10px; text-align: center">&copy;Alex, Kyiv, 2016</footer>
   

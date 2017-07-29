@@ -41,7 +41,8 @@
         <lookup-method name="createNewCustomer" bean="customer"/>
     </bean>
 
-    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
-        
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver ">
+        <property name="maxUploadSize" value="5000000"/>
+        <property name="maxInMemorySize" value="3000000"/>
     </bean>
 </beans>

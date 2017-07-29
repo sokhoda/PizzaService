@@ -30,7 +30,7 @@
     <form:form  action="${pageContext.request.contextPath}/app/login" method="POST">
         <div class="container-fluid bg-grey">
             <label for="username" class="lb-lg">LOGIN: </label>
-            <input class="form-control input-lg" type="text" id="username" name="username"><br>
+            <input class="form-control input-lg"  id="username" name="username"><br>
 
             <label for="password" class="lb-lg">PASSWORD: </label>
             <input  class="form-control input-lg" type="password" value=""

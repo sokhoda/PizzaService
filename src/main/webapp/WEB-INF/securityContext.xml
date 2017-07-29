@@ -12,17 +12,18 @@
         <form-login
                 login-page="/app/loginp"
                 always-use-default-target="true"
-                default-target-url="/app/list"
+                default-target-url="/app/dashboard"
                 login-processing-url="/app/login"/>
         <logout logout-url="/app/logout"/>
+        <csrf disabled="true"/>
     </http>
 
-    <http pattern="/rest/**" create-session="stateless">
-        <http-basic entry-point-ref="authEntryPoint"/>
-        <!--<http-basic />-->
-        <intercept-url pattern="/**" access="hasRole('USER')"/>
-        <csrf disabled="false"/>
-    </http>
+    <http pattern="/rest/**" security="none"/>
+    <!--<http pattern="/rest/**" create-session="stateless">-->
+        <!--<http-basic entry-point-ref="authEntryPoint"/>-->
+        <!--<intercept-url pattern="/**" access="hasRole('USER')"/>-->
+        <!--<csrf disabled="false"/>-->
+    <!--</http>-->
 
     <!--<http/>-->
     <!--<user-service>-->

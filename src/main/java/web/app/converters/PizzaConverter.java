@@ -3,7 +3,10 @@ package web.app.converters;
 import domain.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.util.StringUtils;
 import pizzaservice.PizzaService;
+
+import java.util.Objects;
 
 public class PizzaConverter implements Converter<String, Pizza>{
     @Autowired
@@ -12,14 +15,11 @@ public class PizzaConverter implements Converter<String, Pizza>{
     @Override
     public Pizza convert(String pizzaIdStr) {
         System.out.println("Convert " + pizzaIdStr);
-        if(pizzaIdStr == null || pizzaIdStr.isEmpty()){
-            return new Pizza();
+        Pizza result = new Pizza();
+        if (!StringUtils.isEmpty(pizzaIdStr)) {
+            Long pizzaId = Long.valueOf(pizzaIdStr);
+            result = Objects.nonNull(pizzaId) ? pizzaService.find(pizzaId) : null;
         }
-        Long pizzaId= Long.valueOf(pizzaIdStr);
-        if (pizzaId != null){
-            return pizzaService.find(pizzaId);
-        } else{
-            return null;
-        }
+        return result;
     }
 }
