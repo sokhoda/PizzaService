@@ -1,4 +1,4 @@
-package web.app;
+package web.app.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;

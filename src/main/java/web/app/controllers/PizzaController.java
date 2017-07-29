@@ -1,4 +1,4 @@
-package web.app;
+package web.app.controllers;
 
 import domain.Pizza;
 import domain.PizzaType;
@@ -40,7 +40,12 @@ public class PizzaController {
         return "hello";
     }
 
-    @RequestMapping("/exception")
+    @RequestMapping(value = "/upload",  method = RequestMethod.POST)
+    public String listUpload(){
+        return "multipart";
+    }
+
+    @RequestMapping(value = "/exception")
     public void exception(){
         throw new  NumberFormatException("artificial exception");
     }

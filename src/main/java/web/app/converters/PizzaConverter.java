@@ -1,4 +1,4 @@
-package web.app;
+package web.app.converters;
 
 import domain.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;

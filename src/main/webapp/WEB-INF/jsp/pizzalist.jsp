@@ -22,7 +22,7 @@
 <body>
 
 
-<input class="hidden" id ="command" name="command" type="text" value="">
+<input class="hidden" id ="command" name="command" value="">
 
 
 <div class="container-fluid bg-grey">
@@ -50,15 +50,13 @@
                         <td align="left">${pizza.type}</td>
                         <td>
                             <form action="edit" method="get">
-                                <input class="hidden" name="pizzaId"
-                                 type="text" value="${pizza.pizzaId}" >
+                                <input class="hidden" name="pizzaId" value="${pizza.pizzaId}">
                                 <button type="submit" class="btn btn-primary btn-xs">Edit</button>
                             </form>
                         </td>
                         <td>
                             <form action="delete" method="get">
-                                <input class="hidden" name="pizzaId"
-                                 type="text" value="${pizza.pizzaId}" >
+                                <input class="hidden" name="pizzaId" value="${pizza.pizzaId}">
                                 <button type="submit" class="btn btn-warning btn-xs">Delete</button>
                             </form>
                         </td>
@@ -71,7 +69,7 @@
                 <a href="create">
                    <div class="btn-group">
                       <button type="button" id="crtupd" class="btn1  btn-default btn-lg btn-success">
-                                Create
+                        Create
                       </button>
                    </div>
                 </a>

@@ -21,7 +21,7 @@
         <!--<property name="order" value="0"/>-->
     <!--</bean>-->
 
-    <!--<bean id="MyHandlerMapper" class="web.app.PizzaController">-->
+    <!--<bean id="MyHandlerMapper" claweb.app.controllers.PizzaControllerller">-->
         <!--<property name="order" value="1"/>-->
     <!--</bean>-->
 
@@ -44,7 +44,7 @@
           class="org.springframework.context.support.ConversionServiceFactoryBean">
         <property name="converters">
             <set>
-                <bean class="web.app.PizzaConverter"/>
+                <bean class="web.app.converters.PizzaConverter"/>
             </set>
         </property>
     </bean>

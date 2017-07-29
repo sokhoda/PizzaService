@@ -7,6 +7,7 @@
 <!DOCTYPE html>	
 <html>
 <head>
+    <h1>MULTIPART UPLOAD PIZZA LIST</h1>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -22,8 +23,8 @@
 <body>
 
 <form action="addnew" method="post" id="myForm">
-<input class="hidden" id ="command" name="command" value="">
-<input class="hidden" id ="Id" name="docId" value="" >
+<input class="hidden" id ="command" name="command" type="text" value="">
+<input class="hidden" id ="Id" name="docId" type="text" value="" >
 
 <div class="container-fluid bg-grey">
  	   <h2>
@@ -56,7 +57,7 @@
            <div class="btn-group">
               <button type="button" id="crtupd" class="btn1  btn-default btn-lg btn-success"
                     onclick="$('#myForm').submit()">
-                        Save
+                        Create
               </button>
            </div>
         </div>

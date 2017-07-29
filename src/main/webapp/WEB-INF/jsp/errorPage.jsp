@@ -12,9 +12,8 @@
        ERROR PAGE
     </h1>
     ${url}
-    <!--
+<br/>
     	${ex}
-    -->
 
 </body>
 </html>
