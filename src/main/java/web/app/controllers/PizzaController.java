@@ -1,7 +1,9 @@
 package web.app.controllers;
 
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import domain.Pizza;
 import domain.PizzaType;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import pizzaservice.PizzaService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
@@ -54,6 +58,8 @@ public class PizzaController {
         byte[] currentFile = null;
         try {
             currentFile = file.getBytes();
+            POIFSFileSystem fs = new POIFSFileSystem(new ByteArrayInputStream(currentFile));
+
         }
         catch (IOException ex) {
             throw new RuntimeException(String.format(FAIL_TO_UPLOAD_FILE, file.getOriginalFilename()), ex);

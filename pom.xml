@@ -254,6 +254,11 @@
             <artifactId>commons-fileupload</artifactId>
             <version>${fileUploadVersion}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.15</version>
+        </dependency>
 
     </dependencies>
 
