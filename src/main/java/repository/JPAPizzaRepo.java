@@ -3,8 +3,8 @@ package repository;
 import domain.Pizza;
 import domain.PizzaType;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,6 +40,13 @@ public class JPAPizzaRepo implements PizzaRepository {
     @Override
     public List<Pizza> findAll() {
         return em.createQuery("SELECT p FROM Pizza p ", Pizza.class).getResultList();
+    }
+
+    @Transactional
+    @Override
+    public void remove(Pizza pizza) {
+        Pizza mergedPizza =  em.merge(pizza);
+        em.remove(mergedPizza);
     }
 
     @Override

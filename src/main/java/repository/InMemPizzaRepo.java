@@ -55,5 +55,10 @@ public class InMemPizzaRepo implements PizzaRepository {
         return null;
     }
 
+    @Override
+    public void remove(Pizza pizza) {
+
+    }
+
 
 }

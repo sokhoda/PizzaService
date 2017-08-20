@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
- <%@ page errorPage="../generalErrorPage.jsp" %>
+<%@ page errorPage="../generalErrorPage.jsp" %>
 
 <!DOCTYPE html>	
 <html>
@@ -36,7 +36,7 @@
                     <th><h3>ID</h3></th>
                     <th><h3>Name</h3></th>
                     <th><h3>Price</h3></th>
-                    <th><h3>Type</th>
+                    <th><h3>Type</h3></th>
                     <th><h3></h3></th>
                     <th><h3></h3></th>
                 </tr>
@@ -55,7 +55,7 @@
                             </form>
                         </td>
                         <td>
-                            <form action="delete" method="get">
+                            <form action="remove" method="post">
                                 <input class="hidden" name="pizzaId" value="${pizza.pizzaId}">
                                 <button type="submit" class="btn btn-warning btn-xs">Delete</button>
                             </form>

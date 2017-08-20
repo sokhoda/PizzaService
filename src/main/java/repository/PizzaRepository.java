@@ -15,4 +15,6 @@ public interface PizzaRepository {
     List<Pizza> findAll();
 
     List<Pizza> findByType(PizzaType type);
+
+    void remove(Pizza pizza);
 }

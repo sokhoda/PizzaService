@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
- <%@ page errorPage="../generalErrorPage.jsp" %>
+<%@ page errorPage="../generalErrorPage.jsp" %>
 
 <!DOCTYPE html>	
 <html>
@@ -21,7 +21,7 @@
 
 <body>
 
-<form action="upload" method="post" enctype="multipart/form-data" id="uploadForm" method="post">
+<form action="upload" method="post" enctype="multipart/form-data" id="uploadForm">
 <div class="container-fluid bg-grey">
  	   <h2>
  	   		Upload pizza price list
@@ -30,7 +30,8 @@
         <div class="form-group">
             <label class="lb-lg">ffile
                 <input class="form-control input-lg" type="file" name="ffile">
-            </label> <label class="lb-lg label-success">${resultMessage}</label>
+            </label>
+            <label class="lb-lg label-success">${resultMessage}</label>
         </div>
 
         <div class="form-group">
