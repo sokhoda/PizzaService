@@ -12,7 +12,7 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
    
   <style>
-     <%@include file='../proj.css' %>
+     <%@include file='../../proj.css' %>
   </style>
   <%--
     <script src="js/FillClick.js"></script>

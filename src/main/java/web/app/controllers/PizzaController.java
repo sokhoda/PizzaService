@@ -1,6 +1,7 @@
 package web.app.controllers;
 
 import domain.Pizza;
+import exceptions.CustomerAddressException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -26,6 +27,11 @@ public class PizzaController {
 
     @Autowired
     public PizzaService pizzaService;
+
+    @RequestMapping("/")
+    public String index(){
+        return "redirect:dashboard";
+    }
 
     @RequestMapping("/hello")
     public String hello(Principal principall) {
@@ -53,15 +59,20 @@ public class PizzaController {
     }
 
     @RequestMapping(value = "/exception")
-    public void exception() {
+    public void numberFormatException() {
         throw new NumberFormatException("artificial exception");
     }
 
+    @RequestMapping(value = "/customeraddressexception")
+    public void customerAddressException() {
+        throw new CustomerAddressException("Address not valid, 2r2:f3oifm3");
+    }
+
     @RequestMapping("/create")
-    @Secured("ROLE_ADMIN")
+//    @Secured("ROLE_ADMIN")
 //    @Secured("hasRole('ADMIN')")
     public String create() {
-        return "pizzaedit";
+        return "pizza/pizzaedit";
     }
 
 //    @RequestMapping("/edit")
@@ -77,7 +88,7 @@ public class PizzaController {
 
     @RequestMapping("/edit")
     public String edit(@RequestParam Long pizzaId) {
-        return "pizzaedit";
+        return "pizza/pizzaedit";
     }
 
     @RequestMapping(value = "/addnew", method = RequestMethod.POST)
@@ -104,14 +115,14 @@ public class PizzaController {
 //    }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @Secured("IS_AUTHENTICATED_FULLY")
+//    @Secured("IS_AUTHENTICATED_FULLY")
     public String getAllPizzas(HttpSession session,
                                HttpServletRequest req,
                                HttpEntity<byte[]> httpEntity) {
         session.setAttribute("ed", new Pizza());
         req.getHeader("er");
         byte[] body = httpEntity.getBody();
-        return "pizzalist";
+        return "pizza/pizzalist";
     }
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)

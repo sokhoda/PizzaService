@@ -1,5 +1,6 @@
 package web.app.controllers;
 
+import exceptions.PizzaTypeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,10 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ExceptionControllerAdvice {
 
-    @ExceptionHandler(NumberFormatException.class)
+    @ExceptionHandler({NumberFormatException.class, PizzaTypeException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String error(Exception e, HttpServletRequest req,
-                                    Model model) {
+    public String error(Exception e, HttpServletRequest req, Model model) {
 
         model.addAttribute("ex", e);
         model.addAttribute("url", req.getRequestURL());

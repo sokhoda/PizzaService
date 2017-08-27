@@ -39,6 +39,8 @@ public class Customer implements Serializable {
     @JoinColumn(name = "LoyalCard_ID")
     private LoyaltyCard loyaltyCard;
 
+    private String email;
+
     public Customer() {
     }
 

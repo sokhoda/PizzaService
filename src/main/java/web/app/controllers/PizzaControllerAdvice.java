@@ -2,6 +2,7 @@ package web.app.controllers;
 
 import domain.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,14 +27,14 @@ public class PizzaControllerAdvice {
 //    }
 
     @ModelAttribute(name = "pizza")
-    public Pizza pizzaMeth(@RequestParam(name = "pizzaId", required = false)
-                                   Pizza pizza){
-        System.out.println("ControllerAdvice" + pizza);
+    public Pizza pizzaMeth(@RequestParam(name = "pizzaId", required = false) Pizza pizza){
+        System.out.println("ControllerAdvice: " + pizza);
 
         return pizza;
     }
+
     @InitBinder
     public void pizzaBinder(WebDataBinder binder){
-
+        binder.addCustomFormatter(new DateFormatter("dd-MM-yyyy"));
     }
 }

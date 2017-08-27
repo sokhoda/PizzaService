@@ -25,8 +25,8 @@
         <!--<property name="order" value="1"/>-->
     <!--</bean>-->
 
-    <security:global-method-security pre-post-annotations="enabled">
-    </security:global-method-security>
+    <!--<security:global-method-security pre-post-annotations="enabled">-->
+    <!--</security:global-method-security>-->
 
     <mvc:annotation-driven conversion-service="conversionService"/>
     <!--<mvc:annotation-driven conversion-service="conversionService"/>-->
@@ -49,11 +49,12 @@
         </property>
     </bean>
 
-    <bean id="simpleMappingExceptionResolver"
-          class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+    <bean id="myMappingExceptionResolver"
+          class="web.infrastructure.MyMappingExceptionResolver">
         <property name="exceptionMappings">
             <map>
-                <entry key="NumberFormatException" value="errorPage"/>
+                <entry key="PizzaPriceException" value="errorPage"/>
+                <entry key="CustomerAddressException" value="addressErrorPage"/>
             </map>
         </property>
         <property name="defaultErrorView" value="errorPage"/>
