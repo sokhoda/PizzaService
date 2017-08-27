@@ -12,15 +12,15 @@ import java.io.InputStream;
 import java.util.*;
 
 @Component
-public class ExcelPriceListParser implements PriceListParser<PizzaDto> {
+public class ExcelPizzaListParser implements CustomParser<PizzaDto> {
 
     public static final int MAX_ROWS_TO_SKIP_AT_THE_BEGINNING = 10;
 
-    private final static List<String> PRICELIST_COLUMN_NAMES = Arrays.asList("name", "type", "price");
+    private final static List<String> PIZZALIST_COLUMN_NAMES = Arrays.asList("name", "type", "price");
 
     public static void main(String[] args) throws FileNotFoundException {
         File testFile = new File("E:\\IdeaProjects\\PizzaService2\\src\\main\\resources\\pizzaPrice.xlsx");
-        List<PizzaDto> importPriceList =  new ExcelPriceListParser().parse(new FileInputStream(testFile));
+        List<PizzaDto> importPriceList =  new ExcelPizzaListParser().parse(new FileInputStream(testFile));
         System.out.println(importPriceList);
     }
 
@@ -48,9 +48,9 @@ public class ExcelPriceListParser implements PriceListParser<PizzaDto> {
                 Cell cell = row.getCell(colIx); //get the cell
                 map.put(cell.getStringCellValue(), cell.getColumnIndex()); //add the cell contents (name of column) and cell index to the map
             }
-            int idxForColumn1 = map.get(PRICELIST_COLUMN_NAMES.get(0)); //get the column index for the column with header name = "Column1"
-            int idxForColumn2 = map.get(PRICELIST_COLUMN_NAMES.get(1)); //get the column index for the column with header name = "Column2"
-            int idxForColumn3 = map.get(PRICELIST_COLUMN_NAMES.get(2)); //get the column index for the column with header name = "Column3"
+            int idxForColumn1 = map.get(PIZZALIST_COLUMN_NAMES.get(0)); //get the column index for the column with header name = "Column1"
+            int idxForColumn2 = map.get(PIZZALIST_COLUMN_NAMES.get(1)); //get the column index for the column with header name = "Column2"
+            int idxForColumn3 = map.get(PIZZALIST_COLUMN_NAMES.get(2)); //get the column index for the column with header name = "Column3"
 
             for (int x = i + 1; x < i + totalRows; x++) {
                 PizzaDto.PizzaDtoBuilder pizzaBuilder = PizzaDto.builder();

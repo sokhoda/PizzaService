@@ -6,6 +6,8 @@ import domain.LoyaltyCard;
 import java.util.List;
 
 public interface CustomerRepository {
+    List<Customer> findAll();
+
     Customer find(Long id);
 
     List<Customer> findByName(String name);
@@ -15,4 +17,6 @@ public interface CustomerRepository {
     Customer save(Customer customer);
 
     int delete(Customer customer);
+
+    void remove(Customer customer);
 }

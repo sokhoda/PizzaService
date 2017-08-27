@@ -14,4 +14,6 @@ public interface AddressRepository {
 
     Address save(Address address);
 
+    void remove(Address address);
+
 }

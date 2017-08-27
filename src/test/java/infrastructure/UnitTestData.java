@@ -31,7 +31,7 @@ public class UnitTestData extends TestData{
     private void initTestCustomer() {
         testCustomerName = "Alex";
         testCustomer = new Customer(testCustomerName,  testLoyaltyCard);
-        testCustomer.setId(1L);
+        testCustomer.setCustomerId(1L);
         testAddress = new Address("03004", "Kyiv", "CustomStreetName", "Str",
                 "18", "2", testCustomer);
         testAddress.setId(1L);

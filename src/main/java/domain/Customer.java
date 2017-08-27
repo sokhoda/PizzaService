@@ -28,8 +28,9 @@ public class Customer implements Serializable {
             initialValue = 0,
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "customerGen")
-    private Long id;
+    private Long customerId;
     private String name;
+    private String email;
 
     @OneToMany(mappedBy = "customer", cascade = {CascadeType.MERGE},
             fetch = FetchType.EAGER, orphanRemoval = true)
@@ -39,7 +40,15 @@ public class Customer implements Serializable {
     @JoinColumn(name = "LoyalCard_ID")
     private LoyaltyCard loyaltyCard;
 
-    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 
     public Customer() {
     }
@@ -56,7 +65,7 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return "Customer{" +
-                "id=" + id +
+                "id=" + customerId +
                 ", name='" + name + '\'' +
                 ", address=" + address +
                 ", loyaltyCard=" + loyaltyCard +
@@ -87,12 +96,12 @@ public class Customer implements Serializable {
         this.address = address;
     }
 
-    public Long getId() {
-        return id;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCustomerId(Long id) {
+        this.customerId = id;
     }
 
     public String getName() {

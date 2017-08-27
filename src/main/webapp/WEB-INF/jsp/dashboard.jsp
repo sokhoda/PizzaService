@@ -26,12 +26,23 @@
 
 
 <div class="container-fluid bg-grey">
- 	   <h2>
- 	   		Dashboard
- 	   </h2>
-    <a href="list">Browse Pizza price list</a>
-    <br>
-    <a href="multipart">Upload new Pizza price list</a>
+    <h2>
+        Dashboard
+    </h2>
+    <h2>
+
+        <a href="pizza/list">1. Browse Pizza list</a>
+        <br>
+        <br>
+        <a href="pizza/pizzalist/upload">2. Import Pizza list</a>
+        <br>
+        <br>
+        <br>
+        <a href="customer/list">3. Browse Customer list</a>
+        <br>
+        <br>
+        <a href="customer/customerlist/upload">4. Import Customer list</a>
+    </h2>
 
          <c:url var="logoutUrl" value="/app/logout"/>
          <form action="${logoutUrl}" method="post">

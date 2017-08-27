@@ -2,8 +2,10 @@ package repository;
 
 import domain.Customer;
 import domain.LoyaltyCard;
+import domain.Pizza;
 import infrastructure.JPQLQueries;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,6 +24,11 @@ public class JPACustomerRepo implements CustomerRepository {
 
 //    @PersistenceUnit()
 //    private EntityManagerFactory emf;
+
+    @Override
+    public List<Customer> findAll() {
+        return em.createQuery("SELECT cus FROM Customer cus ", Customer.class).getResultList();
+    }
 
     @Override
     public Customer find(Long id) {
@@ -44,14 +51,22 @@ public class JPACustomerRepo implements CustomerRepository {
     }
 
     @Override
-    public Customer save(Customer Customer) {
-        return em.merge(Customer);
+    @Transactional
+    public Customer save(Customer customer) {
+        return em.merge(customer);
     }
 
     @Override
     public int delete(Customer customer) {
         Query query = em.createNamedQuery("Customer.delete");
         return query.setParameter("customer", customer).executeUpdate();
+    }
+
+    @Override
+    @Transactional
+    public void remove(Customer customer) {
+        Customer mergedCustomer =  em.merge(customer);
+        em.remove(mergedCustomer);
     }
 
 

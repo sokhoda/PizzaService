@@ -14,41 +14,43 @@
     <style>
         <%@include file='../../proj.css' %>
     </style>
-    <%--
-      <script src="js/FillClick.js"></script>
-      --%>
 </head>
 
 <body>
 
-<form action="../pizza/addnew" method="post" id="myForm">
+<form action="../customer/addnew" method="post" id="myForm">
     <input class="hidden" id="command" name="command" value="">
     <input class="hidden" id="Id" name="docId" value="">
 
     <div class="container-fluid bg-grey">
         <h2>
-            Pizza
+            Customer
         </h2>
 
         <div class="form-group">
             <label class="lb-lg">ID
-                <input class="form-control input-lg" value="${pizza.pizzaId}" name="pizzaId">
+                <input class="form-control input-lg" value="${customer.customerId}" name="customerId">
             </label>
         </div>
 
         <div class="form-group">
             <label class="lb-lg">Name
-                <input class="form-control input-lg" value="${pizza.name}" name="name">
+                <input class="form-control input-lg" value="${customer.name}" name="name">
             </label>
         </div>
         <div class="form-group">
-            <label class="lb-lg">Price
-                <input class="form-control input-lg" value="${pizza.price}" name="price">
+            <label class="lb-lg">Email
+                <input class="form-control input-lg" value="${customer.email}" name="email">
             </label>
         </div>
         <div class="form-group">
-            <label class="lb-lg">Type
-                <input class="form-control input-lg" value="${pizza.type}" name="type">
+            <label class="lb-lg">Id
+                <input class="form-control input-lg" readonly value="${loyaltycard.id}" name="lcardId">
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="lb-lg">Sum
+                <input class="form-control input-lg" readonly value="${loyaltycard.sum}" name="lcardSum">
             </label>
         </div>
 

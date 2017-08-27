@@ -45,6 +45,7 @@
         <property name="converters">
             <set>
                 <bean class="web.app.converters.PizzaConverter"/>
+                <bean class="web.app.converters.CustomerConverter"/>
             </set>
         </property>
     </bean>

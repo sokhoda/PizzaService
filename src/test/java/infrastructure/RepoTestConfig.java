@@ -43,7 +43,7 @@ public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTest
     private void initTestCustomer() {
         testCustomerName = "Alex";
         testCustomer = new Customer(testCustomerName, testLoyaltyCard);
-        testCustomer.setId(1L);
+        testCustomer.setCustomerId(1L);
         testAddress = new Address("03004", "Kyiv", "CustomStreetName", "Str",
                 "18", "2", testCustomer);
         testAddress.setId(1L);
@@ -123,7 +123,7 @@ public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTest
     public Long insertCustomer(Customer testCustomer) {
         Long id = null;
         if (testCustomer != null) {
-            id = testCustomer.getId();
+            id = testCustomer.getCustomerId();
             Object[] params = {id, testCustomer.getName(), insertLoyaltyCard(testCustomer.getLoyaltyCard())};
             int[] types = {Types.INTEGER, Types.VARCHAR, Types.INTEGER};
 
@@ -141,7 +141,7 @@ public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTest
             Object[] params = {id, testAddress.getZipCode(), testAddress.getCity(),
                     testAddress.getStrName(), testAddress.getType(),
                     testAddress.getBuildingNo(), testAddress.getAppNo(),
-                    testAddress.getCustomer().getId()};
+                    testAddress.getCustomer().getCustomerId()};
             int[] types = {Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types
                     .VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types
                     .INTEGER};

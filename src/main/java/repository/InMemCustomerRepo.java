@@ -23,11 +23,16 @@ public class InMemCustomerRepo implements CustomerRepository {
     }
 
 
+    @Override
+    public List<Customer> findAll() {
+        return null;
+    }
+
     @Benchmark(on = false)
     @Override
     public Customer find(Long id) {
         int i = 0;
-        while (i < customerList.size() && !customerList.get(i).getId().equals(id)) {
+        while (i < customerList.size() && !customerList.get(i).getCustomerId().equals(id)) {
             i++;
         }
         return i < customerList.size() ? customerList.get(i) : null;
@@ -52,6 +57,11 @@ public class InMemCustomerRepo implements CustomerRepository {
     @Override
     public int delete(Customer customer) {
         return 0;
+    }
+
+    @Override
+    public void remove(Customer customer) {
+
     }
 
 //    @Override

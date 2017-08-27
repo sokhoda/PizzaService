@@ -14,9 +14,6 @@
     <style>
         <%@include file='../../proj.css' %>
     </style>
-    <%--
-      <script src="js/FillClick.js"></script>
-      --%>
 </head>
 
 <body>
@@ -27,7 +24,7 @@
 
 <div class="container-fluid bg-grey">
     <h2>
-        List of Pizzas
+        List of Customers
     </h2>
     <h3>
         <a href="/PizzaService/app/dashboard">&LongLeftArrow; back to Dashboard</a>
@@ -37,28 +34,30 @@
         <tr>
             <th><h3>ID</h3></th>
             <th><h3>Name</h3></th>
-            <th><h3>Price</h3></th>
-            <th><h3>Type</h3></th>
+            <th><h3>Email</h3></th>
+            <th><h3>Id</h3></th>
+            <th><h3>Sum</h3></th>
             <th><h3></h3></th>
             <th><h3></h3></th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="pizza" items="${pizzalist}" varStatus="count">
+        <c:forEach var="customer" items="${customerlist}" varStatus="count">
             <tr>
-                <td>${pizza.pizzaId}</td>
-                <td align="left" id="row${pizza.pizzaId}">${pizza.name}</td>
-                <td align="left">${pizza.price}</td>
-                <td align="left">${pizza.type}</td>
+                <td>${customer.customerId}</td>
+                <td align="left" id="row${customer.customerId}">${customer.name}</td>
+                <td align="left">${customer.email}</td>
+                <td align="left">${customer.loyaltyCard.id}</td>
+                <td align="left">${customer.loyaltyCard.sum}</td>
                 <td>
-                    <form action="../pizza/edit" method="get">
-                        <input class="hidden" name="pizzaId" value="${pizza.pizzaId}">
+                    <form action="../customer/edit" method="get">
+                        <input class="hidden" name="customerId" value="${customer.customerId}">
                         <button type="submit" class="btn btn-primary btn-xs">Edit</button>
                     </form>
                 </td>
                 <td>
-                    <form action="../pizza/remove" method="post">
-                        <input class="hidden" name="pizzaId" value="${pizza.pizzaId}">
+                    <form action="../customer/remove" method="post">
+                        <input class="hidden" name="customerId" value="${customer.customerId}">
                         <button type="submit" class="btn btn-warning btn-xs">Delete</button>
                     </form>
                 </td>
@@ -67,15 +66,15 @@
         </tbody>
     </table>
     <%--<sec:authorize access="hasRole('ADMIN')">--%>
-    <div class="text-center">
-        <a href="../pizza/create">
-            <div class="btn-group">
-                <button type="button" id="crtupd" class="btn1  btn-default btn-lg btn-success">
-                    Create
-                </button>
-            </div>
-        </a>
-    </div>
+        <div class="text-center">
+            <a href="../customer/create">
+                <div class="btn-group">
+                    <button type="button" id="crtupd" class="btn1  btn-default btn-lg btn-success">
+                        Create
+                    </button>
+                </div>
+            </a>
+        </div>
     <%--</sec:authorize>--%>
 
     <%--<c:url var="logoutUrl" value="/app/logout"/>--%>
@@ -93,9 +92,9 @@
     var name, latch = false;
 
     function doEdit(item) {
-        var pizzaId = item.currentTarget.getAttribute("id");
-        console.log('pizzaID=' + pizzaId);
-        $('#pizzaId').val(pizzaId);
+        var customerId = item.currentTarget.getAttribute("id");
+        console.log('customerID=' + customerId);
+        $('#customerId').val(customerId);
         <%--
        $('#Id').val($('.modalDeleteBtn').attr('id'));
         --%>

@@ -25,7 +25,7 @@ public class SimpleCustomerServiceTestIT extends RepoTestConfig{
 //        WHEN
         int deletedCount = customerRepository.delete(testCustomer);
 //        THEN
-        Customer expectedCulstomer = getExpectedCustomer(testCustomer.getId());
+        Customer expectedCulstomer = getExpectedCustomer(testCustomer.getCustomerId());
         assertNull(expectedCulstomer);
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 import repository.JPAPizzaRepo;
 import repository.PizzaRepository;
-import utils.parsers.PriceListParser;
+import utils.parsers.CustomParser;
 
 import javax.inject.Inject;
 import java.io.ByteArrayInputStream;
@@ -22,16 +22,12 @@ import java.util.List;
 
 @Service("pizzaService")
 public class SimplePizzaService implements PizzaService {
-
-    public static final String FAIL_TO_UPLOAD_FILE = "Fail to upload file: '%s'";
-    public static final String FILE_UPLOADED_SUCCESSFULLY = "File uploaded successfully: '%s'";
-
     @Autowired
     @Qualifier(value = "pizzaRepository")
     private PizzaRepository pizzaRepo;
 
     @Inject
-    PriceListParser<PizzaDto> priceListParser;
+    CustomParser<PizzaDto> pizzaListParser;
 
     public SimplePizzaService() {
     }
@@ -61,14 +57,14 @@ public class SimplePizzaService implements PizzaService {
         Assert.notNull(file, "File should not be null");
         try {
             InputStream inputStream = new ByteArrayInputStream(file.getBytes());
-            List<PizzaDto> pizzaDtos = priceListParser.parse(inputStream);
+            List<PizzaDto> pizzaDtos = pizzaListParser.parse(inputStream);
 
             pizzaDtos.stream().map(PizzaDtoConverter::toPizzaEntity).forEach(this::save);
         }
         catch (IOException ex) {
-            throw new RuntimeException(String.format(FAIL_TO_UPLOAD_FILE, file.getOriginalFilename()), ex);
+            throw new RuntimeException(String.format(CustomParser.FAIL_TO_UPLOAD_FILE, file.getOriginalFilename()), ex);
         }
-        return String.format(FILE_UPLOADED_SUCCESSFULLY, file.getOriginalFilename());
+        return String.format(CustomParser.FILE_UPLOADED_SUCCESSFULLY, file.getOriginalFilename());
     }
 
     @Override

@@ -13,7 +13,7 @@ public class CustomerRowMapper implements RowMapper {
     @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         Customer customer = new Customer();
-        customer.setId(rs.getLong("id"));
+        customer.setCustomerId(rs.getLong("id"));
         customer.setName(rs.getString("name"));
 
         LoyaltyCard loyaltyCard = new LoyaltyCard();

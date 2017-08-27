@@ -1,40 +1,36 @@
 package web.app.controllers;
 
+import domain.Customer;
 import domain.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
-import pizzaservice.PizzaService;
+import pizzaservice.CustomerService;
 
-@ControllerAdvice(assignableTypes = {PizzaController.class})
-public class PizzaControllerAdvice {
+@ControllerAdvice(assignableTypes = {CustomerController.class})
+public class CustomerControllerAdvice {
     @Autowired
-    PizzaService pizzaService;
+    CustomerService customerService;
 
 //    @ModelAttribute
 //    public Pizza pizzaMeth(@RequestParam(name = "pizzaId", required = false)
 //                                   Long pizzaId){
 //        if (pizzaId != null){
-//            return pizzaService.find(pizzaId);
+//            return customerService.find(pizzaId);
 //        } else {
 //            return new Pizza();
 //        }
 //    }
 
-    @ModelAttribute(name = "pizza")
-    public Pizza pizzaMeth(@RequestParam(name = "pizzaId", required = false) Pizza pizza){
-        System.out.println("ControllerAdvice: " + pizza);
+    @ModelAttribute(name = "customer")
+    public Customer loadCustomer(@RequestParam(name = "customerId", required = false) Customer customer) {
+        System.out.println("ControllerAdvice: " + customer);
 
-        return pizza;
+        return customer;
     }
 
-    @InitBinder
-    public void pizzaBinder(WebDataBinder binder){
-        binder.addCustomFormatter(new DateFormatter("dd-MM-yyyy"));
-    }
 }

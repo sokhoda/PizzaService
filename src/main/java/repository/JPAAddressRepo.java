@@ -38,6 +38,13 @@ public class JPAAddressRepo implements AddressRepository {
 
     @Override
     @Transactional
+    public void remove(Address address) {
+        Address mergedAddress = em.merge(address);
+        em.remove(mergedAddress);
+    }
+
+    @Override
+    @Transactional
     public Address save(Address address) {
         return em.merge(address);
     }
