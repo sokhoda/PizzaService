@@ -145,6 +145,11 @@ margin-top: -140px;
 	margin-right:1em; 
 	display:initial !important;" 
 }
+.error{
+    color: #ff0000;
+    font-style: italic;
+    font-weight: bold;
+}
 .lb-lg {
   font-size: 20px;
 }

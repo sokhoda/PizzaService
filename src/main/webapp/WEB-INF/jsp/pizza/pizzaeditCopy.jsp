@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="springForm" uri="http://www.springframework.org/tags/form" %>
 <%@ page errorPage="../generalErrorPage.jsp" %>
 
 <!DOCTYPE html>
@@ -22,7 +21,7 @@
 
 <body>
 
-<springForm:form action="../pizza/addnew" method="post" commandName="pizza" id="myForm">
+<form action="../pizza/addnew" method="post" id="myForm">
     <input class="hidden" id="command" name="command" value="">
     <input class="hidden" id="Id" name="docId" value="">
 
@@ -39,15 +38,13 @@
 
         <div class="form-group">
             <label class="lb-lg">Name
-                <springForm:input class="form-control input-lg" path="name" name="name"/>
+                <input class="form-control input-lg" value="${pizza.name}" name="name">
             </label>
-            <springForm:errors path="name" cssClass="error"/>
         </div>
         <div class="form-group">
             <label class="lb-lg">Price
-                <springForm:input class="form-control input-lg" path="price" name="price"/>
+                <input class="form-control input-lg" value="${pizza.price}" name="price">
             </label>
-            <springForm:errors path="price" cssClass="error" />
         </div>
         <div class="form-group">
             <label class="lb-lg">Type
@@ -67,7 +64,7 @@
 
     </div>
     <sec:csrfInput/>
-</springForm:form>
+</form>
 
 <c:url var="logoutUrl" value="/logout"/>
 <form action="${logoutUrl}" method="post">

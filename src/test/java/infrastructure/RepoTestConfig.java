@@ -1,6 +1,7 @@
 package infrastructure;
 
 import domain.*;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.RunWith;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.annotation.Rollback;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
         "classpath:/inMemoryRepoContextH2.xml"
@@ -153,7 +155,7 @@ public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTest
     }
 
     public void clearAllTables() {
-        logger.info("DELETING TABLES");
+        log.info("DELETING TABLES");
         jdbcTemplate.update("DELETE FROM address", new Object[]{});
         jdbcTemplate.update("DELETE FROM discountrecord", new Object[]{});
         jdbcTemplate.update("DELETE FROM pizza_quant", new Object[]{});

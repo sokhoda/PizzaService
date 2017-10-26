@@ -13,10 +13,11 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler({NumberFormatException.class, PizzaTypeException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String error(Exception e, HttpServletRequest req, Model model) {
+    public String error(Exception ex, HttpServletRequest req, Model model) {
 
-        model.addAttribute("ex", e);
+        model.addAttribute("ex", ex);
         model.addAttribute("url", req.getRequestURL());
         return "errorPage";
     }
+
 }

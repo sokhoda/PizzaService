@@ -1,11 +1,19 @@
 package web.app.controllers;
 
 import domain.Pizza;
+import exceptions.PizzaPriceException;
+import exceptions.PizzaTypeException;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,10 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import pizzaservice.PizzaService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.List;
-
+@Slf4j
 @Controller
 @RequestMapping("/pizza")
 public class PizzaController {
@@ -43,12 +48,25 @@ public class PizzaController {
     }
 
     @RequestMapping(value = "/addnew", method = RequestMethod.POST)
-    public String addnew(@ModelAttribute Pizza pizza) {
+    public String addnew(@ModelAttribute @Validated Pizza pizza, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            log.error("!!!!!ERRORS:");
+            return "pizza/pizzaedit";
+        }
         System.out.println(pizza);
         pizzaService.save(pizza);
         return "redirect:../pizza/list";
     }
 
+    @RequestMapping(value = "/pizzatypeexception")
+    public void pizzaTypeException() {
+        throw new PizzaTypeException("Pizza type not found");
+    }
+
+    @RequestMapping(value = "/pizzapriceexception")
+    public void pizzaPriceException() {
+        throw new PizzaPriceException("Pizza price not valid");
+    }
 
     @RequestMapping(value = "/pizzalist/upload", method = RequestMethod.POST)
     public String uploadFiles(@RequestParam("nname") String name,

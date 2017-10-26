@@ -16,16 +16,6 @@ public class CustomerControllerAdvice {
     @Autowired
     CustomerService customerService;
 
-//    @ModelAttribute
-//    public Pizza pizzaMeth(@RequestParam(name = "pizzaId", required = false)
-//                                   Long pizzaId){
-//        if (pizzaId != null){
-//            return customerService.find(pizzaId);
-//        } else {
-//            return new Pizza();
-//        }
-//    }
-
     @ModelAttribute(name = "customer")
     public Customer loadCustomer(@RequestParam(name = "customerId", required = false) Customer customer) {
         System.out.println("ControllerAdvice: " + customer);

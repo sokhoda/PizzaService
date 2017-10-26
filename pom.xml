@@ -34,19 +34,19 @@
                     <webApp>
                         <contextPath>/PizzaService</contextPath>
                     </webApp>
-                <httpConnector>
-                    <port>8087</port>
-                </httpConnector>
+                    <httpConnector>
+                        <port>8087</port>
+                    </httpConnector>
                 </configuration>
             </plugin>
 
             <!--<plugin>-->
-                <!--<groupId>org.apache.tomcat.maven</groupId>-->
-                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-                <!--<version>2.2</version>-->
-                <!--<configuration>-->
-                    <!--<port>8081</port>-->
-                <!--</configuration>-->
+            <!--<groupId>org.apache.tomcat.maven</groupId>-->
+            <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
+            <!--<version>2.2</version>-->
+            <!--<configuration>-->
+            <!--<port>8081</port>-->
+            <!--</configuration>-->
             <!--</plugin>-->
         </plugins>
     </build>
@@ -70,11 +70,11 @@
             <version>4.2.0.RELEASE</version>
         </dependency>
 
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.1.1</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>commons-logging</groupId>-->
+        <!--<artifactId>commons-logging</artifactId>-->
+        <!--<version>1.1.1</version>-->
+        <!--</dependency>-->
         <!-- ... other dependency elements ... -->
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -96,9 +96,9 @@
 
         <!-- https://mvnrepository.com/artifact/javax.servlet/jsp-api -->
         <!--<dependency>-->
-            <!--<groupId>javax.servlet</groupId>-->
-            <!--<artifactId>jsp-api</artifactId>-->
-            <!--<version>2.0</version>-->
+        <!--<groupId>javax.servlet</groupId>-->
+        <!--<artifactId>jsp-api</artifactId>-->
+        <!--<version>2.0</version>-->
         <!--</dependency>-->
 
 
@@ -120,6 +120,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.framework.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework.hateoas/spring-hateoas -->
         <dependency>
@@ -265,41 +271,90 @@
             <artifactId>poi-ooxml</artifactId>
             <version>${apachePoiVersion}</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.18</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/log4j-over-slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+
+
+
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>jcl-over-slf4j</artifactId>-->
+            <!--<version>1.7.7</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>javax.validation</groupId>-->
+        <!--<artifactId>validation-api</artifactId>-->
+        <!--<version>1.1.0.Final</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>org.hibernate</groupId>-->
+        <!--<artifactId>hibernate-validator</artifactId>-->
+        <!--<version>6.0.2.Final</version>-->
+        <!--</dependency>-->
+
     </dependencies>
 
     <!--<build>-->
-        <!--<plugins>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.tomcat.maven</groupId>-->
-                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-                <!--<version>2.2</version>-->
-                <!--<configuration>-->
-                    <!--<port>8084</port>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-        <!--</plugins>-->
+    <!--<plugins>-->
+    <!--<plugin>-->
+    <!--<groupId>org.apache.tomcat.maven</groupId>-->
+    <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
+    <!--<version>2.2</version>-->
+    <!--<configuration>-->
+    <!--<port>8084</port>-->
+    <!--</configuration>-->
+    <!--</plugin>-->
+    <!--</plugins>-->
     <!--</build>-->
 
     <!--<profiles>-->
-        <!--<profile>-->
-            <!--<id>withoutAppRunnerTests</id>-->
-            <!--<activation>-->
-                <!--<activeByDefault>true</activeByDefault>-->
-            <!--</activation>-->
-            <!--<build>-->
-                <!--<plugins>-->
-                    <!--<plugin>-->
-                        <!--<artifactId>maven-surefire-plugin</artifactId>-->
-                        <!--<version>2.19</version>-->
-                        <!--<configuration>-->
-                            <!--<excludes>-->
-                                <!--<exclude>**/*AppRunnerTest.java</exclude>-->
-                            <!--</excludes>-->
-                        <!--</configuration>-->
-                    <!--</plugin>-->
-                <!--</plugins>-->
-            <!--</build>-->
-        <!--</profile>-->
+    <!--<profile>-->
+    <!--<id>withoutAppRunnerTests</id>-->
+    <!--<activation>-->
+    <!--<activeByDefault>true</activeByDefault>-->
+    <!--</activation>-->
+    <!--<build>-->
+    <!--<plugins>-->
+    <!--<plugin>-->
+    <!--<artifactId>maven-surefire-plugin</artifactId>-->
+    <!--<version>2.19</version>-->
+    <!--<configuration>-->
+    <!--<excludes>-->
+    <!--<exclude>**/*AppRunnerTest.java</exclude>-->
+    <!--</excludes>-->
+    <!--</configuration>-->
+    <!--</plugin>-->
+    <!--</plugins>-->
+    <!--</build>-->
+    <!--</profile>-->
     <!--</profiles>-->
 
 </project>

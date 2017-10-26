@@ -40,6 +40,11 @@
         />
     </mvc:view-resolvers>
 
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:message"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
     <bean id="conversionService"
           class="org.springframework.context.support.ConversionServiceFactoryBean">
         <property name="converters">
