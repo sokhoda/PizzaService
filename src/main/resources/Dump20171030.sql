@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `pizza` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `pizza`;
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: pizza
 -- ------------------------------------------------------
--- Server version	5.7.19-log
+-- Server version	5.7.16-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -35,7 +35,7 @@ CREATE TABLE `address` (
   `Cust_ID` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKgo99edubu6rcsnqbtj38dh204` (`Cust_ID`),
-  CONSTRAINT `FKgo99edubu6rcsnqbtj38dh204` FOREIGN KEY (`Cust_ID`) REFERENCES `customer` (`id`)
+  CONSTRAINT `FKgo99edubu6rcsnqbtj38dh204` FOREIGN KEY (`Cust_ID`) REFERENCES `customer` (`customerId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -81,12 +81,11 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `LoyalCard_ID` bigint(20) DEFAULT NULL,
   `customerId` bigint(20) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `name` varchar(255) DEFAULT NULL,
+  `LoyalCard_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`customerId`),
   KEY `FKimdowhusaf02j60kd3oegiswp` (`LoyalCard_ID`),
   CONSTRAINT `FKimdowhusaf02j60kd3oegiswp` FOREIGN KEY (`LoyalCard_ID`) REFERENCES `loyaltycard` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -98,6 +97,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
+INSERT INTO `customer` VALUES (1,'john@bestcompany.com','John',NULL),(2,'marry@bestcompany.com','Marry',NULL),(3,'irene@bestcompany.com','Irene',NULL),(4,'mike@bestcompany.com','Mike Poland',NULL),(5,'steward@bestcompany.com','Steward',NULL),(6,'jeffry@bestcompany.com','Jeffry',NULL),(7,'alex@bestcompany.com','Alex',NULL),(8,'alan@bestcompany.com','Alan',NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,6 +129,51 @@ LOCK TABLES `discountrecord` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `hibernate_sequence`
+--
+
+DROP TABLE IF EXISTS `hibernate_sequence`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hibernate_sequence`
+--
+
+LOCK TABLES `hibernate_sequence` WRITE;
+/*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
+INSERT INTO `hibernate_sequence` VALUES (1);
+/*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hibernate_sequences`
+--
+
+DROP TABLE IF EXISTS `hibernate_sequences`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hibernate_sequences` (
+  `sequence_name` varchar(255) NOT NULL,
+  `next_val` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`sequence_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hibernate_sequences`
+--
+
+LOCK TABLES `hibernate_sequences` WRITE;
+/*!40000 ALTER TABLE `hibernate_sequences` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hibernate_sequences` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `id_gen`
 --
 
@@ -148,7 +193,7 @@ CREATE TABLE `id_gen` (
 
 LOCK TABLES `id_gen` WRITE;
 /*!40000 ALTER TABLE `id_gen` DISABLE KEYS */;
-INSERT INTO `id_gen` VALUES ('PIZZA_ID',12);
+INSERT INTO `id_gen` VALUES ('CUSTOMER_ID',9),('PIZZA_ID',9);
 /*!40000 ALTER TABLE `id_gen` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +242,7 @@ CREATE TABLE `pizza` (
 
 LOCK TABLES `pizza` WRITE;
 /*!40000 ALTER TABLE `pizza` DISABLE KEYS */;
-INSERT INTO `pizza` VALUES (1,'Napoletano',100,'MEAT'),(4,'Napoletano',100,'MEAT'),(5,'Hawaii',130,'SEA'),(6,'Country',129,'VEGETERIAN'),(7,'Fish',133,'SEA'),(8,'Mushroom',179,'VEGETERIAN'),(9,'Cheese',139,'VEGETERIAN'),(10,'DoubleMeat',179,'MEAT'),(11,'Calamar',290,'SEA');
+INSERT INTO `pizza` VALUES (1,'Napoletano',100,'MEAT'),(2,'Hawaii',130,'SEA'),(3,'Country',129,'VEGETERIAN'),(4,'Mushroom',245,'VEGETERIAN'),(5,'Cheese',354,'VEGETERIAN'),(6,'calamari',454,'SEA'),(7,'DoubleCheese',453,'VEGETERIAN'),(8,'DoubleMushroom',200,'VEGETERIAN');
 /*!40000 ALTER TABLE `pizza` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +289,7 @@ CREATE TABLE `tb_order` (
   KEY `FKdhdkpgiinpxgafqe57p58s305` (`CHEQUE_ID`),
   KEY `FKhaljhbl5sqg9yt70blddck54x` (`CUST_ID`),
   CONSTRAINT `FKdhdkpgiinpxgafqe57p58s305` FOREIGN KEY (`CHEQUE_ID`) REFERENCES `cheque` (`id`),
-  CONSTRAINT `FKhaljhbl5sqg9yt70blddck54x` FOREIGN KEY (`CUST_ID`) REFERENCES `customer` (`id`)
+  CONSTRAINT `FKhaljhbl5sqg9yt70blddck54x` FOREIGN KEY (`CUST_ID`) REFERENCES `customer` (`customerId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -274,4 +319,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-26 12:29:25
+-- Dump completed on 2017-10-30  0:41:06

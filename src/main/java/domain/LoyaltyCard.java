@@ -6,9 +6,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by s_okhoda on 10.10.2016.
- */
 @Component
 @Scope("prototype")
 @Entity

@@ -15,7 +15,7 @@ import java.util.Set;
         @NamedQuery(name = "Customer.findByName", query = "SELECT c from Customer c " +
                 "WHERE c.name = :name"),
         @NamedQuery(name = "Customer.delete", query = "DELETE FROM Customer" +
-        " c WHERE c = :customer")
+                " c WHERE c = :customer")
 })
 public class Customer implements Serializable {
     @Id

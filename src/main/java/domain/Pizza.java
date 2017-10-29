@@ -10,7 +10,7 @@ import java.io.Serializable;
         @NamedQuery(name = "Pizza.findByType", query =
                 "SELECT p from Pizza p WHERE p.type = :type")
 })
-public class Pizza extends ResourceSupport implements Serializable{
+public class Pizza extends ResourceSupport implements Serializable {
     @Id
     @TableGenerator(
             name = "pizzaGen",
@@ -19,8 +19,8 @@ public class Pizza extends ResourceSupport implements Serializable{
             pkColumnValue = "PIZZA_ID",
             valueColumnName = "GEN_VALUE",
             initialValue = 0,
-    allocationSize = 1)
-    @GeneratedValue(strategy= GenerationType.TABLE, generator = "pizzaGen")
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "pizzaGen")
     private Long pizzaId;
 
     private String name;
@@ -81,21 +81,21 @@ public class Pizza extends ResourceSupport implements Serializable{
     }
 
     @PrePersist
-    public void notifyMe(){
+    public void notifyMe() {
         System.out.println("PrePersist method invocation");
     }
 
     @PostPersist
-    public void notifyMe1(){
+    public void notifyMe1() {
         System.out.println("PostPersist method invocation");
     }
 
 
-    public Long getPizzaId(){
+    public Long getPizzaId() {
         return pizzaId;
     }
 
-    public void setPizzaId(Long pizzaId){
+    public void setPizzaId(Long pizzaId) {
         this.pizzaId = pizzaId;
     }
 
