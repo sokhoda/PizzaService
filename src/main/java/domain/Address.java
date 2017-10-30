@@ -1,64 +1,43 @@
 package domain;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-import javax.persistence.*;
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 
-@Component
-@Scope("prototype")
-@Entity
-@NamedQueries({
-        @NamedQuery(name = "Address.findByCityName", query = "SELECT a from " +
-                "Address a WHERE a.city = :city")
-})
+@Embeddable
 public class Address implements Serializable {
-    @Id
-    @TableGenerator(
-            name = "addressGen",
-            table = "ID_GEN",
-            pkColumnName = "GEN_KEY",
-            pkColumnValue = "ADDRESS_ID",
-            valueColumnName = "GEN_VALUE",
-            initialValue = 0,
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "addressGen")
-    private Long id;
-
+    @Size(min = 4, max = 6)
     private String zipCode;
     private String city;
-    private String strName;
-    private String type;
+    private String streetName;
     private String buildingNo;
     private String appNo;
-
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "Cust_ID")
-    private Customer customer;
+    @Enumerated(EnumType.STRING)
+    private AddressType type;
 
     public Address() {
     }
 
-    public Address(String zipCode, String city, String strName, String type,
-                   String buildingNo, String appNo, Customer customer) {
+    public Address(String zipCode, String city, String streetName, AddressType type, String buildingNo, String appNo) {
         this.zipCode = zipCode;
         this.city = city;
-        this.strName = strName;
+        this.streetName = streetName;
         this.type = type;
         this.buildingNo = buildingNo;
         this.appNo = appNo;
-        this.customer = customer;
     }
 
     @Override
     public String toString() {
         return "\nAddress{" +
-                "id=" + id +
                 ", zipCode='" + zipCode + '\'' +
                 ", city='" + city + '\'' +
-                ", strName='" + strName + '\'' +
+                ", streetName='" + streetName + '\'' +
                 ", type='" + type + '\'' +
                 ", buildingNo='" + buildingNo + '\'' +
                 ", appNo='" + appNo + '\'' +
@@ -76,7 +55,7 @@ public class Address implements Serializable {
             return false;
         if (city != null ? !city.equals(address.city) : address.city != null)
             return false;
-        if (strName != null ? !strName.equals(address.strName) : address.strName != null)
+        if (streetName != null ? !streetName.equals(address.streetName) : address.streetName != null)
             return false;
         if (type != null ? !type.equals(address.type) : address.type != null)
             return false;
@@ -90,26 +69,26 @@ public class Address implements Serializable {
     public int hashCode() {
         int result = zipCode != null ? zipCode.hashCode() : 0;
         result = 31 * result + (city != null ? city.hashCode() : 0);
-        result = 31 * result + (strName != null ? strName.hashCode() : 0);
+        result = 31 * result + (streetName != null ? streetName.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (buildingNo != null ? buildingNo.hashCode() : 0);
         result = 31 * result + (appNo != null ? appNo.hashCode() : 0);
         return result;
     }
 
-    public String getStrName() {
-        return strName;
+    public String getStreetName() {
+        return streetName;
     }
 
-    public void setStrName(String strName) {
-        this.strName = strName;
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
     }
 
-    public String getType() {
+    public AddressType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(AddressType type) {
         this.type = type;
     }
 
@@ -143,17 +122,5 @@ public class Address implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Customer getCustomer() {
-        return customer;
     }
 }

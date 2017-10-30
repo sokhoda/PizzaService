@@ -51,7 +51,7 @@ public class JPAAppRunner {
 //        Orders aorders2 = em.getRefqerence(Orders.class, 2L);
 
 //        em.merge(pizza);
-//        pizza.setStrName("224324234");
+//        pizza.setStreetName("224324234");
 //        System.out.println("orders2=" + aorders2);
 //        aorders2.getCustomer();
 

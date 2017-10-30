@@ -16,10 +16,6 @@
     <!--<context:component-scan base-package="config"/>-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <bean name="Pizza" class="MyFactoryBean"/>
-
-    <!--<bean class="infrastructure.BenchmarkBeanPostProcessor"/>-->
-
     <bean id="orderStateCycle" scope="prototype"
           class="pizzaservice.states.OrderStateCycle">
         <constructor-arg index="0" ref="newState"/>

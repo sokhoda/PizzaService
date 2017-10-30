@@ -2,9 +2,6 @@ package infrastructure;
 
 import java.io.*;
 
-/**
- * Created by Oleksandr_Khodakovsk on 10/28/2016.
- */
 public class DomainHandleHelper<T> {
     public static <T> T clone(T obj) {
         try {

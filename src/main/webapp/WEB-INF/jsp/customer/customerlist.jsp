@@ -35,7 +35,7 @@
             <th><h3>ID</h3></th>
             <th><h3>Name</h3></th>
             <th><h3>Email</h3></th>
-            <th><h3>Id</h3></th>
+            <th><h3>LoyaltyCardId</h3></th>
             <th><h3>Sum</h3></th>
             <th><h3></h3></th>
             <th><h3></h3></th>

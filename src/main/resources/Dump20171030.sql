@@ -29,7 +29,7 @@ CREATE TABLE `address` (
   `appNo` varchar(255) DEFAULT NULL,
   `buildingNo` varchar(255) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
-  `strName` varchar(255) DEFAULT NULL,
+  `streetName` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `zipCode` varchar(255) DEFAULT NULL,
   `Cust_ID` bigint(20) DEFAULT NULL,

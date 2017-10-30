@@ -32,10 +32,9 @@ public class UnitTestData extends TestData{
         testCustomerName = "Alex";
         testCustomer = new Customer(testCustomerName,  testLoyaltyCard);
         testCustomer.setCustomerId(1L);
-        testAddress = new Address("03004", "Kyiv", "CustomStreetName", "Str",
-                "18", "2", testCustomer);
-        testAddress.setId(1L);
-        testCustomer.getAddress().add(testAddress);
+        testAddress = new Address("03004", "Kyiv", "CustomStreetName", AddressType.OFFICE,
+                "18", "2");
+        testCustomer.setAddress(testAddress);
     }
 
     private void initTestLoyaltyCard() {

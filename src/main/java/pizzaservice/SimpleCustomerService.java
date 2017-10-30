@@ -91,7 +91,7 @@ public class SimpleCustomerService implements CustomerService {
     public Customer placeNewCustomer(String name, Address address, LoyaltyCard loyaltyCard) {
         Customer customer = createNewCustomer();
         customer.setName(name);
-        customer.setAddress(new HashSet<>(Arrays.asList(address)));
+        customer.setAddress(address);
         customer.setLoyaltyCard(loyaltyCard);
         return save(customer);
     }

@@ -47,9 +47,9 @@ public class SpringJPAAppRunner {
 
         Customer customer = new Customer("Anna Guyvan", new LoyaltyCard(0.));
         Address address = new Address
-                ("01032", "Kyiv", "Iwana Pidkovy", "Str.", String.valueOf
+                ("01032", "Kyiv", "Iwana Pidkovy", AddressType.HOME, String.valueOf
                         (random.nextInt(1000)), String.valueOf
-                        (random.nextInt(90)), customer);
+                        (random.nextInt(90)));
         addressService.save(address);
     }
 
@@ -122,9 +122,9 @@ public class SpringJPAAppRunner {
         Pizza pizza = pizzaRepository.read(5L);
         System.out.println(pizza);
         Customer customer = customerRepository.find(1L);
-        OrderStateCycle orderStateCycle = (OrderStateCycle)appContext.getBean
+        OrderStateCycle orderStateCycle = (OrderStateCycle) appContext.getBean
                 ("orderStateCycle");
-        System.out.println(orderStateCycle+ "!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(orderStateCycle + "!!!!!!!!!!!!!!!!!!!!!!");
         System.out.println();
         Orders order = orderService.placeNewOrder(customer, 1L, 2L, 4L);
         order = orderService.addPizzas(order, 1L, 2L);
@@ -138,7 +138,7 @@ public class SpringJPAAppRunner {
         System.out.println("Cheque::\n" + order.getCheque());
 
         System.out.println("Customer::" + customer);
-        Orders order2 = orderService.placeNewOrder(customer,  3L, 6L);
+        Orders order2 = orderService.placeNewOrder(customer, 3L, 6L);
         order2 = chequeProducer.placeCheque(order2);
         order2.nextState();
         order2 = orderService.save(order2);
@@ -159,7 +159,7 @@ public class SpringJPAAppRunner {
 //        System.out.println("order22::\n" + order22);
 
 //        Pizza pizza = new Pizza();
-//        pizza.setStrName("Customized");
+//        pizza.setStreetName("Customized");
 //        pizza.setType(PizzaType.MEAT);
 //        pizza = pizzaService.save(pizza);
 //        System.out.println(pizza);

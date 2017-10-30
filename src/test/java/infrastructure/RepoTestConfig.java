@@ -46,10 +46,9 @@ public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTest
         testCustomerName = "Alex";
         testCustomer = new Customer(testCustomerName, testLoyaltyCard);
         testCustomer.setCustomerId(1L);
-        testAddress = new Address("03004", "Kyiv", "CustomStreetName", "Str",
-                "18", "2", testCustomer);
-        testAddress.setId(1L);
-        testCustomer.getAddress().add(testAddress);
+        testAddress = new Address("03004", "Kyiv", "CustomStreetName", AddressType.OFFICE,
+                "18", "2");
+        testCustomer.setAddress(testAddress);
     }
 
     private void initTestLoyaltyCard() {
@@ -68,7 +67,6 @@ public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTest
     public void insertOrder() {
         insertLoyaltyCard(testLoyaltyCard);
         insertCustomer(testCustomer);
-        insertAddress(testAddress);
         insertPizza(testPizza1);
         insertTBOrder();
         insertPizza_Quant();
@@ -136,23 +134,23 @@ public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTest
     }
 
 
-    public Long insertAddress(Address testAddress) {
-        Long id = null;
-        if (testAddress != null) {
-            id = testAddress.getId();
-            Object[] params = {id, testAddress.getZipCode(), testAddress.getCity(),
-                    testAddress.getStrName(), testAddress.getType(),
-                    testAddress.getBuildingNo(), testAddress.getAppNo(),
-                    testAddress.getCustomer().getCustomerId()};
-            int[] types = {Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types
-                    .VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types
-                    .INTEGER};
-
-            jdbcTemplate.update("INSERT INTO Address (id, zipCode, city, strName, type, buildingNo, appNo,  Cust_ID) VALUES" +
-                    "(?, ?, ?, ?, ?, ?, ?, ?)", params, types);
-        }
-        return id;
-    }
+//    public Long insertAddress(Address testAddress) {
+//        Long id = null;
+//        if (testAddress != null) {
+//            id = testAddress.getId();
+//            Object[] params = {id, testAddress.getZipCode(), testAddress.getCity(),
+//                    testAddress.getStreetName(), testAddress.getType(),
+//                    testAddress.getBuildingNo(), testAddress.getAppNo(),
+//                    testAddress.getCustomer().getCustomerId()};
+//            int[] types = {Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types
+//                    .VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types
+//                    .INTEGER};
+//
+//            jdbcTemplate.update("INSERT INTO Address (id, zipCode, city, strName, type, buildingNo, appNo,  Cust_ID) VALUES" +
+//                    "(?, ?, ?, ?, ?, ?, ?, ?)", params, types);
+//        }
+//        return id;
+//    }
 
     public void clearAllTables() {
         log.info("DELETING TABLES");

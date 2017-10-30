@@ -7,7 +7,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pizzaservice.cheque.ChequeProducer;
 import pizzaservice.states.OrderStateCycle;
-import repository.PizzaRepository;
 
 import java.util.Arrays;
 
@@ -33,8 +32,6 @@ public class SpringAppRunner {
         Customer customer = customerService.find(1L);
         System.out.println(customer);
 
-        PizzaRepository pizzaRepository = (PizzaRepository) repoContext
-                .getBean("inMemPizzaRepo");
 OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
         OrderStateCycle.class);
         System.out.println(orderStateCycle.toString());
@@ -78,8 +75,6 @@ OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
 //        System.out.println(order);
 //        System.out.println(orderService.getClass());
 
-//        System.out.println(repoContext.getBean("T1", SomeService.class).getString());
-//        System.out.println(appContext.getBean("T1", SomeService.class).getString());
 
         repoContext.close();
         appContext.close();
