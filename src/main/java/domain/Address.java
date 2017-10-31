@@ -1,19 +1,27 @@
 package domain;
 
+import validators.javax.AddressCheck;
+import validators.javax.CheckZipCode;
+
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 
 @Embeddable
 public class Address implements Serializable {
-    @Size(min = 4, max = 6)
+    private static final String CITY_REGEXP = "^[a-zA-Z]+$";
+
+    @Size(min = 4, max = 6, message = "{zipcode.length.not.valid}", groups = {AddressCheck.class})
+    @CheckZipCode(AddressType.OFFICE)
     private String zipCode;
+
+    @Pattern(regexp = CITY_REGEXP, message = "{city.not.valid}", groups = {AddressCheck.class})
     private String city;
+
     private String streetName;
     private String buildingNo;
     private String appNo;

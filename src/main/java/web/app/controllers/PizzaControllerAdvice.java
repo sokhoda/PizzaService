@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import pizzaservice.PizzaService;
-import web.app.validators.PizzaValidator;
+import validators.PizzaValidator;
 
 @ControllerAdvice(assignableTypes = {PizzaController.class})
 public class PizzaControllerAdvice {

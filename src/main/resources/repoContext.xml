@@ -16,7 +16,7 @@
     <context:component-scan base-package="repository"/>
     <context:property-placeholder
         system-properties-mode="OVERRIDE"
-        location="classpath:jdbc.properties"/>
+        location="classpath:jdbc.properties, classpath:misc.properties"/>
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">

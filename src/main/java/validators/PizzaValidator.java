@@ -1,7 +1,6 @@
-package web.app.validators;
+package validators;
 
 import domain.Pizza;
-import domain.PizzaType;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

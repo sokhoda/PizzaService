@@ -43,8 +43,9 @@
             </div>
             <div class="form-group">
                 <label class="lb-sm">Email
-                    <input class="form-control input-sm" value="${customer.email}" name="email">
+                    <springForm:input class="form-control input-sm" path="email" name="email"/>
                 </label>
+                <springForm:errors path="email" cssClass="error" />
             </div>
             <div class="form-group">
                 <label class="lb-sm">LoyaltyCardId

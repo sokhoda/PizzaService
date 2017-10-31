@@ -1,19 +1,14 @@
 package domain;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import validators.javax.CustomerCheck;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Component
 @Scope("prototype")
@@ -39,10 +34,10 @@ public class Customer implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "customerGen")
     private Long customerId;
 
-    @NotBlank
+    @NotBlank(groups = {CustomerCheck.class})
     private String name;
 
-    @Pattern(regexp= EMAIL_PATTERN)
+    @Pattern(regexp = EMAIL_PATTERN, message = "{email.not.valid}", groups = {CustomerCheck.class})
     private String email;
 
     @Embedded
