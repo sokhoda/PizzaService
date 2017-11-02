@@ -4,24 +4,24 @@ import domain.Address;
 import domain.Customer;
 import domain.LoyaltyCard;
 import dto.CustomerDto;
-import dto.PizzaDto;
 import dto.converters.CustomerDtoConverter;
-import dto.converters.PizzaDtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import repository.CustomerRepository;
 import utils.parsers.CustomParser;
+import validators.javax.OrderedCustomerCheck;
+import web.app.controllers.CustomerController;
 
 import javax.inject.Inject;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 @Service("customerService")
@@ -32,6 +32,9 @@ public class SimpleCustomerService implements CustomerService {
     @Autowired
     @Qualifier("customerRepository")
     private CustomerRepository customerRepo;
+
+    @Inject
+    private CustomerValidationService customerValidationService;
 
     public SimpleCustomerService(CustomerRepository customerRepo) {
         this.customerRepo = customerRepo;
@@ -64,6 +67,17 @@ public class SimpleCustomerService implements CustomerService {
             throw new RuntimeException(String.format(CustomParser.FAIL_TO_UPLOAD_FILE, file.getOriginalFilename()), ex);
         }
         return String.format(CustomParser.FILE_UPLOADED_SUCCESSFULLY, file.getOriginalFilename());
+    }
+
+    @Override
+    public String addNewCustomer(Customer customer, BindingResult bindingResult, SessionStatus sessionStatus) {
+        boolean isCustomerNotValid = customerValidationService.isNotValid(customer, bindingResult, OrderedCustomerCheck.class);
+        if (isCustomerNotValid) {
+            return CustomerController.CUSTOMER_PAGE;
+        }
+        sessionStatus.setComplete();
+        save(customer);
+        return CustomerController.REDIRECT_CUSTOMER_LIST_PAGE;
     }
 
     @Override

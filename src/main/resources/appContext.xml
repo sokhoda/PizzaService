@@ -13,10 +13,12 @@
     <context:component-scan base-package="domain"/>
     <context:component-scan base-package="pizzaservice"/>
     <context:component-scan base-package="utils.parsers"/>
-    <context:component-scan base-package="validators.javax"/>
+    <context:component-scan base-package="validators"/>
 
     <!--<context:component-scan base-package="config"/>-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="validatorFactory" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
     <bean id="orderStateCycle" scope="prototype"
           class="pizzaservice.states.OrderStateCycle">

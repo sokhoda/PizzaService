@@ -1,34 +1,39 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
- <%@ page errorPage="../generalErrorPage.jsp" %>
+<%@ page errorPage="../generalErrorPage.jsp" %>
 
-<!DOCTYPE html>	
+<!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-   
-  <style>
-     <%@include file='../proj.css' %>
-  </style>
-  <%--
-    <script src="js/FillClick.js"></script>
-    --%>
-</head> 
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <style>
+        <%@include file='../proj.css' %>
+    </style>
+    <%--
+      <script src="js/FillClick.js"></script>
+      --%>
+</head>
 
 <body>
 
 
-<input class="hidden" id ="command" name="command" value="">
+<input class="hidden" id="command" name="command" value="">
 
 
 <div class="container-fluid bg-grey">
     <h2>
         Dashboard
     </h2>
+    <h3>
+        <p>${title}: ${message}<br/></p>
+        <p>Logged in as: <span style="color:blue">${userName}</span>; </p>
+        Roles: <span style="color:brown"> ${userRoles}</span>;
+    </h3>
     <h2>
 
         <a href="pizza/list">1. Browse Pizza list</a>
@@ -44,16 +49,16 @@
         <a href="customer/customerlist/upload">4. Import Customer list</a>
     </h2>
 
-         <c:url var="logoutUrl" value="/app/logout"/>
-         <form action="${logoutUrl}" method="post">
-           <br>
-           <button type="submit" class="btn btn-warning btn-xs">Log out</button>
-           <sec:csrfInput/>
-         </form>
+    <c:url var="logoutUrl" value="/app/logout"/>
+    <form action="${logoutUrl}" method="post">
+        <br>
+        <button type="submit" class="btn btn-warning btn-xs">Log out</button>
+        <sec:csrfInput/>
+    </form>
 
-        <footer style="margin-top:10px; text-align: center">&copy;Alex, Kyiv, 2016</footer>
-  
-    </div>
- </body>
+    <footer style="margin-top:10px; text-align: center">&copy;Alex, Kyiv, 2016</footer>
+
+</div>
+</body>
 
 </html>

@@ -1,36 +1,33 @@
 package web.app.controllers;
 
-import domain.Pizza;
 import exceptions.CustomerAddressException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import pizzaservice.PizzaService;
+import web.app.services.CommonService;
+import web.app.services.CommonServiceImpl;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.inject.Inject;
 import java.security.Principal;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class CommonController {
 
     @Autowired
     public PizzaService pizzaService;
-
-    @RequestMapping("/")
-    public String index(){
-        return "redirect:dashboard";
-    }
+    @Inject
+    private CommonService commonService;
 
     @RequestMapping("/hello")
     public String hello(Principal principall) {
@@ -59,8 +56,8 @@ public class CommonController {
     }
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public String redirectDashboard() {
-        return "dashboard";
+    public ModelAndView redirectDashboard(Principal principal, ModelAndView model) {
+       return commonService.populateModelAndView(principal, model);
     }
 
 }

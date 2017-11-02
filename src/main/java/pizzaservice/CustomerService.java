@@ -3,13 +3,12 @@ package pizzaservice;
 import domain.Address;
 import domain.Customer;
 import domain.LoyaltyCard;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-/**
- * Created by s_okhoda on 13.10.2016.
- */
 public interface CustomerService {
     List<Customer> findAll();
 
@@ -29,4 +28,6 @@ public interface CustomerService {
     void remove(Customer customer);
 
     String uploadFile(MultipartFile file);
+
+    String addNewCustomer(Customer customer, BindingResult bindingResult, SessionStatus sessionStatus);
 }

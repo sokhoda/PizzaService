@@ -5,7 +5,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,29 +12,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import pizzaservice.CustomerService;
-import validators.javax.OrderedCustomerCheck;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
-    private static final String CUSTOMER_PAGE = "customer/customeredit";
-    private static final String REDIRECT_CUSTOMER_LIST_PAGE = "redirect:../customer/list";
+    public static final String CUSTOMER_PAGE = "customer/customeredit";
+    public static final String REDIRECT_CUSTOMER_LIST_PAGE = "redirect:../customer/list";
     private static final String UTILS_UPLOAD_CUSTOMER_LIST = "utils/upload/customerListUpload";
     private static final String INVALID_FIELD = "Invalid %s (%s)";
-    public static final String CUSTOMER = "customer";
-    @Inject
-    private CustomerService customerService;
 
     @Inject
-    private Validator customerValidator;
+    private CustomerService customerService;
 
     @RequestMapping("/create")
 //    @Secured("ROLE_ADMIN")
@@ -51,23 +43,8 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/addnew", method = RequestMethod.POST)
-    public String addnew(@ModelAttribute Customer customer, BindingResult bindingResult, SessionStatus sessionStatus) {
-        if (isNotValid(customer, bindingResult, OrderedCustomerCheck.class)) {
-            return CUSTOMER_PAGE;
-        }
-        sessionStatus.setComplete();
-        customerService.save(customer);
-        return REDIRECT_CUSTOMER_LIST_PAGE;
-    }
-
-    private boolean isNotValid(Customer customer, BindingResult bindingResult, Class<?> group) {
-        Set<ConstraintViolation<Customer>> violations = customerValidator.validate(customer, group);
-        for (ConstraintViolation<Customer> violation : violations) {
-            String path = violation.getPropertyPath().toString();
-            String message = violation.getMessage();
-            bindingResult.addError(new FieldError(CUSTOMER, path, message));
-        }
-        return violations.size() > 0;
+    public String addNew(@ModelAttribute Customer customer, BindingResult bindingResult, SessionStatus sessionStatus) {
+        return customerService.addNewCustomer(customer, bindingResult, sessionStatus);
     }
 
     @RequestMapping(value = "/customerlist/upload", method = RequestMethod.POST)

@@ -33,8 +33,7 @@
             <input class="form-control input-lg"  id="username" name="username"><br>
 
             <label for="password" class="lb-lg">PASSWORD: </label>
-            <input  class="form-control input-lg" type="password" value=""
-            name="password"><br>
+            <input  class="form-control input-lg" type="password" value="" name="password"><br>
 
             <br>
             <br>

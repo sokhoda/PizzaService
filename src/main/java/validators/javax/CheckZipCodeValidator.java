@@ -12,11 +12,11 @@ public class CheckZipCodeValidator implements ConstraintValidator<CheckZipCode, 
 
     private AddressType addressType;
 
-    @Value("${zip.home.prefix}")
-    private String zipHomePrefix;
+//    @Value("${zip.home.prefix}")
+    private String zipHomePrefix = "12";
 
-    @Value("${zip.office.prefix}")
-    private String zipOfficePrefix;
+//    @Value("${zip.office.prefix}")
+    private String zipOfficePrefix = "34";
 
     @Override
     public void initialize(CheckZipCode constraintAnnotation) {
