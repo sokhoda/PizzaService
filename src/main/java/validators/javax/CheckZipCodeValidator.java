@@ -10,13 +10,13 @@ import javax.validation.ConstraintValidatorContext;
 @Component
 public class CheckZipCodeValidator implements ConstraintValidator<CheckZipCode, String> {
 
+    @Value("#{properties['zip.home.prefix']}")
+    private String zipHomePrefix ;
+
+    @Value("#{properties['zip.office.prefix']}")
+    private String zipOfficePrefix;
+
     private AddressType addressType;
-
-//    @Value("${zip.home.prefix}")
-    private String zipHomePrefix = "12";
-
-//    @Value("${zip.office.prefix}")
-    private String zipOfficePrefix = "34";
 
     @Override
     public void initialize(CheckZipCode constraintAnnotation) {

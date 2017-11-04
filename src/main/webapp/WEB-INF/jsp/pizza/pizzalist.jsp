@@ -84,7 +84,7 @@
     <%--<sec:csrfInput/>--%>
     <%--</form>--%>
 
-    <footer style="margin-top:10px; text-align: center">&copy;Alex, Kyiv, 2016</footer>
+    <footer style="margin-top:10px; text-align: center">&copy;Alex, Kyiv, 2017</footer>
 
 </div>
 </body>

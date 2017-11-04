@@ -48,7 +48,7 @@
                     Log in</button>
                 </div>
             </div>
-            <footer style="text-align: center">&copy;Alex, Kyiv, 2016</footer>
+            <footer style="text-align: center">&copy;Alex, Kyiv, 2017</footer>
         </div>
     </form:form>
     </body>

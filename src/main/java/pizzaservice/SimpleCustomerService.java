@@ -5,7 +5,7 @@ import domain.Customer;
 import domain.LoyaltyCard;
 import dto.CustomerDto;
 import dto.converters.CustomerDtoConverter;
-import org.springframework.beans.factory.annotation.Autowired;
+import infrastructure.event.handling.publishers.CustomerCreationEventPublisher;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,9 +29,12 @@ public class SimpleCustomerService implements CustomerService {
     @Inject
     CustomParser<CustomerDto> customerListParser;
 
-    @Autowired
+    @Inject
     @Qualifier("customerRepository")
     private CustomerRepository customerRepo;
+
+    @Inject
+    private CustomerCreationEventPublisher customerCreationEventPublisher;
 
     @Inject
     private CustomerValidationService customerValidationService;
@@ -77,6 +80,7 @@ public class SimpleCustomerService implements CustomerService {
         }
         sessionStatus.setComplete();
         save(customer);
+        customerCreationEventPublisher.doPublishEvent(customer);
         return CustomerController.REDIRECT_CUSTOMER_LIST_PAGE;
     }
 

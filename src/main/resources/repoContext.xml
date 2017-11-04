@@ -11,12 +11,8 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-
-
     <context:component-scan base-package="repository"/>
-    <context:property-placeholder
-        system-properties-mode="OVERRIDE"
-        location="classpath:jdbc.properties, classpath:misc.properties"/>
+    <context:property-placeholder location="classpath:jdbc.properties"/>
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
@@ -41,6 +37,7 @@
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
+                <prop key="javax.persistence.validation.mode">none</prop>
             </props>
         </property>
     </bean>

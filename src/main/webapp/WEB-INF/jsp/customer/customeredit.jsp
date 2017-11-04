@@ -67,8 +67,9 @@
             </div>
             <div class="form-group">
                 <label class="lb-sm">city
-                    <input class="form-control input-sm" value="${customer.address.city}" name="address.city">
+                    <springForm:input class="form-control input-sm" path="address.city" name="address.city"/>
                 </label>
+                <springForm:errors path="address.city" cssClass="error" />
             </div>
             <div class="form-group">
                 <label class="lb-sm">streetName
@@ -91,7 +92,6 @@
                 </label>
             </div>
         </div>
-
         <div class="text-center">
             <div class="btn-group">
                 <button type="button" id="crtupd" class="btn1 btn-default btn-lg btn-success"
@@ -100,7 +100,7 @@
                 </button>
             </div>
         </div>
-        <footer style="margin-top:10px; text-align: center">&copy;Alex, Kyiv, 2016</footer>
+        <footer style="margin-top:10px; text-align: center">&copy;Alex, Kyiv, 2017</footer>
 
     </div>
 

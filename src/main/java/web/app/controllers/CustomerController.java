@@ -25,6 +25,7 @@ public class CustomerController {
     public static final String REDIRECT_CUSTOMER_LIST_PAGE = "redirect:../customer/list";
     private static final String UTILS_UPLOAD_CUSTOMER_LIST = "utils/upload/customerListUpload";
     private static final String INVALID_FIELD = "Invalid %s (%s)";
+    private static final String CUSTOMER = "customer";
 
     @Inject
     private CustomerService customerService;
@@ -32,7 +33,8 @@ public class CustomerController {
     @RequestMapping("/create")
 //    @Secured("ROLE_ADMIN")
 //    @Secured("hasRole('ADMIN')")
-    public String create() {
+    public String create(Model model) {
+        model.addAttribute(CUSTOMER, new Customer());
         return CUSTOMER_PAGE;
     }
 

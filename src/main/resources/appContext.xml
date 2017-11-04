@@ -2,20 +2,22 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <util:properties id="properties" location="classpath:misc.properties" />
 
     <context:component-scan base-package="domain"/>
     <context:component-scan base-package="pizzaservice"/>
     <context:component-scan base-package="utils.parsers"/>
     <context:component-scan base-package="validators"/>
+    <context:component-scan base-package="infrastructure.event.handling"/>
 
-    <!--<context:component-scan base-package="config"/>-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="validatorFactory" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
@@ -27,8 +29,6 @@
         <constructor-arg index="2" ref="cancelledState"/>
         <constructor-arg index="3" ref="doneState"/>
     </bean>
-
-
 
     <bean id="chequeProducer" class="pizzaservice.cheque.SimpleChequeProducer">
         <lookup-method name="createNewCheque" bean="cheque"/>
