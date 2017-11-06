@@ -6,7 +6,9 @@ import domain.LoyaltyCard;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface CustomerService {
@@ -26,6 +28,8 @@ public interface CustomerService {
             loyaltyCard);
 
     void remove(Customer customer);
+
+    ModelAndView updateUserInSession(ModelAndView modelAndView, HttpSession session);
 
     String uploadFile(MultipartFile file);
 

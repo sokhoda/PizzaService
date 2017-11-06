@@ -22,7 +22,7 @@
 
 <body>
 
-<springForm:form action="../pizza/addnew" method="post" commandName="pizza" id="myForm">
+<springForm:form action="../pizza/addnew" method="post" modelAttribute="pizza" id="myForm">
     <input class="hidden" id="command" name="command" value="">
     <input class="hidden" id="Id" name="docId" value="">
 

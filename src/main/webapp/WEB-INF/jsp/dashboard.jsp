@@ -36,6 +36,9 @@
     </h3>
     <h2>
 
+        <a href="order/create">0. Create Order</a>
+        <br>
+        <br>
         <a href="pizza/list">1. Browse Pizza list</a>
         <br>
         <br>

@@ -26,12 +26,14 @@
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
+    <bean id="pizzaConverter" class="web.app.converters.PizzaConverter"/>
     <bean id="conversionService"
           class="org.springframework.context.support.ConversionServiceFactoryBean">
         <property name="converters">
             <set>
-                <bean class="web.app.converters.PizzaConverter"/>
+                <ref bean="pizzaConverter"/>
                 <bean class="web.app.converters.CustomerConverter"/>
+                <bean class="web.app.converters.OrderConverter"/>
             </set>
         </property>
     </bean>

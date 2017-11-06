@@ -7,19 +7,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import pizzaservice.states.OrderStateCycle;
 import pizzaservice.states.State;
 import repository.OrderRepository;
+import web.app.converters.PizzaConverter;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service("orderService")
 public class SimpleOrderService implements OrderService {
-    @Autowired
+    public static final String USER = "user";
+    @Inject
     private PizzaService pizzaService = null;
+
     @Autowired
     @Qualifier(value = "orderRepository")
     private OrderRepository orderRepo = null;
@@ -34,6 +42,15 @@ public class SimpleOrderService implements OrderService {
                               OrderRepository orderRepo) {
         this.pizzaService = pizzaService;
         this.orderRepo = orderRepo;
+    }
+
+    @Override
+    public void doCreateOrder(Model model, HttpSession session) {
+        List<Pizza> pizzas = pizzaService.findAll();
+        List<Long> pizzaIds = pizzas.stream().map(Pizza::getPizzaId).collect(Collectors.toList());
+        model.addAttribute("pizzaIds", pizzaIds.toString());
+        model.addAttribute("pizzas", pizzas);
+        model.addAttribute(USER, session.getAttribute(USER));
     }
 
     @Override
@@ -62,6 +79,33 @@ public class SimpleOrderService implements OrderService {
         return save(newOrder);
     }
 
+    @Override
+    public Orders placeNewOrder(Customer customer, Map<Pizza, Integer> orderedPizzas) {
+        Orders newOrder = createNewOrder();
+        newOrder.setCustomer(customer);
+        newOrder.setPizzaMap(orderedPizzas);
+        newOrder.setOrderStateCycle(createNewOrderStateCycle());
+
+        return save(newOrder);
+    }
+
+    @Override
+    public void buildOrder(String orderedPizzaIds, Customer customer, PizzaConverter pizzaConverter) {
+        Map<Pizza, Integer> orderedPizzas = new HashMap<>();
+        Arrays.stream(orderedPizzaIds.split(";"))
+                .forEach(orderItem -> populateOrderedPizza(orderedPizzas, orderItem, pizzaConverter));
+
+        placeNewOrder(customer, orderedPizzas);
+    }
+
+    private void populateOrderedPizza(Map<Pizza, Integer> orderedPizzas, String idQuantityPair, PizzaConverter pizzaConverter) {
+        String[] orderItem = idQuantityPair.split(",");
+        Integer quantity = Integer.valueOf(orderItem[1]);
+        if (quantity > 0) {
+            Pizza pizza = pizzaConverter.convert(orderItem[0]);
+            orderedPizzas.put(pizza, quantity);
+        }
+    }
 
     Orders createNewOrder() {
         throw new IllegalStateException("Container couldn't create Proxy");

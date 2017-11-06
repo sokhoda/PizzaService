@@ -13,12 +13,14 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import repository.CustomerRepository;
 import utils.parsers.CustomParser;
 import validators.javax.OrderedCustomerCheck;
 import web.app.controllers.CustomerController;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +28,8 @@ import java.util.List;
 
 @Service("customerService")
 public class SimpleCustomerService implements CustomerService {
+    public static final String USER_NAME = "userName";
+    public static final String USER = "user";
     @Inject
     CustomParser<CustomerDto> customerListParser;
 
@@ -58,6 +62,16 @@ public class SimpleCustomerService implements CustomerService {
     }
 
     @Override
+    public ModelAndView updateUserInSession(ModelAndView modelAndView, HttpSession session) {
+        String userName = (String) modelAndView.getModelMap().get(USER_NAME);
+        List<Customer> customers = findByName(userName);
+        customers.stream()
+                .findFirst()
+                .ifPresent(customer -> session.setAttribute(USER, customer));
+        return modelAndView;
+    }
+
+    @Override
     public String uploadFile(MultipartFile file) {
         Assert.notNull(file, "File should not be null");
         try {
@@ -76,12 +90,12 @@ public class SimpleCustomerService implements CustomerService {
     public String addNewCustomer(Customer customer, BindingResult bindingResult, SessionStatus sessionStatus) {
         boolean isCustomerNotValid = customerValidationService.isNotValid(customer, bindingResult, OrderedCustomerCheck.class);
         if (isCustomerNotValid) {
-            return CustomerController.CUSTOMER_PAGE;
+            return CustomerController.CUSTOMER_EDIT;
         }
         sessionStatus.setComplete();
         save(customer);
         customerCreationEventPublisher.doPublishEvent(customer);
-        return CustomerController.REDIRECT_CUSTOMER_LIST_PAGE;
+        return CustomerController.REDIRECT_CUSTOMER_LIST;
     }
 
     @Override

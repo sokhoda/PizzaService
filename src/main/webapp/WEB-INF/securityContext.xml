@@ -7,7 +7,7 @@
 
     <http pattern="/app/**">
         <intercept-url pattern="/app/loginp*" access="isAnonymous()" method="GET"/>
-        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/> <!--isAuthenticated-->
         <form-login
                 login-page="/app/loginp"
                 always-use-default-target="true"
@@ -15,6 +15,7 @@
                 login-processing-url="/app/login"
                 authentication-failure-url="/app/errorPage"/>
         <logout logout-url="/app/logout"/>
+        <csrf disabled="true"/>
     </http>
 
     <http pattern="/rest/**" security="none"/>

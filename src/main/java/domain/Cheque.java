@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 @Scope("prototype")
 @Entity
-public class Cheque implements Serializable{
+public class Cheque implements Serializable {
     @Transient
     public static final String DEFAULT_TITLE = "Simple Pizza Cheque #";
     @Id
@@ -91,7 +91,8 @@ public class Cheque implements Serializable{
     public void setTotalSum(Double totalSum) {
         this.totalSum = totalSum;
     }
-    public Double calcDueSum(){
+
+    public Double calcDueSum() {
         Double discountSum = 0.;
         for (DiscountRecord discountRecord : discountList) {
             discountSum += discountRecord.getSum();
