@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import repository.CustomerRepository;
 import utils.parsers.CustomParser;
 import validators.javax.OrderedCustomerCheck;
-import web.app.controllers.CustomerController;
+import web.infrastructure.Routes;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -36,10 +36,8 @@ public class SimpleCustomerService implements CustomerService {
     @Inject
     @Qualifier("customerRepository")
     private CustomerRepository customerRepo;
-
     @Inject
     private CustomerCreationEventPublisher customerCreationEventPublisher;
-
     @Inject
     private CustomerValidationService customerValidationService;
 
@@ -79,8 +77,7 @@ public class SimpleCustomerService implements CustomerService {
             List<CustomerDto> customerDtos = customerListParser.parse(inputStream);
 
             customerDtos.stream().map(CustomerDtoConverter::toCustomerEntity).forEach(this::save);
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             throw new RuntimeException(String.format(CustomParser.FAIL_TO_UPLOAD_FILE, file.getOriginalFilename()), ex);
         }
         return String.format(CustomParser.FILE_UPLOADED_SUCCESSFULLY, file.getOriginalFilename());
@@ -90,12 +87,12 @@ public class SimpleCustomerService implements CustomerService {
     public String addNewCustomer(Customer customer, BindingResult bindingResult, SessionStatus sessionStatus) {
         boolean isCustomerNotValid = customerValidationService.isNotValid(customer, bindingResult, OrderedCustomerCheck.class);
         if (isCustomerNotValid) {
-            return CustomerController.CUSTOMER_EDIT;
+            return Routes.CUSTOMER_EDIT_PAGE;
         }
         sessionStatus.setComplete();
         save(customer);
         customerCreationEventPublisher.doPublishEvent(customer);
-        return CustomerController.REDIRECT_CUSTOMER_LIST;
+        return Routes.REDIRECT_CUSTOMER_LIST_PAGE;
     }
 
     @Override
@@ -114,7 +111,7 @@ public class SimpleCustomerService implements CustomerService {
     }
 
     @Override
-    public int delete(Customer customer){
+    public int delete(Customer customer) {
         return customerRepo.delete(customer);
     }
 
