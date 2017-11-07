@@ -34,8 +34,8 @@
             <thead>
             <tr>
                 <th><h3>Pizza Name</h3></th>
-                <th><h3>Price</h3></th>
                 <th><h3>Type</h3></th>
+                <th><h3>Price</h3></th>
                 <th><h3>Quantity</h3></th>
             </tr>
             </thead

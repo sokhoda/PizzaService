@@ -5,8 +5,11 @@ import domain.Customer;
 import domain.LoyaltyCard;
 import dto.CustomerDto;
 import dto.converters.CustomerDtoConverter;
-import infrastructure.event.handling.publishers.CustomerCreationEventPublisher;
+import infrastructure.event.handling.events.CustomerCreatedEvent;
+import infrastructure.event.handling.publishers.CustomerCreatedEventPublisher;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -37,9 +40,12 @@ public class SimpleCustomerService implements CustomerService {
     @Qualifier("customerRepository")
     private CustomerRepository customerRepo;
     @Inject
-    private CustomerCreationEventPublisher customerCreationEventPublisher;
+    private CustomerCreatedEventPublisher customerCreatedEventPublisher;
     @Inject
     private CustomerValidationService customerValidationService;
+
+    @Value("#{properties['customer.created.message']}")
+    private String customerCreatedMessage;
 
     public SimpleCustomerService(CustomerRepository customerRepo) {
         this.customerRepo = customerRepo;
@@ -90,8 +96,9 @@ public class SimpleCustomerService implements CustomerService {
             return Routes.CUSTOMER_EDIT_PAGE;
         }
         sessionStatus.setComplete();
-        save(customer);
-        customerCreationEventPublisher.doPublishEvent(customer);
+        Customer newCustomer = save(customer);
+        CustomerCreatedEvent customerCreatedEvent = new CustomerCreatedEvent(this, newCustomer, customerCreatedMessage);
+        customerCreatedEventPublisher.doPublishEvent(customerCreatedEvent);
         return Routes.REDIRECT_CUSTOMER_LIST_PAGE;
     }
 

@@ -3,11 +3,11 @@ package infrastructure.event.handling.events;
 import domain.Customer;
 import org.springframework.context.ApplicationEvent;
 
-public class CustomerCreationEvent extends ApplicationEvent {
+public class CustomerCreatedEvent extends ApplicationEvent {
     private Customer customer;
     private String message;
 
-    public CustomerCreationEvent(Object source, Customer customer, String message) {
+    public CustomerCreatedEvent(Object source, Customer customer, String message) {
         super(source);
         this.customer = customer;
         this.message = message;

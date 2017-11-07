@@ -3,8 +3,12 @@ package pizzaservice;
 import domain.Customer;
 import domain.Orders;
 import domain.Pizza;
+import infrastructure.event.handling.events.OrderCreatedEvent;
+import infrastructure.event.handling.publishers.OrderCreatedEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -27,13 +31,16 @@ public class SimpleOrderService implements OrderService {
     public static final String USER = "user";
     @Inject
     private PizzaService pizzaService = null;
-
     @Autowired
     @Qualifier(value = "orderRepository")
     private OrderRepository orderRepo = null;
-
     @Autowired
     private OrderStateCycle orderStateCycle;
+    @Inject
+    private OrderCreatedEventPublisher orderCreatedEventPublisher;
+
+    @Value("#{properties['order.created.message']}")
+    private String orderCreatedMessage;
 
     public SimpleOrderService() {
     }
@@ -95,7 +102,9 @@ public class SimpleOrderService implements OrderService {
         Arrays.stream(orderedPizzaIds.split(";"))
                 .forEach(orderItem -> populateOrderedPizza(orderedPizzas, orderItem, pizzaConverter));
 
-        placeNewOrder(customer, orderedPizzas);
+        Orders order = placeNewOrder(customer, orderedPizzas);
+        OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent(this, order, orderCreatedMessage);
+        orderCreatedEventPublisher.doPublishEvent(orderCreatedEvent);
     }
 
     private void populateOrderedPizza(Map<Pizza, Integer> orderedPizzas, String idQuantityPair, PizzaConverter pizzaConverter) {
