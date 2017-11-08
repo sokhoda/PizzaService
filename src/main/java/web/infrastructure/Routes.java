@@ -43,4 +43,5 @@ public class Routes {
 
     //    exceptions
     public static final String CUSTOMER_ADDRESS_EXCEPTION = "/customeraddressexception";
+    public static final String PIZZA_PIZZALIST_UPLOAD_IOEXCEPTION = "/pizza/pizzalist/upload/ioexception";
 }

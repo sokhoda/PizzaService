@@ -18,6 +18,7 @@ import pizzaservice.PizzaService;
 import web.infrastructure.Routes;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -25,6 +26,7 @@ import java.util.List;
 public class PizzaController {
     private static final String PIZZA = "pizza";
     private static final String PIZZALIST = "pizzalist";
+
 
     @Inject
     public PizzaService pizzaService;
@@ -58,6 +60,11 @@ public class PizzaController {
     @RequestMapping(Routes.PIZZA_PRICE_EXCEPTION)
     public void pizzaPriceException() {
         throw new PizzaPriceException("Pizza price not valid");
+    }
+
+    @RequestMapping(Routes.PIZZA_PIZZALIST_UPLOAD_IOEXCEPTION)
+    public void pizzaCheckedException() throws IOException {
+        throw new IOException();
     }
 
     @RequestMapping(value = Routes.PIZZA_PIZZALIST_UPLOAD, method = RequestMethod.POST)
