@@ -15,6 +15,5 @@ public class CustomerCreatedEventListener implements ApplicationListener<Custome
     public void onApplicationEvent(CustomerCreatedEvent event) {
         String message = String.format(RECEIVED_NEW_EVENT, event.getMessage());
         log.info(message);
-        System.out.println(message);
     }
 }

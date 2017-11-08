@@ -19,6 +19,5 @@ public class MyContextRefreshedEventListener {
                 applicationContext.getDisplayName(),
                 applicationContext.getId());
         log.info(message);
-        System.out.println(message);
     }
 }

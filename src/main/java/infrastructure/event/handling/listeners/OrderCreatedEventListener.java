@@ -16,6 +16,5 @@ public class OrderCreatedEventListener {
     public void onApplicationEvent(OrderCreatedEvent orderCreatedEvent) {
         String message = String.format(RECEIVED_NEW_EVENT, orderCreatedEvent.getMessage());
         log.info(message);
-        System.out.println(message);
     }
 }
