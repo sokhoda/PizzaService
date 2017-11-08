@@ -3,12 +3,7 @@ package web.app.controllers;
 import domain.Pizza;
 import exceptions.PizzaPriceException;
 import exceptions.PizzaTypeException;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,102 +15,80 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import pizzaservice.PizzaService;
+import web.infrastructure.Routes;
+
+import javax.inject.Inject;
+import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/pizza")
 public class PizzaController {
+    private static final String PIZZA = "pizza";
+    private static final String PIZZALIST = "pizzalist";
 
-    @Autowired
+    @Inject
     public PizzaService pizzaService;
 
-    @RequestMapping("/create")
-//    @Secured("ROLE_ADMIN")
-//    @Secured("hasRole('ADMIN')")
-    public String create() {
-        return "pizza/pizzaedit";
+    @RequestMapping(Routes.PIZZA_CREATE)
+    public String create(Model model) {
+        model.addAttribute(PIZZA, new Pizza());
+        return Routes.PIZZA_EDIT_PAGE;
     }
 
-//    @RequestMapping("/edit")
-//    public String edit(@RequestParam Long pizzaID, Model model){
-//        model.addAttribute("pizza", pizzaService.find(pizzaID));
-//        return "pizzaedit";
-//    }
-
-    @RequestMapping("/edit")
+    @RequestMapping(Routes.PIZZA_EDIT)
     public String edit(@RequestParam Long pizzaId) {
-        return "pizza/pizzaedit";
+        return Routes.PIZZA_EDIT_PAGE;
     }
 
-    @RequestMapping(value = "/addnew", method = RequestMethod.POST)
-    public String addnew(@ModelAttribute @Validated Pizza pizza, BindingResult bindingResult) {
+    @RequestMapping(value = Routes.PIZZA_ADD_NEW, method = RequestMethod.POST)
+    public String addNew(@ModelAttribute @Validated Pizza pizza, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("!!!!!ERRORS:");
-            return "pizza/pizzaedit";
+            return Routes.PIZZA_EDIT_PAGE;
         }
-        System.out.println(pizza);
         pizzaService.save(pizza);
-        return "redirect:../pizza/list";
+        return Routes.REDIRECT_PIZZA_LIST_PAGE;
     }
 
-    @RequestMapping(value = "/pizzatypeexception")
+    @RequestMapping(Routes.PIZZA_TYPE_EXCEPTION)
     public void pizzaTypeException() {
         throw new PizzaTypeException("Pizza type not found");
     }
 
-    @RequestMapping(value = "/pizzapriceexception")
+    @RequestMapping(Routes.PIZZA_PRICE_EXCEPTION)
     public void pizzaPriceException() {
         throw new PizzaPriceException("Pizza price not valid");
     }
 
-    @RequestMapping(value = "/pizzalist/upload", method = RequestMethod.POST)
+    @RequestMapping(value = Routes.PIZZA_PIZZALIST_UPLOAD, method = RequestMethod.POST)
     public String uploadFiles(@RequestParam("nname") String name,
                               @RequestParam("ffile") MultipartFile file,
                               Model model) {
 
         model.addAttribute("resultMessage", pizzaService.uploadFile(file));
-        return "utils/upload/pizzaListUpload";
+        return Routes.UTILS_UPLOAD_PIZZA_LIST_UPLOAD_PAGE;
     }
 
-    @RequestMapping("/pizzalist/upload")
+    @RequestMapping(Routes.PIZZA_PIZZALIST_UPLOAD)
     public String showMultipart() {
-        return "utils/upload/pizzaListUpload";
+        return Routes.UTILS_UPLOAD_PIZZA_LIST_UPLOAD_PAGE;
     }
 
-    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    @RequestMapping(value = Routes.PIZZA_REMOVE, method = RequestMethod.POST)
     public String remove(@ModelAttribute Pizza pizza) {
         pizzaService.remove(pizza);
-        return "redirect:../pizza/list";
+        return Routes.REDIRECT_PIZZA_LIST_PAGE;
     }
 
-
-//    @RequestMapping(value = "/list", method = RequestMethod.GET)
-//    @Secured("IS_AUTHENTICATED_FULLY")
-//    public ModelAndView getAllPizzas(ModelAndView modelAndView){
-//        List<Pizza> pizzaList = pizzaService.findAll();
-//        modelAndView.setViewName("pizzalist");
-//        modelAndView.addObject("pizzalist", pizzaList);
-//        return modelAndView;
-//    }
-
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-//    @Secured("IS_AUTHENTICATED_FULLY")
-    public String getAllPizzas(HttpSession session,
-                               HttpServletRequest req,
-                               HttpEntity<byte[]> httpEntity) {
-        session.setAttribute("ed", new Pizza());
-        req.getHeader("er");
-        byte[] body = httpEntity.getBody();
-        return "pizza/pizzalist";
+    @RequestMapping(Routes.PIZZA_LIST)
+    public String getAllPizzas() {
+        return Routes.PIZZA_LIST_PAGE;
     }
 
     @PostFilter("filterObject.type != T (domain.PizzaType).MEAT")
-//    @PostFilter("filterObject.pizzaId > 5")
-    @ModelAttribute("pizzalist")
+    @ModelAttribute(PIZZALIST)
     public List<Pizza> getPizzas() {
         List<Pizza> pizzalist = pizzaService.findAll();
         return pizzalist;
     }
-
-
 }

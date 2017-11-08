@@ -64,12 +64,10 @@ public class CustomerController {
         return Routes.CUSTOMER_LIST_PAGE;
     }
 
-    //    @PostFilter("filterObject.type != T (domain.CustomerType).MEAT")
+//    @PostFilter("filterObject.type != T (domain.CustomerType).MEAT")
 //    @PostFilter("filterObject.customerId > 5")
     @ModelAttribute(CUSTOMERLIST)
     public List<Customer> getCustomers() {
         return customerService.findAll();
     }
-
-
 }
