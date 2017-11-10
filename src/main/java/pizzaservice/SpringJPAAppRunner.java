@@ -59,7 +59,7 @@ public class SpringJPAAppRunner {
 
         ConfigurableApplicationContext appContext = new
                 ClassPathXmlApplicationContext(new String[]
-                {"appContext.xml"}, repoContext);
+                {"app_context.xml"}, repoContext);
 
         System.out.print("repoContext::");
         System.out.println(Arrays.toString(repoContext.getBeanDefinitionNames()));

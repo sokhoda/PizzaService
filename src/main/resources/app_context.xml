@@ -10,23 +10,73 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <util:properties id="properties" location="classpath:misc.properties" />
+    <util:properties id="properties" location="classpath:properties/misc.properties"/>
+
+    <!--Creates the JSR-303 Validator -->
+    <bean id="validatorFactory" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="messageInterpolator" ref="messageInterpolator"/>
+    </bean>
+
+    <bean id="messageInterpolator" class="org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator">
+        <constructor-arg index="0">
+            <bean class="org.hibernate.validator.resourceloading.PlatformResourceBundleLocator">
+                <constructor-arg index="0" value="properties.javax_validation.javax_validation_message"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <bean name="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>properties.spring_validation.message</value>
+            </list>
+        </property>
+    </bean>
 
     <context:component-scan base-package="domain"/>
     <context:component-scan base-package="pizzaservice"/>
     <context:component-scan base-package="utils.parsers"/>
     <context:component-scan base-package="validators"/>
     <context:component-scan base-package="infrastructure.event.handling"/>
+    <context:component-scan base-package="repository"/>
+
+    <context:property-placeholder location="classpath:properties/jdbc.properties"/>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${user}"/>
+        <property name="password" value="${password}"/>
+        <property name="initialSize" value="5"/>
+    </bean>
+
+    <bean name="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--        <property name="persistenceUnitName" value="HiberantePostgreSQL" />-->
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="packagesToScan" value="domain"/>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="javax.persistence.validation.mode">none</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
-    <bean id="validatorFactory" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
-
-    <!--<bean id="applicationEventMulticaster" class="org.springframework.context.event.SimpleApplicationEventMulticaster">-->
-        <!--<property name="taskExecutor">-->
-            <!--<bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"/>-->
-        <!--</property>-->
-    <!--</bean>-->
 
     <bean id="distributedEventMulticaster" class="infrastructure.event.handling.DistributedEventMulticaster">
         <property name="syncEventMulticaster">

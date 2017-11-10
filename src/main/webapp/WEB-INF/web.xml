@@ -7,7 +7,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:/repoContext.xml classpath:/appContext.xml
+        <param-value> classpath:/app_context.xml
             /WEB-INF/securityContext.xml
         </param-value>
     </context-param>

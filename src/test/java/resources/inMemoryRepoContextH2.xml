@@ -47,6 +47,6 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <import resource="appContext.xml"/>
+    <import resource="app_context.xml"/>
 
 </beans>
