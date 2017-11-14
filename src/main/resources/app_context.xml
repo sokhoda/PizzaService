@@ -8,6 +8,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <import resource="classpath:repo_config.xml"/>
+
     <util:properties id="properties" location="classpath:properties/misc.properties"/>
 
     <context:component-scan base-package="domain"/>
@@ -34,6 +35,22 @@
             <list>
                 <value>properties.spring_validation.message</value>
             </list>
+        </property>
+    </bean>
+
+    <bean id="myJavaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${smtp.hostname}"/>
+        <property name="port" value="${smtp.port}"/>
+        <property name="username" value="${email_username}"/>
+        <property name="password" value="${email_password}"/>
+
+        <property name="javaMailProperties">
+           <props>
+               <prop key="mail.transport.protocol">${mail.transport.protocol}</prop>
+               <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+               <prop key="mail.smtp.starttls.enable">${mail.smtp.starttls.enable}</prop>
+               <prop key="mail.debug">${mail.debug}</prop>
+           </props>
         </property>
     </bean>
 

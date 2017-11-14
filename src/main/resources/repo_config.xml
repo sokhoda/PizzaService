@@ -7,7 +7,8 @@
 
     <context:component-scan base-package="repository"/>
 
-    <context:property-placeholder location="classpath:properties/jdbc.properties"/>
+    <context:property-placeholder location="classpath:properties/jdbc.properties,
+                                            classpath:properties/mail_sender.properties"/>
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">

@@ -36,6 +36,9 @@
     </h3>
     <h2>
 
+        <a href="mail/send">-1. Send Mail</a>
+        <br>
+        <br>
         <a href="order/create">0. Create Order</a>
         <br>
         <br>

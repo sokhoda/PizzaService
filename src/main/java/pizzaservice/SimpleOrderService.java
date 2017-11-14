@@ -19,6 +19,7 @@ import web.app.converters.PizzaConverter;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,7 +29,9 @@ import java.util.stream.Collectors;
 
 @Service("orderService")
 public class SimpleOrderService implements OrderService {
-    public static final String USER = "user";
+    private static final String USER = "user";
+    private static final String ATTACHMENT_FILENAME = "orderSummary.xlsx";
+
     @Inject
     private PizzaService pizzaService = null;
     @Autowired
@@ -38,6 +41,9 @@ public class SimpleOrderService implements OrderService {
     private OrderStateCycle orderStateCycle;
     @Inject
     private OrderCreatedEventPublisher orderCreatedEventPublisher;
+    @Inject
+    private CustomMailService customMailService;
+
 
     @Value("#{properties['order.created.message']}")
     private String orderCreatedMessage;
@@ -105,6 +111,8 @@ public class SimpleOrderService implements OrderService {
         Orders order = placeNewOrder(customer, orderedPizzas);
         OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent(this, order, orderCreatedMessage);
         orderCreatedEventPublisher.doPublishEvent(orderCreatedEvent);
+        File attachment = new File("SomePath");
+        customMailService.sendMail(attachment, ATTACHMENT_FILENAME);
     }
 
     private void populateOrderedPizza(Map<Pizza, Integer> orderedPizzas, String idQuantityPair, PizzaConverter pizzaConverter) {
