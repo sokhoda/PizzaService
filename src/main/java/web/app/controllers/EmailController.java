@@ -19,7 +19,7 @@ public class EmailController {
 
     @RequestMapping(Routes.MAIL_SEND)
     public String sendMail() {
-        customMailService.sendMail(ATTACHMENT_URL, ATTACHMENT_FILENAME);
+        customMailService.sendMail(ATTACHMENT_URL, ATTACHMENT_FILENAME, null);
         return Routes.DASHBOARD;
     }
 }

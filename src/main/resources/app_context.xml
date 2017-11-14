@@ -54,6 +54,16 @@
         </property>
     </bean>
 
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <props>
+                <prop key="resource.loader">${resource.loader}</prop>
+                <prop key="class.resource.loader.class">${class.resource.loader.class}</prop>
+            </props>
+        </property>
+    </bean>
+
+
     <bean id="distributedEventMulticaster" class="infrastructure.event.handling.DistributedEventMulticaster">
         <property name="syncEventMulticaster">
             <bean class="org.springframework.context.event.SimpleApplicationEventMulticaster"/>

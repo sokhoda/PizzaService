@@ -103,6 +103,20 @@ public class Orders implements Serializable {
     }
 
 
+    public int countPizzasQuantity() {
+        return getPizzaMap().values().stream().reduce(0, Integer::sum);
+    }
+
+    public double calculateTotalprice() {
+        return getPizzaMap().entrySet().stream()
+                .map(this::calculateOrderEntryPrice)
+                .reduce(0.0, Double::sum);
+    }
+
+    private double calculateOrderEntryPrice(Map.Entry<Pizza, Integer> entry) {
+        return entry.getKey().getPrice() * entry.getValue();
+    }
+
     public void addTotalSumToCustomerLCard() {
         LoyaltyCard loyaltyCard = customer.getLoyaltyCard();
         if (loyaltyCard != null) {

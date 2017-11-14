@@ -1,47 +1,93 @@
 package pizzaservice;
 
+import domain.Orders;
+import infrastructure.email.templates.CustomOrderTemplate;
 import org.apache.commons.io.FileUtils;
-import org.springframework.core.io.FileSystemResource;
+import org.apache.commons.lang.StringUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URL;
+import java.util.Objects;
 
 @Service
 public class CustomMailServiceImpl implements CustomMailService {
+    private static final String DEFAULT_MESSAGE_BODY = "HI!!";
+    private static final String RECEIVER_EMAIL = "receiver@gmail.com";
+    private static final String DEFAULT_SUBJECT = "Some mail from me! ))";
+
     @Inject
     private JavaMailSender javaMailSender;
+    @Inject
+    private VelocityEngineFactoryBean velocityEngineFactoryBean;
 
     @Override
-    public void sendMail(File file, String attachmentFilename) {
-        doSendMail(file, attachmentFilename);
+    public void sendMail(File file, String attachmentFilename, Orders order) {
+        doSendMail(file, attachmentFilename, order);
     }
 
     @Override
-    public void sendMail(String attachmentUrl, String attachmentFilename) {
+    public void sendMail(String attachmentUrl, String attachmentFilename, Orders order) {
         File file = loadFileByURL(attachmentUrl, attachmentFilename);
-        doSendMail(file, attachmentFilename);
+        doSendMail(file, attachmentFilename, order);
     }
 
-    private void doSendMail(File file, String attachmentFilename) {
+    private void doSendMail(File file, String attachmentFilename, Orders order) {
         MimeMessage message = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo("receiver@gmail.com");
-            helper.setSubject("Some mail from me! ))");
-            helper.setText("Hi!");
-            helper.addAttachment(attachmentFilename, file);
+            helper.setTo(RECEIVER_EMAIL);
+            helper.setSubject(DEFAULT_SUBJECT);
+            populateMessageBody(order, helper);
+            populateAttachment(file, attachmentFilename, helper);
+
             javaMailSender.send(message);
         } catch (MessagingException e) {
             return;
         }
     }
+
+    private void populateAttachment(File file, String attachmentFilename, MimeMessageHelper helper) throws MessagingException {
+        if (Objects.nonNull(file)) {
+            helper.addAttachment(attachmentFilename, file);
+        }
+    }
+
+    private void populateMessageBody(Orders order, MimeMessageHelper helper) throws MessagingException {
+        String templateBody = resolveVelocityTemplate(order);
+        String messageBody = StringUtils.isEmpty(templateBody) ? DEFAULT_MESSAGE_BODY : templateBody;
+        helper.setText(messageBody);
+    }
+
+    private String resolveVelocityTemplate(Orders order) {
+        if (order == null) {
+            return StringUtils.EMPTY;
+        }
+        VelocityEngine ve = velocityEngineFactoryBean.getObject();
+        ve.init();
+        Template template = ve.getTemplate(CustomOrderTemplate.PATH);
+        VelocityContext context = new VelocityContext();
+
+        context.put(CustomOrderTemplate.CUSTOMER_FIELD, order.getCustomer());
+        context.put(CustomOrderTemplate.PIZZACOUNT_FIELD, order.countPizzasQuantity());
+        context.put(CustomOrderTemplate.TOTAL_PRICE_FIELD, order.calculateTotalprice());
+
+        StringWriter writer = new StringWriter();
+        template.merge(context, writer);
+        return writer.toString();
+    }
+
 
     private File loadLocalFile(String pathToAttachment) {
         return new File(pathToAttachment);

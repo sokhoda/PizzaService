@@ -8,7 +8,6 @@ import infrastructure.event.handling.publishers.OrderCreatedEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -111,8 +110,8 @@ public class SimpleOrderService implements OrderService {
         Orders order = placeNewOrder(customer, orderedPizzas);
         OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent(this, order, orderCreatedMessage);
         orderCreatedEventPublisher.doPublishEvent(orderCreatedEvent);
-        File attachment = new File("SomePath");
-        customMailService.sendMail(attachment, ATTACHMENT_FILENAME);
+        File attachment = null;
+        customMailService.sendMail(attachment, ATTACHMENT_FILENAME, order);
     }
 
     private void populateOrderedPizza(Map<Pizza, Integer> orderedPizzas, String idQuantityPair, PizzaConverter pizzaConverter) {

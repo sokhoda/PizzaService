@@ -1,0 +1,3 @@
+HI! User $customer.name has ordered $pizzaCount pizzas. Total price is $totalPrice
+
+Thank you for your order. Stay with us )))
