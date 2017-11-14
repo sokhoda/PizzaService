@@ -7,7 +7,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.springframework.mail.MailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
@@ -44,30 +46,30 @@ public class CustomMailServiceImpl implements CustomMailService {
     }
 
     private void doSendMail(File file, String attachmentFilename, Orders order) {
-        MimeMessage message = javaMailSender.createMimeMessage();
         try {
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo(RECEIVER_EMAIL);
-            helper.setSubject(DEFAULT_SUBJECT);
-            populateMessageBody(order, helper);
-            populateAttachment(file, attachmentFilename, helper);
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(javaMailSender.createMimeMessage(), true);
+            MimeMailMessage message = new MimeMailMessage(mimeMessageHelper);
+            message.setTo(RECEIVER_EMAIL);
+            message.setSubject(DEFAULT_SUBJECT);
+            populateMessageBody(order, message);
+            populateAttachment(file, attachmentFilename, message);
 
-            javaMailSender.send(message);
+            javaMailSender.send(message.getMimeMessage());
         } catch (MessagingException e) {
             return;
         }
     }
 
-    private void populateAttachment(File file, String attachmentFilename, MimeMessageHelper helper) throws MessagingException {
+    private void populateAttachment(File file, String attachmentFilename, MimeMailMessage message) throws MessagingException {
         if (Objects.nonNull(file)) {
-            helper.addAttachment(attachmentFilename, file);
+            message.getMimeMessageHelper().addAttachment(attachmentFilename, file);
         }
     }
 
-    private void populateMessageBody(Orders order, MimeMessageHelper helper) throws MessagingException {
+    private void populateMessageBody(Orders order, MimeMailMessage message) throws MessagingException {
         String templateBody = resolveVelocityTemplate(order);
         String messageBody = StringUtils.isEmpty(templateBody) ? DEFAULT_MESSAGE_BODY : templateBody;
-        helper.setText(messageBody);
+        message.setText(messageBody);
     }
 
     private String resolveVelocityTemplate(Orders order) {
