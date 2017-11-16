@@ -13,6 +13,14 @@
     <mvc:annotation-driven conversion-service="conversionService"/>
 
     <context:component-scan base-package="web.app"/>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/pizza/**"/>
+            <bean id="debugLoggingInterceptor" class="web.app.interceptors.DebugLoggingInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!--InternalResourceViewResolver-->
     <mvc:view-resolvers>
         <mvc:jsp prefix="/WEB-INF/jsp/"
@@ -51,7 +59,6 @@
         <property name="exceptionAttribute" value="ex"/>
         <!-- Name of logger to use to log exceptions. Unset by default, so logging disabled -->
     </bean>
-
 
 
 </beans>
