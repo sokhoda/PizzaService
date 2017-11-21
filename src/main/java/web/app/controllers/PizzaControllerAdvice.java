@@ -1,13 +1,11 @@
 package web.app.controllers;
 
+import domain.DomainHelper;
 import domain.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pizzaservice.PizzaService;
 import validators.PizzaValidator;
 
@@ -31,7 +29,7 @@ public class PizzaControllerAdvice {
 //        }
 //    }
 
-    @ModelAttribute(name = "pizza")
+    @ModelAttribute(name = DomainHelper.PIZZA)
     public Pizza pizzaMeth(@RequestParam(name = "pizzaId", required = false) Pizza pizza){
         System.out.println("ControllerAdvice: " + pizza);
 

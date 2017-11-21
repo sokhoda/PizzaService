@@ -1,5 +1,6 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -7,6 +8,7 @@ import pizzaservice.states.OrderStateCycle;
 import pizzaservice.states.State;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.SortedSet;
@@ -28,11 +30,14 @@ import java.util.TreeSet;
         @NamedQuery(name = "Order.findByCustomerByState", query =
                 "SELECT ord from Orders ord " +
                         "WHERE ord.orderStateCycle.curState = :state AND " +
-                        "ord.customer = :customer")
+                        "ord.customer = :customer"),
+        @NamedQuery(name = "Order.findAll", query = "SELECT ord from Orders ord")
 
 })
 @Table(name = "TB_ORDER")
 @Access(AccessType.FIELD)
+@XmlRootElement(name = DomainHelper.ORDERS)
+@JsonIgnoreProperties({"orderStateCycle","theMostExpensivePizza"})
 public class Orders implements Serializable {
     @Id
     @TableGenerator(
@@ -201,4 +206,7 @@ public class Orders implements Serializable {
         this.orderStateCycle = orderStateCycle;
     }
 
+    public OrderStateCycle getOrderStateCycle() {
+        return orderStateCycle;
+    }
 }

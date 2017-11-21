@@ -8,6 +8,10 @@ import validators.javax.CustomerCheck;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 @Component
@@ -19,6 +23,7 @@ import java.io.Serializable;
         @NamedQuery(name = "Customer.delete", query = "DELETE FROM Customer" +
                 " c WHERE c = :customer")
 })
+@XmlRootElement(name = DomainHelper.CUSTOMER)
 public class Customer implements Serializable {
     private static final String EMAIL_PATTERN = ".+@.+\\.[a-z]+";
 
@@ -53,6 +58,7 @@ public class Customer implements Serializable {
         return email;
     }
 
+    @XmlElement
     public void setEmail(String email) {
         this.email = email;
     }

@@ -15,6 +15,8 @@ public interface PizzaService {
 
     List<Pizza> findByType(PizzaType type);
 
+    List<Pizza> findByName(String name);
+
     void remove(Pizza pizza);
 
     String uploadFile(MultipartFile file);

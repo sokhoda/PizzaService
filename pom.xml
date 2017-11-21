@@ -333,8 +333,14 @@
         <dependency>
             <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
-            <version>4.2.1</version>
+            <version>2.1.7</version>
         </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.9</version>
+        </dependency>
+
         <!-- Needed for XML View (with JAXB2) -->
         <dependency>
             <groupId>org.springframework</groupId>

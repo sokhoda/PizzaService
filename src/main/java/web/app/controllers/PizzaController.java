@@ -1,21 +1,24 @@
 package web.app.controllers;
 
+import domain.DomainHelper;
 import domain.Pizza;
 import exceptions.PizzaPriceException;
 import exceptions.PizzaTypeException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pizzaservice.PizzaService;
+import web.app.dto.PizzaList;
 import web.infrastructure.Routes;
+import web.rest.PizzaResource;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -24,16 +27,22 @@ import java.util.List;
 @Slf4j
 @Controller
 public class PizzaController {
-    private static final String PIZZA = "pizza";
-    private static final String PIZZALIST = "pizzalist";
-
 
     @Inject
     public PizzaService pizzaService;
 
+    @RequestMapping(value = "/pizza/{name}", method = RequestMethod.GET)
+    public String findByName(@PathVariable("name") String pizzaName, ModelMap model) {
+        List<Pizza> pizzas = pizzaService.findByName(pizzaName);
+        if (pizzas != null) {
+            model.addAttribute(DomainHelper.PIZZA, pizzas.get(0));
+        }
+        return Routes.PIZZA_EDIT_PAGE;
+    }
+
     @RequestMapping(Routes.PIZZA_CREATE)
     public String create(Model model) {
-        model.addAttribute(PIZZA, new Pizza());
+        model.addAttribute(DomainHelper.PIZZA, new Pizza());
         return Routes.PIZZA_EDIT_PAGE;
     }
 
@@ -93,7 +102,7 @@ public class PizzaController {
     }
 
     @PostFilter("filterObject.type != T (domain.PizzaType).MEAT")
-    @ModelAttribute(PIZZALIST)
+    @ModelAttribute(DomainHelper.PIZZALIST)
     public List<Pizza> getPizzas() {
         List<Pizza> pizzalist = pizzaService.findAll();
         return pizzalist;

@@ -55,5 +55,11 @@ public class JPAPizzaRepo implements PizzaRepository {
         return query.setParameter("type", type).getResultList();
     }
 
+    @Override
+    public List<Pizza> findByName(String name) {
+        TypedQuery<Pizza> query =  em.createNamedQuery("Pizza.findByName", Pizza.class);
+        return query.setParameter("name", name).getResultList();
+    }
+
 
 }

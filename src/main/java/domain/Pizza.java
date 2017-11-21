@@ -3,13 +3,18 @@ package domain;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Pizza.findByType", query =
-                "SELECT p from Pizza p WHERE p.type = :type")
+                "SELECT p from Pizza p WHERE p.type = :type"),
+        @NamedQuery(name = "Pizza.findByName", query =
+                "SELECT p from Pizza p WHERE p.name = :name")
 })
+@XmlRootElement(name = DomainHelper.PIZZA)
 public class Pizza extends ResourceSupport implements Serializable {
     @Id
     @TableGenerator(

@@ -4,12 +4,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 @Component
 @Scope("prototype")
 @Entity
-public class LoyaltyCard implements Serializable{
+@XmlRootElement(name = DomainHelper.LOYALTYCARD)
+public class LoyaltyCard implements Serializable {
     @Id
     @TableGenerator(
             name = "LOYALTYCARDGen",

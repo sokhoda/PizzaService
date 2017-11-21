@@ -27,6 +27,8 @@ public interface OrderService {
 
     Orders find(Long id);
 
+    List<Orders> findAll();
+
     List<Orders> findByCustomer(Customer customer);
 
     List<Orders> findByDateBetween(LocalDateTime fromDate, LocalDateTime toDate);

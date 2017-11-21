@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 @Component
 @Scope("prototype")
 @Entity
+@XmlRootElement(name = DomainHelper.CHEQUE)
 public class Cheque implements Serializable {
     @Transient
     public static final String DEFAULT_TITLE = "Simple Pizza Cheque #";

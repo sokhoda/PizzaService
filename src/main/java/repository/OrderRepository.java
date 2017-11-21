@@ -10,6 +10,8 @@ import java.util.List;
 public interface OrderRepository {
     Orders find(Long id);
 
+    List<Orders> findAll();
+
     List<Orders> findByCustomer(Customer customer);
 
     Orders save(Orders newOrder);

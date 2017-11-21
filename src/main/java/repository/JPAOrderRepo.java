@@ -32,6 +32,12 @@ public class JPAOrderRepo implements OrderRepository {
     }
 
     @Override
+    public List<Orders> findAll() {
+        TypedQuery<Orders> query = em.createNamedQuery("Order.findAll", Orders.class);
+        return query.getResultList();
+    }
+
+    @Override
     public List<Orders> findByCustomer(Customer customer) {
         TypedQuery<Orders> query = em.createNamedQuery("Order" +
                 ".findByCustomer", Orders.class);

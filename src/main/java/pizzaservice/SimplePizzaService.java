@@ -78,6 +78,11 @@ public class SimplePizzaService implements PizzaService {
         return pizzaRepo.findByType(type);
     }
 
+    @Override
+    public List<Pizza> findByName(String name) {
+        return pizzaRepo.findByName(name);
+    }
+
     public static Pizza getVegetarianPizza() {
         return new Pizza(null, "Vege", 123., PizzaType.VEGETERIAN);
     }

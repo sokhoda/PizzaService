@@ -167,6 +167,11 @@ public class SimpleOrderService implements OrderService {
     }
 
     @Override
+    public List<Orders> findAll() {
+        return orderRepo.findAll();
+    }
+
+    @Override
     public List<Orders> findByDateBetween(LocalDateTime fromDate, LocalDateTime toDate){
         return  orderRepo.findByDateBetween(fromDate, toDate);
     }

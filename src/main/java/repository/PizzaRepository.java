@@ -16,5 +16,7 @@ public interface PizzaRepository {
 
     List<Pizza> findByType(PizzaType type);
 
+    List<Pizza> findByName(String name);
+
     void remove(Pizza pizza);
 }
