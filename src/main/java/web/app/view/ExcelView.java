@@ -1,63 +1,70 @@
 package web.app.view;
 
-import domain.DomainHelper;
-import domain.Pizza;
+import exceptions.ViewNotFoundException;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.springframework.util.Assert;
 import org.springframework.web.servlet.view.document.AbstractExcelView;
+import web.infrastructure.Routes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+
 
 public class ExcelView extends AbstractExcelView {
+    public static final String SHEET_NAME = "sheet 1";
+    private String viewName;
 
-    private static final String SHEET_NAME = "sheet 1";
+    public ExcelView(String viewName) {
+        this.viewName = viewName;
+    }
+
+    public ExcelView() {
+    }
 
     @Override
     protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Integer colCount = Optional.ofNullable(resolveWorkbookPopulationFunction())
+                .map(workbookPopulationFunction -> workbookPopulationFunction.apply(Pair.of(workbook, model)))
+                .orElseThrow(() -> new ViewNotFoundException("View not found: " + viewName));
+        for (int i = 0; i < colCount; i++) {
+            workbook.getSheet(SHEET_NAME).autoSizeColumn(i, true);
+        }
+    }
 
-        Pizza pizza = (Pizza) model.get(DomainHelper.PIZZA);
+    private Function<Pair<HSSFWorkbook, Map<String, Object>>, Integer> resolveWorkbookPopulationFunction() {
+        switch (viewName) {
+            case Routes.PIZZA_EDIT_PAGE:
+                return PizzaExcelViewHelper::populateSinglePizzaFunction;
+            case Routes.PIZZA_LIST_PAGE:
+                return PizzaExcelViewHelper::populatePizzaListFunction;
+            default:
+                return null;
+        }
+    }
 
-        Sheet sheet = workbook.createSheet(SHEET_NAME);
+    public static void createAndPopulateCell(Row row, int columnNumber, CellStyle style, String value) {
+        Assert.notNull(row, "Row can not be null");
+        Cell cell = row.createCell(columnNumber);
+        if (style != null) {
+            cell.setCellStyle(style);
+        }
+        cell.setCellValue(value);
+    }
+
+    public static CellStyle createHeaderStyle(HSSFWorkbook workbook) {
         CellStyle style = workbook.createCellStyle();
         style.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.index);
         style.setFillPattern(CellStyle.SOLID_FOREGROUND);
         style.setAlignment(CellStyle.ALIGN_CENTER);
-        Row row = null;
-        Cell cell = null;
-        int rowCount = 0;
-        int colCount = 0;
-
-        // Create header cells
-        row = sheet.createRow(rowCount++);
-
-        cell = row.createCell(colCount++);
-        cell.setCellStyle(style);
-        cell.setCellValue(DomainHelper.PIZZA_ID);
-
-        cell = row.createCell(colCount++);
-        cell.setCellStyle(style);
-        cell.setCellValue(DomainHelper.PIZZA_NAME);
-
-        cell = row.createCell(colCount++);
-        cell.setCellStyle(style);
-        cell.setCellValue(DomainHelper.PIZZA_TYPE);
-
-        cell = row.createCell(colCount++);
-        cell.setCellStyle(style);
-        cell.setCellValue(DomainHelper.PIZZA_PRICE);
-
-        // Create data cells
-        row = sheet.createRow(rowCount++);
-        colCount = 0;
-        row.createCell(colCount++).setCellValue(pizza.getPizzaId());
-        row.createCell(colCount++).setCellValue(pizza.getName());
-        row.createCell(colCount++).setCellValue(pizza.getType().name());
-        row.createCell(colCount++).setCellValue(pizza.getPizzaId());
-
-        for (int i = 0; i < 4; i++) {
-            sheet.autoSizeColumn(i, true);
-        }
+        return style;
     }
+
 }

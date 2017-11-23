@@ -46,13 +46,13 @@
         </property>
     </bean>
 
-    <bean id="myMappingExceptionResolver"
-          class="web.infrastructure.MyMappingExceptionResolver">
+    <bean id="myMappingExceptionResolver" class="web.infrastructure.MyMappingExceptionResolver">
         <property name="exceptionMappings">
             <map>
                 <entry key="PizzaPriceException" value="errorPage"/>
                 <entry key="CustomerAddressException" value="addressErrorPage"/>
                 <entry key="IOException" value="errorPage"/>
+                <entry key="ViewNotFoundException" value="errorPage"/>
             </map>
         </property>
         <property name="defaultErrorView" value="errorPage"/>
