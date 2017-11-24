@@ -1,6 +1,6 @@
 package infrastructure;
 
-import domain.*;
+import businessdomain.*;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import pizzaservice.states.NewState;

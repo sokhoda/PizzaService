@@ -1,4 +1,4 @@
-package infrastructure.converters;
+package infrastructure.db.converters;
 
 import pizzaservice.states.*;
 

@@ -1,6 +1,6 @@
 package web.rest;
 
-import domain.PizzaType;
+import businessdomain.PizzaType;
 import org.springframework.hateoas.ResourceSupport;
 
 

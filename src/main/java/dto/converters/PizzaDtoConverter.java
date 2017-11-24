@@ -1,7 +1,7 @@
 package dto.converters;
 
-import domain.Pizza;
-import domain.PizzaType;
+import businessdomain.Pizza;
+import businessdomain.PizzaType;
 import dto.PizzaDto;
 
 import java.util.Objects;

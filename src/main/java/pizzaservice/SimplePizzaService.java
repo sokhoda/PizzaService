@@ -1,7 +1,7 @@
 package pizzaservice;
 
-import domain.Pizza;
-import domain.PizzaType;
+import businessdomain.Pizza;
+import businessdomain.PizzaType;
 import dto.PizzaDto;
 import dto.converters.PizzaDtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;

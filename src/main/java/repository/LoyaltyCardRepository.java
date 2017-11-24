@@ -1,6 +1,6 @@
 package repository;
 
-import domain.LoyaltyCard;
+import businessdomain.LoyaltyCard;
 
 public interface LoyaltyCardRepository {
 

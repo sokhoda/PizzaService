@@ -1,7 +1,7 @@
 package pizzaservice;
 
-import domain.LoyaltyCard;
-import domain.Orders;
+import businessdomain.LoyaltyCard;
+import businessdomain.Orders;
 import infrastructure.UnitTestData;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -14,7 +14,6 @@ import pizzaservice.states.NewState;
 import pizzaservice.states.OrderStateCycle;
 import repository.OrderRepository;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

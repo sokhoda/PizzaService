@@ -1,6 +1,6 @@
 package pizzaservice;
 
-import domain.LoyaltyCard;
+import businessdomain.LoyaltyCard;
 
 public interface LoyaltyCardService {
     LoyaltyCard find(Long id);

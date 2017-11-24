@@ -1,4 +1,4 @@
-package domain;
+package businessdomain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import pizzaservice.states.OrderStateCycle;
 import pizzaservice.states.State;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.SortedSet;
@@ -21,8 +21,8 @@ import java.util.TreeSet;
         @NamedQuery(name = "Order.findByCustomer", query =
                 "SELECT ord from Orders ord WHERE ord.customer = :customer"),
         @NamedQuery(name = "Order.findByDateBetween", query =
-                "SELECT ord from Orders ord " +
-                    "WHERE ord.cheque.date BETWEEN :fromDate AND :toDate"),
+                "SELECT ord from Orders ord JOIN ord.cheque chq " +
+                    "WHERE chq.date BETWEEN :fromDate AND :toDate"),
         @NamedQuery(name = "Order.findByDateBetweenByState", query =
                 "SELECT ord from Orders ord " +
                         "WHERE ord.cheque.date BETWEEN :fromDate AND :toDate" +

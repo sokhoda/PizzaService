@@ -1,6 +1,6 @@
 package repository;
 
-import domain.Pizza;
+import businessdomain.Pizza;
 import infrastructure.RepoTestConfig;
 import org.junit.Before;
 import org.junit.Test;

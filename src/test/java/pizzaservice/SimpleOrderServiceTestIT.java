@@ -1,13 +1,12 @@
 package pizzaservice;
 
-import domain.Orders;
+import businessdomain.Orders;
 import infrastructure.RepoTestConfig;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

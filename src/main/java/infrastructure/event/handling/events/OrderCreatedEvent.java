@@ -1,7 +1,6 @@
 package infrastructure.event.handling.events;
 
-import domain.Customer;
-import domain.Orders;
+import businessdomain.Orders;
 import org.springframework.context.ApplicationEvent;
 
 public class OrderCreatedEvent extends ApplicationEvent {

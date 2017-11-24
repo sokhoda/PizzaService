@@ -1,8 +1,7 @@
 package pizzaservice;
 
-import domain.Address;
-import domain.Cheque;
-import domain.DiscountRecord;
+import businessdomain.Cheque;
+import businessdomain.DiscountRecord;
 import infrastructure.UnitTestData;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +9,6 @@ import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import repository.AddressRepository;
 import repository.DiscountRecordRepository;
 
 import java.util.ArrayList;
@@ -19,7 +17,6 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;

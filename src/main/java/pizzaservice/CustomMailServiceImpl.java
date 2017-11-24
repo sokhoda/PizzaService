@@ -1,13 +1,12 @@
 package pizzaservice;
 
-import domain.Orders;
+import businessdomain.Orders;
 import infrastructure.email.templates.CustomOrderTemplate;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import org.springframework.mail.MailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -16,7 +15,6 @@ import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -28,11 +26,18 @@ public class CustomMailServiceImpl implements CustomMailService {
     private static final String DEFAULT_MESSAGE_BODY = "HI!!";
     private static final String RECEIVER_EMAIL = "receiver@gmail.com";
     private static final String DEFAULT_SUBJECT = "Some mail from me! ))";
+    private String receiverEmail = RECEIVER_EMAIL;
 
     @Inject
     private JavaMailSender javaMailSender;
     @Inject
     private VelocityEngineFactoryBean velocityEngineFactoryBean;
+
+    @Override
+    public void sendMail(File file, String receiverEmail) {
+        this.receiverEmail = receiverEmail;
+        doSendMail(file, file.getName(), null);
+    }
 
     @Override
     public void sendMail(File file, String attachmentFilename, Orders order) {
@@ -49,7 +54,7 @@ public class CustomMailServiceImpl implements CustomMailService {
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(javaMailSender.createMimeMessage(), true);
             MimeMailMessage message = new MimeMailMessage(mimeMessageHelper);
-            message.setTo(RECEIVER_EMAIL);
+            message.setTo(receiverEmail);
             message.setSubject(DEFAULT_SUBJECT);
             populateMessageBody(order, message);
             populateAttachment(file, attachmentFilename, message);

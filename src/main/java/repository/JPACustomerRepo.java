@@ -1,8 +1,7 @@
 package repository;
 
-import domain.Customer;
-import domain.LoyaltyCard;
-import domain.Pizza;
+import businessdomain.Customer;
+import businessdomain.LoyaltyCard;
 import infrastructure.JPQLQueries;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

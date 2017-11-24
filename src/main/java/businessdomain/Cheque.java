@@ -1,6 +1,6 @@
-package domain;
+package businessdomain;
 
-import infrastructure.converters.DateConverter;
+import infrastructure.db.converters.DateConverter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

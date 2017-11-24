@@ -1,6 +1,6 @@
 package repository;
 
-import domain.Cheque;
+import businessdomain.Cheque;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

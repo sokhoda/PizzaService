@@ -11,12 +11,42 @@
 
     <util:properties id="properties" location="classpath:properties/misc.properties"/>
 
-    <context:component-scan base-package="domain"/>
+    <context:component-scan base-package="businessdomain"/>
     <context:component-scan base-package="pizzaservice"/>
     <context:component-scan base-package="utils.parsers"/>
     <context:component-scan base-package="validators"/>
     <context:component-scan base-package="infrastructure.event.handling"/>
+    <context:component-scan base-package="quartz"/>
 
+    <!--Jobs-->
+    <!--JobDetail-->
+    <bean id="adminReportNotificationJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="quartz.AdminReportNotificationJob"/>
+        <property name="description" value="This is job notifying admin with email report of made orders during the last week"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="timeout" value="2"/>
+                <entry key="adminEmail" value="${admin_email}"/>
+                <entry key="orderService" value-ref="orderService"/>
+                <entry key="customMailService" value-ref="customMailServiceImpl"/>
+            </map>
+        </property>
+    </bean>
+    <!--Trigger-->
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="adminReportNotificationJob"/>
+        <property name="cronExpression" value="0 0 0 ? * FRI"/>
+    </bean>
+    <!--Scheduler-->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="cronTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <!--Validators-->
     <!--Creates the JSR-303 Validator -->
     <bean id="validatorFactory" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="messageInterpolator" ref="messageInterpolator"/>
@@ -38,11 +68,12 @@
         </property>
     </bean>
 
+    <!--Email-->
     <bean id="myJavaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="${smtp.hostname}"/>
         <property name="port" value="${smtp.port}"/>
-        <property name="username" value="${email_username}"/>
-        <property name="password" value="${email_password}"/>
+        <property name="username" value="${user_mail}"/>
+        <property name="password" value="${user_mail_password}"/>
 
         <property name="javaMailProperties">
            <props>
@@ -63,7 +94,7 @@
         </property>
     </bean>
 
-
+    <!--Event notification/publisher-->
     <bean id="distributedEventMulticaster" class="infrastructure.event.handling.DistributedEventMulticaster">
         <property name="syncEventMulticaster">
             <bean class="org.springframework.context.event.SimpleApplicationEventMulticaster"/>
@@ -77,8 +108,7 @@
         </property>
     </bean>
 
-    <bean id="orderStateCycle" scope="prototype"
-          class="pizzaservice.states.OrderStateCycle">
+    <bean id="orderStateCycle" scope="prototype" class="pizzaservice.states.OrderStateCycle">
         <constructor-arg index="0" ref="newState"/>
         <constructor-arg index="1" ref="inProgressState"/>
         <constructor-arg index="2" ref="cancelledState"/>
@@ -96,7 +126,7 @@
     <bean name="customerService" class="pizzaservice.SimpleCustomerService">
         <lookup-method name="createNewCustomer" bean="customer"/>
     </bean>
-
+    <!--File import-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver ">
         <property name="maxUploadSize" value="5000000"/>
         <property name="maxInMemorySize" value="3000000"/>

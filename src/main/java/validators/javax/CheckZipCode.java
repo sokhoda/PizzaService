@@ -1,6 +1,6 @@
 package validators.javax;
 
-import domain.AddressType;
+import businessdomain.AddressType;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

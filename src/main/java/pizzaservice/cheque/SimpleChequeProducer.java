@@ -1,26 +1,24 @@
 package pizzaservice.cheque;
 
-import domain.Cheque;
-import domain.Orders;
-import infrastructure.DomainHandleHelper;
+import businessdomain.Cheque;
+import businessdomain.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pizzaservice.ChequeService;
-import pizzaservice.OrderService;
 import pizzaservice.discount.DiscountCalculator;
+
+import java.time.LocalDateTime;
+import java.util.Map;
 
 @Service("chequeProducer")
 public class SimpleChequeProducer implements ChequeProducer {
     private DiscountCalculator discountCalculator;
-    private OrderService orderService;
     private ChequeService chequeService;
 
     @Autowired
-    public SimpleChequeProducer(DiscountCalculator discountCalculator,
-                                OrderService orderService, ChequeService chequeService) {
+    public SimpleChequeProducer(DiscountCalculator discountCalculator, ChequeService chequeService) {
         this.discountCalculator = discountCalculator;
-        this.orderService = orderService;
         this.chequeService = chequeService;
     }
 
@@ -29,29 +27,31 @@ public class SimpleChequeProducer implements ChequeProducer {
 
     @Transactional
     @Override
-    public Orders placeCheque(Orders order){
-        Orders newOrder = DomainHandleHelper.clone(order);
+    public Cheque placeCheque(Map<Pizza, Integer> orderedPizzas) {
         Cheque cheque = createNewCheque();
-        cheque.setTotalSum(newOrder.calcTotalSum());
-        cheque = discountCalculator.handleDiscount(newOrder, cheque);
-        cheque = chequeService.save(cheque);
-        newOrder.setCheque(cheque);
-
-        orderService.addTotalSumToCustomerLCard(newOrder);
-
-        return orderService.save(newOrder);
+        cheque.setTitle(Cheque.DEFAULT_TITLE);
+        cheque.setDate(LocalDateTime.now());
+        cheque.setTotalSum(getOrderSum(orderedPizzas));
+        return cheque;
     }
 
-    Cheque createNewCheque(){
+    private Double getOrderSum(Map<Pizza, Integer> pizzaMap) {
+        return pizzaMap.entrySet().stream()
+                .mapToDouble(this::calculateOrderItemSum)
+                .reduce(0., Double::sum);
+    }
+
+    private double calculateOrderItemSum(Map.Entry<Pizza, Integer> entry) {
+        return entry.getKey().getPrice() * entry.getValue();
+    }
+
+
+    Cheque createNewCheque() {
         throw new IllegalStateException("Container couldn`t create Proxy");
     }
 
     public void setDiscountCalculator(DiscountCalculator discountCalculator) {
         this.discountCalculator = discountCalculator;
-    }
-
-    public void setOrderService(OrderService orderService) {
-        this.orderService = orderService;
     }
 
     public void setChequeService(ChequeService chequeService) {

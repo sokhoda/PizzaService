@@ -1,8 +1,10 @@
 package pizzaservice;
 
-import domain.Customer;
-import domain.Orders;
-import domain.Pizza;
+import businessdomain.Cheque;
+import businessdomain.Customer;
+import businessdomain.Orders;
+import businessdomain.Pizza;
+import com.fasterxml.jackson.databind.node.DoubleNode;
 import infrastructure.event.handling.events.OrderCreatedEvent;
 import infrastructure.event.handling.publishers.OrderCreatedEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import pizzaservice.cheque.ChequeProducer;
 import pizzaservice.states.OrderStateCycle;
 import pizzaservice.states.State;
 import repository.OrderRepository;
@@ -36,7 +39,9 @@ public class SimpleOrderService implements OrderService {
     @Autowired
     @Qualifier(value = "orderRepository")
     private OrderRepository orderRepo = null;
-    @Autowired
+    @Inject
+    private ChequeProducer chequeProducer;
+    @Inject
     private OrderStateCycle orderStateCycle;
     @Inject
     private OrderCreatedEventPublisher orderCreatedEventPublisher;
@@ -93,25 +98,31 @@ public class SimpleOrderService implements OrderService {
 
     @Override
     public Orders placeNewOrder(Customer customer, Map<Pizza, Integer> orderedPizzas) {
-        Orders newOrder = createNewOrder();
-        newOrder.setCustomer(customer);
-        newOrder.setPizzaMap(orderedPizzas);
-        newOrder.setOrderStateCycle(createNewOrderStateCycle());
+        Orders order = createNewOrder();
+        Cheque cheque = chequeProducer.placeCheque(orderedPizzas);
+        order.setCheque(cheque);
+        order.setCustomer(customer);
+        order.setPizzaMap(orderedPizzas);
+        order.setOrderStateCycle(createNewOrderStateCycle());
 
-        return save(newOrder);
+        return save(order);
     }
 
     @Override
     public void buildOrder(String orderedPizzaIds, Customer customer, PizzaConverter pizzaConverter) {
-        Map<Pizza, Integer> orderedPizzas = new HashMap<>();
-        Arrays.stream(orderedPizzaIds.split(";"))
-                .forEach(orderItem -> populateOrderedPizza(orderedPizzas, orderItem, pizzaConverter));
-
+        Map<Pizza, Integer> orderedPizzas = createOrderedPizzaMap(orderedPizzaIds, pizzaConverter);
         Orders order = placeNewOrder(customer, orderedPizzas);
         OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent(this, order, orderCreatedMessage);
         orderCreatedEventPublisher.doPublishEvent(orderCreatedEvent);
         File attachment = null;
         customMailService.sendMail(attachment, ATTACHMENT_FILENAME, order);
+    }
+
+    private Map<Pizza, Integer> createOrderedPizzaMap(String orderedPizzaIds, PizzaConverter pizzaConverter) {
+        Map<Pizza, Integer> orderedPizzas = new HashMap<>();
+        Arrays.stream(orderedPizzaIds.split(";"))
+                .forEach(orderItem -> populateOrderedPizza(orderedPizzas, orderItem, pizzaConverter));
+        return orderedPizzas;
     }
 
     private void populateOrderedPizza(Map<Pizza, Integer> orderedPizzas, String idQuantityPair, PizzaConverter pizzaConverter) {
@@ -122,6 +133,7 @@ public class SimpleOrderService implements OrderService {
             orderedPizzas.put(pizza, quantity);
         }
     }
+
 
     Orders createNewOrder() {
         throw new IllegalStateException("Container couldn't create Proxy");

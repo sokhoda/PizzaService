@@ -1,6 +1,6 @@
 package web.app.controllers;
 
-import domain.Customer;
+import businessdomain.Customer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

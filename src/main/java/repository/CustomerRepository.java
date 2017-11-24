@@ -1,7 +1,7 @@
 package repository;
 
-import domain.Customer;
-import domain.LoyaltyCard;
+import businessdomain.Customer;
+import businessdomain.LoyaltyCard;
 
 import java.util.List;
 

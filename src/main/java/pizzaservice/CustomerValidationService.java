@@ -1,6 +1,6 @@
 package pizzaservice;
 
-import domain.Customer;
+import businessdomain.Customer;
 import org.springframework.validation.BindingResult;
 
 public interface CustomerValidationService  {

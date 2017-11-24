@@ -1,8 +1,12 @@
 package pizzaservice.cheque;
 
-import domain.Orders;
+import businessdomain.Cheque;
+import businessdomain.Orders;
+import businessdomain.Pizza;
+
+import java.util.Map;
 
 public interface ChequeProducer {
 
-    Orders placeCheque(Orders order);
+    Cheque placeCheque(Map<Pizza, Integer> orderedPizzas);
 }

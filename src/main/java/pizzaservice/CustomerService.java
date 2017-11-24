@@ -1,8 +1,8 @@
 package pizzaservice;
 
-import domain.Address;
-import domain.Customer;
-import domain.LoyaltyCard;
+import businessdomain.Address;
+import businessdomain.Customer;
+import businessdomain.LoyaltyCard;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;

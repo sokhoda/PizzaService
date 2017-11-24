@@ -1,8 +1,8 @@
 package pizzaservice;
 
-import domain.Customer;
-import domain.Orders;
-import domain.Pizza;
+import businessdomain.Customer;
+import businessdomain.Orders;
+import businessdomain.Pizza;
 import org.springframework.ui.Model;
 import pizzaservice.states.State;
 import web.app.converters.PizzaConverter;

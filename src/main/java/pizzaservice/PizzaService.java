@@ -1,7 +1,7 @@
 package pizzaservice;
 
-import domain.Pizza;
-import domain.PizzaType;
+import businessdomain.Pizza;
+import businessdomain.PizzaType;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

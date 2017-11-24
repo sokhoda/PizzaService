@@ -1,6 +1,6 @@
 package pizzaservice;
 
-import domain.Customer;
+import businessdomain.Customer;
 import infrastructure.RepoTestConfig;
 import org.junit.Before;
 import org.junit.Test;

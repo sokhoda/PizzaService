@@ -1,7 +1,7 @@
 package repository;
 
-import domain.Customer;
-import domain.Orders;
+import businessdomain.Customer;
+import businessdomain.Orders;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pizzaservice.states.State;

@@ -1,7 +1,7 @@
 package repository;
 
-import domain.Customer;
-import domain.Orders;
+import businessdomain.Customer;
+import businessdomain.Orders;
 import pizzaservice.states.State;
 
 import java.time.LocalDateTime;

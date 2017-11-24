@@ -1,8 +1,8 @@
 package pizzaservice.discount;
 
-import domain.Cheque;
-import domain.DiscountRecord;
-import domain.Orders;
+import businessdomain.Cheque;
+import businessdomain.DiscountRecord;
+import businessdomain.Orders;
 import org.springframework.stereotype.Component;
 
 @Component

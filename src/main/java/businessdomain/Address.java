@@ -1,4 +1,4 @@
-package domain;
+package businessdomain;
 
 import validators.javax.AddressCheck;
 import validators.javax.CheckZipCode;

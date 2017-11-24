@@ -1,7 +1,7 @@
 package infrastructure;
 
-import domain.Pizza;
-import domain.PizzaType;
+import businessdomain.Pizza;
+import businessdomain.PizzaType;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

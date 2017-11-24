@@ -1,9 +1,8 @@
 package pizzaservice;
 
-import domain.Cheque;
+import businessdomain.Cheque;
 import infrastructure.UnitTestData;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;

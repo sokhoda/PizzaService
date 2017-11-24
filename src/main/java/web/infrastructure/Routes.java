@@ -10,9 +10,12 @@ public class Routes {
     public static final String DASHBOARD = "/dashboard";
 
     //    order
+
     public static final String ORDER_EDIT_PAGE = "/order/orderedit";
+    public static final String ORDER_LIST_PAGE = "/order/orderslist";
     public static final String ORDER_CREATE = "/order/create";
     public static final String ORDER_ADDNEW = "/order/addnew";
+    public static final String ORDERS_LIST = "/orders/list";
 
     //    pizza
     public static final String PIZZA_EDIT_PAGE = "pizza/pizzaedit";

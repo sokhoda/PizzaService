@@ -1,6 +1,6 @@
 package web.app.converters;
 
-import domain.Customer;
+import businessdomain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.util.StringUtils;

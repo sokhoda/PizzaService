@@ -1,6 +1,6 @@
 package pizzaservice;
 
-import domain.LoyaltyCard;
+import businessdomain.LoyaltyCard;
 import infrastructure.UnitTestData;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,8 +1,8 @@
 package web.app.config;
 
-import domain.Customer;
-import domain.Orders;
-import domain.Pizza;
+import businessdomain.Customer;
+import businessdomain.Orders;
+import businessdomain.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;

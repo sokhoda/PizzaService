@@ -1,6 +1,6 @@
 package pizzaservice;
 
-import domain.Address;
+import businessdomain.Address;
 
 import java.util.List;
 

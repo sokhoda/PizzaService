@@ -1,7 +1,7 @@
 package web.app.dto;
 
-import domain.DomainHelper;
-import domain.Orders;
+import businessdomain.DomainHelper;
+import businessdomain.Orders;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

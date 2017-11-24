@@ -1,11 +1,10 @@
 package web.app.dto;
 
-import domain.DomainHelper;
-import domain.Pizza;
+import businessdomain.DomainHelper;
+import businessdomain.Pizza;
 
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)

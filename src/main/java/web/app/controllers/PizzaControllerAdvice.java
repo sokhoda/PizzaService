@@ -1,7 +1,7 @@
 package web.app.controllers;
 
-import domain.DomainHelper;
-import domain.Pizza;
+import businessdomain.DomainHelper;
+import businessdomain.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.web.bind.WebDataBinder;

@@ -1,6 +1,6 @@
 package pizzaservice;
 
-import domain.Pizza;
+import businessdomain.Pizza;
 import infrastructure.UnitTestData;
 import org.junit.After;
 import org.junit.AfterClass;

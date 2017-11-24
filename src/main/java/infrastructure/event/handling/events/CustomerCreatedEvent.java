@@ -1,6 +1,6 @@
 package infrastructure.event.handling.events;
 
-import domain.Customer;
+import businessdomain.Customer;
 import org.springframework.context.ApplicationEvent;
 
 public class CustomerCreatedEvent extends ApplicationEvent {

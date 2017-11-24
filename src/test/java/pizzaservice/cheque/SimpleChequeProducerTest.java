@@ -1,7 +1,7 @@
 package pizzaservice.cheque;
 
-import domain.Cheque;
-import domain.Orders;
+import businessdomain.Cheque;
+import businessdomain.Orders;
 import infrastructure.UnitTestData;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +12,8 @@ import org.mockito.MockitoAnnotations;
 import pizzaservice.ChequeService;
 import pizzaservice.OrderService;
 import pizzaservice.discount.DiscountCalculator;
+
+import java.util.HashMap;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -40,7 +42,6 @@ public class SimpleChequeProducerTest extends UnitTestData {
         SimpleChequeProducer sChequeProducer = spy(SimpleChequeProducer.class);
         sChequeProducer.setDiscountCalculator(discountCalculator);
         sChequeProducer.setChequeService(chequeService);
-        sChequeProducer.setOrderService(orderService);
 
         Orders order = expectedOrder;
         Cheque expectedCheque = new Cheque();
@@ -57,14 +58,13 @@ public class SimpleChequeProducerTest extends UnitTestData {
         doNothing().when(orderService).addTotalSumToCustomerLCard(any());
 
 //      WHEN
-        Orders actualOrder = sChequeProducer.placeCheque(order);
+        Cheque actualOrder = sChequeProducer.placeCheque(new HashMap<>());
 
 //      THEN
         assertThat(actualOrder, is(expectedOrder));
         verify(sChequeProducer).createNewCheque();
         verify(discountCalculator).handleDiscount(order, cheque);
         verify(chequeService).save(cheque);
-        verify(orderService).save(actualOrder);
     }
 
     @Test(expected = IllegalStateException.class)

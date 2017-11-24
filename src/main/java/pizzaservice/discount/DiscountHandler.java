@@ -1,7 +1,7 @@
 package pizzaservice.discount;
 
-import domain.Cheque;
-import domain.Orders;
+import businessdomain.Cheque;
+import businessdomain.Orders;
 
 public interface DiscountHandler {
     int DISCOUNT_THRESHOLD = 4;

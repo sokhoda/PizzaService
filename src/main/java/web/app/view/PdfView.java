@@ -3,8 +3,8 @@ package web.app.view;
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import domain.DomainHelper;
-import domain.Pizza;
+import businessdomain.DomainHelper;
+import businessdomain.Pizza;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 
 import javax.servlet.http.HttpServletRequest;

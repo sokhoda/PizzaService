@@ -1,18 +1,11 @@
 package infrastructure;
 
-import domain.Cheque;
-import domain.Orders;
-import domain.Pizza;
-import domain.PizzaType;
-import org.springframework.transaction.TransactionDefinition;
+import businessdomain.Cheque;
+import businessdomain.Pizza;
+import businessdomain.PizzaType;
 
 import javax.persistence.*;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.ManagedType;
-import javax.persistence.metamodel.Metamodel;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class JPAAppRunner {
     public static void main(String[] args) {

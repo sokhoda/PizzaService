@@ -1,7 +1,7 @@
 package repository;
 
-import domain.Cheque;
-import domain.DiscountRecord;
+import businessdomain.Cheque;
+import businessdomain.DiscountRecord;
 
 import java.util.List;
 

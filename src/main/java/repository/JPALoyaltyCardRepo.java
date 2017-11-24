@@ -1,6 +1,6 @@
 package repository;
 
-import domain.LoyaltyCard;
+import businessdomain.LoyaltyCard;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

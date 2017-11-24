@@ -1,7 +1,7 @@
 package web.app.view;
 
-import domain.DomainHelper;
-import domain.Pizza;
+import businessdomain.DomainHelper;
+import businessdomain.Pizza;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -15,7 +15,7 @@ import java.util.Map;
 import static web.app.view.ExcelView.createAndPopulateCell;
 import static web.app.view.ExcelView.createHeaderStyle;
 
-public interface PizzaExcelViewHelper {
+public class PizzaExcelViewHelper {
 
     static int populatePizzaListFunction(Pair<HSSFWorkbook, Map<String, Object>> workbookAndModel) {
         Map<String, Object> model = workbookAndModel.getRight();

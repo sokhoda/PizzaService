@@ -1,6 +1,6 @@
 package dto.converters;
 
-import domain.Customer;
+import businessdomain.Customer;
 import dto.CustomerDto;
 
 import java.util.Objects;

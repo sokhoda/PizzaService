@@ -1,6 +1,6 @@
 package infrastructure;
 
-import domain.*;
+import businessdomain.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.RunWith;
 import org.springframework.dao.DataAccessException;

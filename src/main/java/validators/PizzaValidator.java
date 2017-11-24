@@ -1,7 +1,7 @@
 package validators;
 
-import domain.DomainHelper;
-import domain.Pizza;
+import businessdomain.DomainHelper;
+import businessdomain.Pizza;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

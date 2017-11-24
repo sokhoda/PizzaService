@@ -1,6 +1,5 @@
 package web.app.view.resolvers;
 
-import domain.DomainHelper;
 import org.springframework.oxm.Marshaller;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;

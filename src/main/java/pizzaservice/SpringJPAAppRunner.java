@@ -1,35 +1,21 @@
 package pizzaservice;
 
-import domain.*;
-import org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor;
+import businessdomain.*;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.access.prepost.PreFilter;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionException;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 import pizzaservice.cheque.ChequeProducer;
 import pizzaservice.states.InProgressState;
-import pizzaservice.states.NewState;
 import pizzaservice.states.OrderStateCycle;
-import pizzaservice.states.StateEn;
 import repository.AddressRepository;
 import repository.CustomerRepository;
 import repository.OrderRepository;
 import repository.PizzaRepository;
 
-import javax.annotation.security.RolesAllowed;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-
-import static org.springframework.security.access.vote.AuthenticatedVoter.IS_AUTHENTICATED_ANONYMOUSLY;
 
 
 public class SpringJPAAppRunner {
@@ -132,14 +118,14 @@ public class SpringJPAAppRunner {
         ChequeProducer chequeProducer = appContext.getBean("chequeProducer",
                 ChequeProducer.class);
         System.out.println("Customer::\n" + customer);
-        order = chequeProducer.placeCheque(order);
+        chequeProducer.placeCheque(new HashMap<Pizza, Integer>());
 
         System.out.println(order);
         System.out.println("Cheque::\n" + order.getCheque());
 
         System.out.println("Customer::" + customer);
         Orders order2 = orderService.placeNewOrder(customer, 3L, 6L);
-        order2 = chequeProducer.placeCheque(order2);
+        chequeProducer.placeCheque(new HashMap<>());
         order2.nextState();
         order2 = orderService.save(order2);
         System.out.println(order2);

@@ -1,6 +1,6 @@
 package web.rest.asm;
 
-import domain.Pizza;
+import businessdomain.Pizza;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;

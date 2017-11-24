@@ -1,9 +1,7 @@
 package infrastructure;
 
-import domain.Customer;
-import domain.LoyaltyCard;
-import domain.Pizza;
-import domain.PizzaType;
+import businessdomain.Customer;
+import businessdomain.LoyaltyCard;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

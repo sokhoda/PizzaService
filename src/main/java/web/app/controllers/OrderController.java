@@ -1,21 +1,18 @@
 package web.app.controllers;
 
-import domain.Customer;
-import domain.DomainHelper;
-import domain.Orders;
-import domain.Pizza;
+import businessdomain.Customer;
+import businessdomain.DomainHelper;
+import businessdomain.Orders;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import pizzaservice.OrderService;
 import web.app.converters.PizzaConverter;
 import web.app.dto.OrdersList;
-import web.app.dto.PizzaList;
 import web.infrastructure.Routes;
 
 import javax.inject.Inject;
@@ -33,12 +30,12 @@ public class OrderController {
     private PizzaConverter pizzaConverter;
 
 
-    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    @RequestMapping(value = Routes.ORDERS_LIST, method = RequestMethod.GET)
     public String findAll(ModelMap model) {
         List<Orders> orderList = orderService.findAll();
 
         model.addAttribute(DomainHelper.ORDERSLIST, new OrdersList(orderList));
-        return Routes.ORDER_EDIT_PAGE;
+        return Routes.ORDER_LIST_PAGE;
     }
 
     @RequestMapping(Routes.ORDER_CREATE)

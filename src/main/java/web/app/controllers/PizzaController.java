@@ -1,7 +1,7 @@
 package web.app.controllers;
 
-import domain.DomainHelper;
-import domain.Pizza;
+import businessdomain.DomainHelper;
+import businessdomain.Pizza;
 import exceptions.PizzaPriceException;
 import exceptions.PizzaTypeException;
 import lombok.extern.slf4j.Slf4j;
@@ -97,7 +97,7 @@ public class PizzaController {
         return Routes.PIZZA_LIST_PAGE;
     }
 
-    @PostFilter("filterObject.type != T (domain.PizzaType).MEAT")
+    @PostFilter("filterObject.type != T (businessdomain.PizzaType).MEAT")
     @ModelAttribute(DomainHelper.PIZZALIST)
     public List<Pizza> getPizzas() {
         List<Pizza> pizzalist = pizzaService.findAll();

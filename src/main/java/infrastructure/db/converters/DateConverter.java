@@ -1,4 +1,4 @@
-package infrastructure.converters;
+package infrastructure.db.converters;
 
 import javax.persistence.AttributeConverter;
 import java.time.LocalDateTime;

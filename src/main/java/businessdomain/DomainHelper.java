@@ -1,4 +1,4 @@
-package domain;
+package businessdomain;
 
 public class DomainHelper {
 //    pizza
@@ -15,9 +15,19 @@ public class DomainHelper {
 
 //    order
     public static final String ORDERS = "orders";
+    public static final String ORDER_ID = "orderId";
+    public static final String ORDER_DATETIME = "dateTime";
+    public static final String ORDER_ITEMS = "order Items";
+    public static final String ORDER_SUM = "order Sum";
     public static final String ORDERSLIST = "orderslist";
+
+
+//    customer
+    public static final String CUSTOMER_INFO = "customer Info";
+
 //    cheque
     public static final String CHEQUE = "cheque";
+    public static final String CHEQUE_TITLE = "cheque Title";
 //    loyaltycard
     public static final String LOYALTYCARD = "loyaltycard";
 }

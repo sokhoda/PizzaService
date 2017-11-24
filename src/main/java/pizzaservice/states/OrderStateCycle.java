@@ -1,6 +1,6 @@
 package pizzaservice.states;
 
-import infrastructure.converters.StateConverter;
+import infrastructure.db.converters.StateConverter;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;

@@ -1,14 +1,15 @@
 package pizzaservice;
 
-import domain.Cheque;
-import domain.Customer;
-import domain.Orders;
+import businessdomain.Cheque;
+import businessdomain.Customer;
+import businessdomain.Orders;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pizzaservice.cheque.ChequeProducer;
 import pizzaservice.states.OrderStateCycle;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 
 public class SpringAppRunner {
@@ -44,7 +45,7 @@ OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
         Orders order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
         order = orderService.addPizzas(order, 1L, 2L);
 
-        order = chequeProducer.placeCheque(order);
+        chequeProducer.placeCheque(new HashMap<>());
         Cheque cheque = order.getCheque();
         System.out.println(order);
         System.out.println(cheque);
@@ -53,7 +54,7 @@ OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
         System.out.println("\n\n\n----------Order II----------\n");
         order = orderService.placeNewOrder(customer, 2L, 2L, 3L);
 
-        order = chequeProducer.placeCheque(order);
+        chequeProducer.placeCheque(new HashMap<>());
         cheque = order.getCheque();
         System.out.println(order);
         System.out.println(cheque);

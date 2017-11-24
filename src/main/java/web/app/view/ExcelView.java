@@ -19,7 +19,7 @@ import java.util.function.Function;
 
 
 public class ExcelView extends AbstractExcelView {
-    public static final String SHEET_NAME = "sheet 1";
+    static final String SHEET_NAME = "sheet 1";
     private String viewName;
 
     public ExcelView(String viewName) {
@@ -30,7 +30,7 @@ public class ExcelView extends AbstractExcelView {
     }
 
     @Override
-    protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Integer colCount = Optional.ofNullable(resolveWorkbookPopulationFunction())
                 .map(workbookPopulationFunction -> workbookPopulationFunction.apply(Pair.of(workbook, model)))
                 .orElseThrow(() -> new ViewNotFoundException("View not found: " + viewName));
@@ -45,6 +45,10 @@ public class ExcelView extends AbstractExcelView {
                 return PizzaExcelViewHelper::populateSinglePizzaFunction;
             case Routes.PIZZA_LIST_PAGE:
                 return PizzaExcelViewHelper::populatePizzaListFunction;
+            case Routes.ORDER_EDIT_PAGE:
+                return OrdersExcelViewHelper::populateSingleOrdersFunction;
+            case Routes.ORDER_LIST_PAGE:
+                return OrdersExcelViewHelper::populateOrdersListFunction;
             default:
                 return null;
         }

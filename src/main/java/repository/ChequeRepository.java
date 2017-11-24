@@ -1,6 +1,6 @@
 package repository;
 
-import domain.Cheque;
+import businessdomain.Cheque;
 
 public interface ChequeRepository {
     Cheque find(Long id);

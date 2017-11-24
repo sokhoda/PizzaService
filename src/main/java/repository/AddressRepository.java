@@ -1,6 +1,6 @@
 package repository;
 
-import domain.Address;
+import businessdomain.Address;
 
 import java.util.List;
 

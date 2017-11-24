@@ -1,6 +1,6 @@
 package pizzaservice;
 
-import domain.Customer;
+import businessdomain.Customer;
 import infrastructure.UnitTestData;
 import org.junit.Test;
 import org.mockito.AdditionalAnswers;
