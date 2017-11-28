@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import web.app.dto.PizzaList;
 
 @Component
 public class PizzaValidator implements Validator {
@@ -19,11 +20,14 @@ public class PizzaValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return Pizza.class.equals(clazz);
+        return Pizza.class.equals(clazz) || PizzaList.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
+        if (!(target instanceof Pizza)) {
+            return;
+        }
         Pizza pizza = (Pizza) target;
         Object[] errorArgs = {DomainHelper.PIZZA};
         if (pizza.getPrice() < 0) {

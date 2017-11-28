@@ -4,6 +4,7 @@ import org.springframework.oxm.Marshaller;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.xml.MarshallingView;
+import web.app.view.CommonViewHelper;
 
 import java.util.Locale;
 
@@ -17,6 +18,7 @@ public class XmlViewResolver implements ViewResolver {
     @Override
     public View resolveViewName(String viewName, Locale locale) throws Exception {
         MarshallingView view = new MarshallingView();
+        view.setModelKey(CommonViewHelper.resolveModelKey(viewName, true));
         view.setMarshaller(marshaller);
         return view;
     }

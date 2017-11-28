@@ -2,12 +2,12 @@ package web.app.view;
 
 import businessdomain.*;
 import infrastructure.date.converters.SimpleDateConverter;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import web.app.dto.OrdersList;
 
 import java.util.*;
 
@@ -27,7 +27,7 @@ public class OrdersExcelViewHelper {
 
     static int populateOrdersListFunction(Pair<HSSFWorkbook, Map<String, Object>> workbookAndModel) {
         Map<String, Object> model = workbookAndModel.getRight();
-        List<Orders> ordersList = ((OrdersList) model.get(DomainHelper.ORDERSLIST)).getOrdersList();
+        List<Orders> ordersList = (List<Orders>) model.get(DomainHelper.ORDERSLIST);
         return populateOrdersList(workbookAndModel.getLeft(), ordersList);
     }
 
@@ -58,12 +58,13 @@ public class OrdersExcelViewHelper {
         // Create data cells
         Row row = sheet.createRow(rowCount);
         String ordersId = String.valueOf(orders.getId());
-        Cheque cheque = orders.getCheque();
-        String chequeDate = SimpleDateConverter.localDateTimeToString(cheque.getDate());
-        String chequeTitle = cheque.getTitle();
+        Optional<Cheque> cheque = Optional.ofNullable(orders.getCheque());
+        String chequeDate = cheque.map(Cheque::getDate)
+                .map(SimpleDateConverter::localDateTimeToString).orElse(StringUtils.EMPTY);
+        String chequeTitle = cheque.map(Cheque::getTitle).orElse(StringUtils.EMPTY);
         String pizzaMapItems = getPizzaMapItems(orders.getPizzaMap());
         String customerInfo = getCustomerInfo(orders.getCustomer());
-        String ordersSum = String.valueOf(cheque.getTotalSum());
+        String ordersSum = cheque.map(Cheque::getTotalSum).map(String::valueOf).orElse(StringUtils.EMPTY);
         createAndPopulateCell(row, colCount++, null, ordersId);
         createAndPopulateCell(row, colCount++, null, chequeDate);
         createAndPopulateCell(row, colCount++, null, chequeTitle);
@@ -75,7 +76,10 @@ public class OrdersExcelViewHelper {
 
     private static String getCustomerInfo(Customer customer) {
         StringJoiner stringJoiner = new StringJoiner(DELIMITER);
-        stringJoiner.add(customer.getName()).add(customer.getEmail());
+        Optional<Customer> customerOptional = Optional.ofNullable(customer);
+        String customerName = customerOptional.map(Customer::getName).orElse(StringUtils.EMPTY);
+        String customerEmail = customerOptional.map(Customer::getEmail).orElse(StringUtils.EMPTY);
+        stringJoiner.add(customerName).add(customerEmail);
         return stringJoiner.toString();
     }
 

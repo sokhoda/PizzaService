@@ -17,11 +17,11 @@ public class OrdersList implements Serializable {
     @XmlElement(name = DomainHelper.ORDERS, type = Orders.class)
     private List<Orders> ordersList;
 
-    public OrdersList() {
-    }
-
     public OrdersList(List<Orders> ordersList) {
         this.ordersList = ordersList;
+    }
+
+    public OrdersList() {
     }
 
     public List<Orders> getOrdersList() {

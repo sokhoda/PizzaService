@@ -30,11 +30,11 @@ public class OrderController {
     private PizzaConverter pizzaConverter;
 
 
-    @RequestMapping(value = Routes.ORDERS_LIST, method = RequestMethod.GET)
+    @RequestMapping(Routes.ORDERS_LIST)
     public String findAll(ModelMap model) {
         List<Orders> orderList = orderService.findAll();
-
-        model.addAttribute(DomainHelper.ORDERSLIST, new OrdersList(orderList));
+        model.addAttribute(DomainHelper.ORDERSLIST, orderList);
+        model.addAttribute(DomainHelper.ORDERSLIST_FOR_XML_MAPPING, new OrdersList(orderList));
         return Routes.ORDER_LIST_PAGE;
     }
 

@@ -5,7 +5,6 @@ import businessdomain.Pizza;
 import exceptions.PizzaPriceException;
 import exceptions.PizzaTypeException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -14,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pizzaservice.PizzaService;
+import web.app.dto.PizzaList;
 import web.infrastructure.Routes;
 
 import javax.inject.Inject;
@@ -93,14 +93,17 @@ public class PizzaController {
     }
 
     @RequestMapping(Routes.PIZZA_LIST)
-    public String getAllPizzas() {
+    public String getAllPizzas(ModelMap model) {
+        List<Pizza> pizzalist = pizzaService.findAll();
+        model.addAttribute(DomainHelper.PIZZALIST, pizzalist);
+        model.addAttribute(DomainHelper.PIZZALIST_FOR_XML_MAPPING, new PizzaList(pizzalist));
         return Routes.PIZZA_LIST_PAGE;
     }
 
-    @PostFilter("filterObject.type != T (businessdomain.PizzaType).MEAT")
-    @ModelAttribute(DomainHelper.PIZZALIST)
-    public List<Pizza> getPizzas() {
-        List<Pizza> pizzalist = pizzaService.findAll();
-        return pizzalist;
-    }
+//    @PostFilter("filterObject.type != T (businessdomain.PizzaType).MEAT")
+//    @ModelAttribute(DomainHelper.PIZZALIST)
+//    public List<Pizza> getPizzas() {
+//        List<Pizza> pizzalist = pizzaService.findAll();
+//        return pizzalist;
+//    }
 }

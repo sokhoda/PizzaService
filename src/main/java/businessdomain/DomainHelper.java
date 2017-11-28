@@ -4,6 +4,7 @@ public class DomainHelper {
 //    pizza
     public static final String PIZZA = "pizza";
     public static final String PIZZALIST = "pizzalist";
+    public static final String PIZZALIST_FOR_XML_MAPPING = "pizzalistForXml";
 
     public static final String PIZZA_ID = "PizzaId";
     public static final String PIZZA_NAME = "Name";
@@ -20,6 +21,7 @@ public class DomainHelper {
     public static final String ORDER_ITEMS = "order Items";
     public static final String ORDER_SUM = "order Sum";
     public static final String ORDERSLIST = "orderslist";
+    public static final String ORDERSLIST_FOR_XML_MAPPING = "orderslistForXml";
 
 
 //    customer
